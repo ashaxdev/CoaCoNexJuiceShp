@@ -6,6 +6,7 @@
 <meta name="theme-color" content="#1a6b2f">
 <title>CocoNex – Fresh Juice & Rose Milk</title>
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -180,22 +181,50 @@ textarea,input{font-family:inherit}
 .gps-btn:hover{transform:scale(1.04)}
 .gps-btn:disabled{opacity:.6;transform:none}
 
-/* GPS STATUS — persistent div, NOT inside re-rendered HTML */
-#gpsStatusBox{font-size:.72rem;font-weight:700;padding:6px 10px;border-radius:8px;margin-top:8px;display:none}
-#gpsStatusBox.ok{background:#e8f5e9;color:#2e7d32;display:block}
-#gpsStatusBox.err{background:#ffeaea;color:#c62828;display:block}
-#mapPreviewBox{margin-top:8px;border-radius:10px;overflow:hidden;height:0;transition:height .35s}
-#mapPreviewBox.show{height:140px}
-#mapPreviewBox iframe{width:100%;height:100%;border:none}
+/* PAYMENT SECTION */
+.payment-section{margin-bottom:14px}
+.payment-label{font-size:.8rem;font-weight:800;color:var(--text);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.payment-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pay-opt{padding:10px 8px;border-radius:14px;border:2.5px solid var(--border);background:var(--bg);font-size:.75rem;font-weight:700;color:var(--muted);text-align:center;transition:all .2s;cursor:pointer}
+.pay-opt:hover{border-color:var(--g)}
+.pay-opt.act{background:#fff;border-color:var(--g);color:var(--g);box-shadow:0 4px 12px rgba(26,107,47,.15)}
+.pay-opt.act.cod{border-color:#e67e22;color:#e67e22;box-shadow:0 4px 12px rgba(230,126,34,.15)}
+.pay-opt span{display:block;font-size:1.4rem;margin-bottom:4px}
+.pay-opt strong{display:block;font-size:.78rem;font-weight:800;margin-bottom:2px}
+.pay-opt em{display:block;font-size:.65rem;font-weight:600;opacity:.7;font-style:normal}
 
+/* ORDER TOTAL */
 .order-total-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-top:2px dashed var(--border);margin-bottom:14px}
 .total-label{font-size:.8rem;color:var(--muted);font-weight:600}
 .total-amount{font-family:'Pacifico',cursive;font-size:1.4rem;color:var(--g)}
+
+/* PAY NOW BUTTON */
+.pay-now-btn{width:100%;padding:15px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border:none;border-radius:14px;font-family:'DM Sans',sans-serif;font-weight:800;font-size:.95rem;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 6px 20px rgba(102,126,234,.4);transition:all .2s;letter-spacing:.2px;margin-bottom:10px}
+.pay-now-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(102,126,234,.5)}
+.pay-now-btn:active{transform:scale(.97)}
+.pay-now-btn:disabled{opacity:.6;transform:none;cursor:not-allowed}
+
+/* COD BUTTON */
+.cod-btn{width:100%;padding:15px;background:linear-gradient(135deg,#f39c12,#e67e22);color:#fff;border:none;border-radius:14px;font-family:'DM Sans',sans-serif;font-weight:800;font-size:.95rem;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 6px 20px rgba(230,126,34,.4);transition:all .2s;letter-spacing:.2px;margin-bottom:10px}
+.cod-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(230,126,34,.5)}
+.cod-btn:active{transform:scale(.97)}
+
+/* WA BUTTON (after payment) */
 .wa-btn{width:100%;padding:15px;background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;border:none;border-radius:14px;font-family:'DM Sans',sans-serif;font-weight:800;font-size:.95rem;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 6px 20px rgba(37,211,102,.35);transition:all .2s;letter-spacing:.2px}
 .wa-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(37,211,102,.45)}
 .wa-btn:active{transform:scale(.97)}
 .wa-icon{width:26px;height:26px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .wa-icon svg{width:16px;height:16px}
+
+/* PAYMENT SUCCESS BANNER */
+.payment-success{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border:1.5px solid #4caf50;border-radius:12px;padding:12px 14px;margin-bottom:12px;display:none}
+.payment-success.show{display:block}
+.payment-success-inner{display:flex;align-items:center;gap:10px}
+.payment-success-icon{font-size:1.4rem;flex-shrink:0}
+.payment-success-text strong{display:block;font-size:.82rem;font-weight:800;color:#2e7d32}
+.payment-success-text span{font-size:.72rem;color:#388e3c;font-weight:600}
+.payment-id{font-size:.65rem;color:#43a047;font-weight:700;margin-top:2px;word-break:break-all}
+
 .err-msg{background:#ffeaea;color:#c62828;font-size:.75rem;font-weight:700;padding:8px 12px;border-radius:10px;margin-bottom:10px;border:1px solid #ffcdd2;display:none}
 
 /* FEATURES */
@@ -478,15 +507,27 @@ footer a{color:var(--gold);font-weight:700}
 </div>
 
 <script>
-// ── STATE ──────────────────────────────────────────────────────────────
-const WA_NUMBER = '919384155672'; // ← Your WhatsApp number (with country code, no +)
+// ─────────────────────────────────────────────────────────────────────────────
+// CONFIGURATION — update these values
+// ─────────────────────────────────────────────────────────────────────────────
+const WA_NUMBER     = '919384155672';       // WhatsApp number (country code, no +)
+const RAZORPAY_KEY  = 'rzp_test_XXXXXXXXXXXXXXXX'; // ← REPLACE with your Razorpay Key ID
+//  Get your Key ID from: https://dashboard.razorpay.com/app/keys
+//  For live orders use rzp_live_XXXXXXXXXXXXXXXX
 
-let cart   = [];
-let sugar  = 'with';
-// GPS state lives OUTSIDE the re-rendered HTML so it survives re-renders
-let gps    = { coords: null, loading: false, error: null, address: '' };
+// ─────────────────────────────────────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────────────────────────────────────
+let cart       = [];
+let sugar      = 'with';
+let payMethod  = 'online';   // 'online' | 'cod'
+let gps        = { coords: null, loading: false, error: null };
+let formData   = { name: '', phone: '', loc: '' };
+let paymentDone = { done: false, paymentId: '', method: '' };
 
-// ── CART LOGIC ─────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// CART LOGIC
+// ─────────────────────────────────────────────────────────────────────────────
 function addToCart(btn, name, price, emoji) {
   const existing = cart.find(i => i.name === name);
   if (existing) existing.qty++;
@@ -494,6 +535,8 @@ function addToCart(btn, name, price, emoji) {
   btn.textContent = '✓';
   btn.classList.add('added');
   setTimeout(() => { btn.textContent = '+'; btn.classList.remove('added'); }, 800);
+  // Reset payment state when cart changes
+  paymentDone = { done: false, paymentId: '', method: '' };
   renderOrder();
   updateCartCount();
   if (window.innerWidth <= 1024) document.getElementById('mobileCartFloat').style.display = 'block';
@@ -504,6 +547,7 @@ function changeQty(name, delta) {
   if (!item) return;
   item.qty += delta;
   if (item.qty <= 0) cart = cart.filter(i => i.name !== name);
+  paymentDone = { done: false, paymentId: '', method: '' };
   renderOrder();
   updateCartCount();
   if (cart.length === 0) document.getElementById('mobileCartFloat').style.display = 'none';
@@ -511,6 +555,7 @@ function changeQty(name, delta) {
 
 function removeItem(name) {
   cart = cart.filter(i => i.name !== name);
+  paymentDone = { done: false, paymentId: '', method: '' };
   renderOrder();
   updateCartCount();
   if (cart.length === 0) document.getElementById('mobileCartFloat').style.display = 'none';
@@ -524,12 +569,68 @@ function updateCartCount() {
   document.getElementById('fabCount').textContent = total;
 }
 
-// ── RENDER ORDER FORM ──────────────────────────────────────────────────
-// KEY FIX: GPS status and map live in PERSISTENT elements (#gpsStatusBox, #mapPreviewBox)
-// that are injected ONCE into each container, not inside the re-rendered HTML.
-// Re-renders only update cart, sugar, total — never touch the GPS elements.
+// ─────────────────────────────────────────────────────────────────────────────
+// RENDER ORDER FORM
+// ─────────────────────────────────────────────────────────────────────────────
+function escapeAttr(v){ return (v||'').replace(/"/g,'&quot;') }
+function escapeHtml(v){ return (v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') }
 
-function orderHTML(containerId) {
+function gpsStatusClass(){
+  if(gps.loading) return 'gps-status ok';
+  if(gps.error) return 'gps-status err';
+  if(gps.coords) return 'gps-status ok';
+  return 'gps-status';
+}
+function gpsStatusText(){
+  if(gps.loading) return '⏳ Getting your location…';
+  if(gps.error) return '❌ ' + gps.error;
+  if(gps.coords) return `✅ Location captured! <a href="https://maps.google.com/?q=${gps.coords.lat},${gps.coords.lng}" target="_blank" style="color:var(--g);font-weight:800">View on Maps ↗</a>`;
+  return '';
+}
+
+function paymentSuccessHTML(cid) {
+  if (!paymentDone.done) return '';
+  return `
+    <div class="payment-success show" id="${cid}_paySuccess">
+      <div class="payment-success-inner">
+        <div class="payment-success-icon">✅</div>
+        <div class="payment-success-text">
+          <strong>Payment Successful!</strong>
+          <span>Now confirm your order on WhatsApp</span>
+          <div class="payment-id">ID: ${paymentDone.paymentId}</div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function actionButtonsHTML(cid) {
+  if (paymentDone.done) {
+    // Payment done → show WhatsApp confirm button
+    return `
+      <button class="wa-btn" onclick="sendToWhatsApp('${cid}','paid')">
+        <div class="wa-icon">
+          <svg viewBox="0 0 24 24" fill="#25d366" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+        </div>
+        ✅ Confirm Order on WhatsApp
+      </button>`;
+  }
+
+  if (payMethod === 'online') {
+    return `
+      <button class="pay-now-btn" onclick="startRazorpay('${cid}')" ${cart.length===0?'disabled':''}>
+        💳 Pay Now — ₹${getTotal()}
+      </button>`;
+  } else {
+    return `
+      <button class="cod-btn" onclick="sendToWhatsApp('${cid}','cod')">
+        🚚 Place COD Order via WhatsApp
+      </button>`;
+  }
+}
+
+function orderHTML(cid) {
   const cartHTML = cart.length === 0
     ? `<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>Add drinks from the menu!</p></div>`
     : `<div class="cart-items">${cart.map(i => `
@@ -558,76 +659,72 @@ function orderHTML(containerId) {
       <button class="sugar-opt ${sugar==='without'?'act':''}" onclick="setSugar('without')"><span>🚫</span>Without Sugar</button>
     </div>
     <div class="field"><label>👤 Your Name</label>
-      <input class="inp" id="${containerId}_name" placeholder="Enter your name…" maxlength="40" value="${escapeAttr(formData.name)}" oninput="formData.name=this.value">
+      <input class="inp" id="${cid}_name" placeholder="Enter your name…" maxlength="40" value="${escapeAttr(formData.name)}" oninput="formData.name=this.value">
     </div>
     <div class="field"><label>📞 Phone Number</label>
       <div class="phone-wrap">
         <div class="phone-code">🇮🇳 +91</div>
-        <input class="inp" id="${containerId}_phone" type="tel" placeholder="Mobile number" maxlength="10" value="${escapeAttr(formData.phone)}" oninput="formData.phone=this.value" style="flex:1">
+        <input class="inp" id="${cid}_phone" type="tel" placeholder="Mobile number" maxlength="10" value="${escapeAttr(formData.phone)}" oninput="formData.phone=this.value" style="flex:1">
       </div>
     </div>
     <div class="delivery-box">
       <div class="pref-label">🚚 Delivery Address</div>
       <div class="delivery-row">
-        <textarea class="delivery-inp" id="${containerId}_loc" rows="2" placeholder="Enter your full delivery address…" oninput="formData.loc=this.value">${escapeHtml(formData.loc)}</textarea>
-        <button class="gps-btn" id="${containerId}_gpsbtn" onclick="getGPS('${containerId}')" ${gps.loading?'disabled':''}>
+        <textarea class="delivery-inp" id="${cid}_loc" rows="2" placeholder="Enter your full delivery address…" oninput="formData.loc=this.value">${escapeHtml(formData.loc)}</textarea>
+        <button class="gps-btn" id="${cid}_gpsbtn" onclick="getGPS('${cid}')" ${gps.loading?'disabled':''}>
           <span style="font-size:1.2rem">${gps.loading?'⏳':'📡'}</span>
           <span>${gps.loading?'Wait':'GPS'}</span>
         </button>
       </div>
-      <div id="${containerId}_gpsStatus" class="${gpsStatusClass()}" style="${gps.error||gps.coords||gps.loading?'display:block':'display:none'}">${gpsStatusText()}</div>
-      <div id="${containerId}_mapPreview" class="mapPrev ${gps.coords?'show':''}" style="margin-top:8px;border-radius:10px;overflow:hidden;height:0;transition:height .35s;${gps.coords?'height:140px':''}">
+      <div id="${cid}_gpsStatus" class="${gpsStatusClass()}" style="${gps.error||gps.coords||gps.loading?'display:block':'display:none'};font-size:.72rem;font-weight:700;padding:6px 10px;border-radius:8px;margin-top:8px;background:${gps.error?'#ffeaea':'#e8f5e9'};color:${gps.error?'#c62828':'#2e7d32'}">${gpsStatusText()}</div>
+      <div id="${cid}_mapPreview" style="margin-top:8px;border-radius:10px;overflow:hidden;${gps.coords?'height:140px':'height:0'};transition:height .35s">
         ${gps.coords?`<iframe src="https://maps.google.com/maps?q=${gps.coords.lat},${gps.coords.lng}&z=16&output=embed" style="width:100%;height:100%;border:none" allowfullscreen loading="lazy"></iframe>`:''}
       </div>
     </div>
-    <div class="err-msg" id="${containerId}_err">⚠️ Please add a drink and fill your name!</div>
+
+    <!-- PAYMENT METHOD SELECTOR -->
+    <div class="payment-section">
+      <div class="payment-label">💳 Payment Method</div>
+      <div class="payment-opts">
+        <button class="pay-opt ${payMethod==='online'?'act':''}" onclick="setPayMethod('online')">
+          <span>💳</span>
+          <strong>Pay Now</strong>
+          <em>UPI · Card · Netbanking</em>
+        </button>
+        <button class="pay-opt ${payMethod==='cod'?'act cod':''}" onclick="setPayMethod('cod')">
+          <span>💵</span>
+          <strong>Cash on Delivery</strong>
+          <em>Pay when delivered</em>
+        </button>
+      </div>
+    </div>
+
+    <div class="err-msg" id="${cid}_err">⚠️ Please add a drink and fill your name!</div>
+    ${paymentSuccessHTML(cid)}
     <div class="order-total-row">
       <span class="total-label">Total Amount</span>
       <span class="total-amount">₹${getTotal()}</span>
     </div>
-    <button class="wa-btn" onclick="bookNow('${containerId}')">
-      <div class="wa-icon">
-        <svg viewBox="0 0 24 24" fill="#25d366" xmlns="http://www.w3.org/2000/svg">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-        </svg>
-      </div>
-      📲 Place Order via WhatsApp
-    </button>
+    ${actionButtonsHTML(cid)}
   `;
 }
 
-// Persistent form data so inputs don't clear on re-render
-let formData = { name: '', phone: '', loc: '' };
-
-function escapeAttr(v){ return (v||'').replace(/"/g,'&quot;') }
-function escapeHtml(v){ return (v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') }
-function gpsStatusClass(){
-  if(gps.loading) return 'gps-status ok';
-  if(gps.error) return 'gps-status err';
-  if(gps.coords) return 'gps-status ok';
-  return 'gps-status';
-}
-function gpsStatusText(){
-  if(gps.loading) return '⏳ Getting your location…';
-  if(gps.error) return '❌ ' + gps.error;
-  if(gps.coords) return `✅ Location captured! <a href="https://maps.google.com/?q=${gps.coords.lat},${gps.coords.lng}" target="_blank" style="color:var(--g);font-weight:800">View on Maps ↗</a>`;
-  return '';
-}
-
-function renderOrder() {
-  const sb = document.getElementById('sidebarBody');
-  const shb = document.getElementById('sheetBody');
-  if (sb)  sb.innerHTML  = orderHTML('desk');
-  if (shb) shb.innerHTML = orderHTML('mob');
-}
-
-// ── SUGAR ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// SUGAR & PAYMENT METHOD
+// ─────────────────────────────────────────────────────────────────────────────
 function setSugar(v) { sugar = v; renderOrder(); }
 
-// ── GPS ────────────────────────────────────────────────────────────────
-// FIX: GPS result is saved in `gps` object (outside DOM).
-// After success/error we call renderOrder() which re-injects the status from `gps`.
-function getGPS(containerId) {
+function setPayMethod(v) {
+  payMethod = v;
+  // Reset payment done state if switching method
+  paymentDone = { done: false, paymentId: '', method: '' };
+  renderOrder();
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// GPS
+// ─────────────────────────────────────────────────────────────────────────────
+function getGPS(cid) {
   if (!navigator.geolocation) {
     gps.error = 'GPS not supported by your browser.';
     gps.loading = false;
@@ -637,14 +734,13 @@ function getGPS(containerId) {
   gps.loading = true;
   gps.error = null;
   gps.coords = null;
-  renderOrder(); // show spinner
+  renderOrder();
 
   navigator.geolocation.getCurrentPosition(
     function(pos) {
       gps.loading = false;
       gps.coords = { lat: pos.coords.latitude.toFixed(6), lng: pos.coords.longitude.toFixed(6) };
       gps.error = null;
-      // Auto-fill address field with GPS coords
       formData.loc = 'GPS: ' + gps.coords.lat + ', ' + gps.coords.lng;
       renderOrder();
     },
@@ -660,19 +756,76 @@ function getGPS(containerId) {
   );
 }
 
-// ── WHATSAPP ORDER ─────────────────────────────────────────────────────
-// FIX: Reads from formData (persisted) not DOM IDs (may not exist if sidebar hidden)
-function bookNow(containerId) {
-  // Try reading live DOM values first (in case user typed without triggering oninput)
-  const nameEl  = document.getElementById(containerId + '_name');
-  const phoneEl = document.getElementById(containerId + '_phone');
-  const locEl   = document.getElementById(containerId + '_loc');
-  const errEl   = document.getElementById(containerId + '_err');
+// ─────────────────────────────────────────────────────────────────────────────
+// RAZORPAY — PAY NOW
+// ─────────────────────────────────────────────────────────────────────────────
+function startRazorpay(cid) {
+  // Sync form data from DOM
+  syncFormData(cid);
 
-  if (nameEl)  formData.name  = nameEl.value.trim();
-  if (phoneEl) formData.phone = phoneEl.value.trim();
-  if (locEl)   formData.loc   = locEl.value.trim();
+  const errEl = document.getElementById(cid + '_err');
+  if (cart.length === 0 || !formData.name) {
+    if (errEl) { errEl.style.display = 'block'; setTimeout(() => { if(errEl) errEl.style.display='none'; }, 3500); }
+    return;
+  }
 
+  const amountPaise = getTotal() * 100; // Razorpay uses paise (1 INR = 100 paise)
+
+  const options = {
+    key: RAZORPAY_KEY,
+    amount: amountPaise,
+    currency: 'INR',
+    name: 'CocoNex',
+    description: 'Fresh Juice & Rose Milk Order',
+    image: 'coc.jpeg',
+    // order_id: 'order_XXXX',   // Uncomment and pass Razorpay order_id if you have a backend
+    prefill: {
+      name: formData.name,
+      contact: '+91' + formData.phone,
+    },
+    notes: {
+      delivery_address: formData.loc || 'Not specified',
+      sugar_preference: sugar === 'with' ? 'With Sugar' : 'Without Sugar',
+    },
+    theme: {
+      color: '#1a6b2f',
+    },
+    handler: function(response) {
+      // Payment successful!
+      paymentDone = {
+        done: true,
+        paymentId: response.razorpay_payment_id,
+        method: 'online'
+      };
+      renderOrder();
+      // Auto-send WhatsApp after 500ms
+      setTimeout(() => sendToWhatsApp(cid, 'paid'), 500);
+    },
+    modal: {
+      ondismiss: function() {
+        // User closed without paying — do nothing
+      }
+    }
+  };
+
+  try {
+    const rzp = new Razorpay(options);
+    rzp.on('payment.failed', function(response) {
+      alert('Payment failed: ' + (response.error.description || 'Please try again.'));
+    });
+    rzp.open();
+  } catch(e) {
+    alert('⚠️ Razorpay could not load. Please check your Key ID in the code, or use Cash on Delivery.');
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// WHATSAPP ORDER — works for both paid & COD
+// ─────────────────────────────────────────────────────────────────────────────
+function sendToWhatsApp(cid, type) {
+  syncFormData(cid);
+
+  const errEl = document.getElementById(cid + '_err');
   if (cart.length === 0 || !formData.name) {
     if (errEl) { errEl.style.display = 'block'; setTimeout(() => { if(errEl) errEl.style.display='none'; }, 3500); }
     return;
@@ -683,21 +836,49 @@ function bookNow(containerId) {
   const gpsLine   = gps.coords ? `\n🗺️ GPS: https://maps.google.com/?q=${gps.coords.lat},${gps.coords.lng}` : '';
   const phoneLine = formData.phone ? `📞 Phone: +91 ${formData.phone}\n` : '';
 
+  let paymentLine = '';
+  if (type === 'paid') {
+    paymentLine = `\n💳 *Payment: PAID ONLINE* ✅\n🔖 Payment ID: ${paymentDone.paymentId}`;
+  } else {
+    paymentLine = `\n💵 *Payment: CASH ON DELIVERY* 🚪`;
+  }
+
   const msg =
     `🥥 *CocoNex Order* 🌹\n\n` +
     `👤 Name: ${formData.name}\n` +
     phoneLine +
     `\n🛒 *Items Ordered:*\n${itemsText}\n\n` +
     `🍬 Sugar: ${sugarTxt}\n` +
-    `💰 Total: ₹${getTotal()}\n\n` +
+    `💰 Total: ₹${getTotal()}` +
+    paymentLine + `\n\n` +
     `🚚 *Delivery Address:*\n${formData.loc || 'Not specified'}${gpsLine}\n\n` +
-    `Please confirm my order! 🙏`;
+    (type === 'paid'
+      ? `✅ Payment done! Please confirm & deliver. 🙏`
+      : `🙏 Please confirm my COD order!`);
 
   const waUrl = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg);
   window.open(waUrl, '_blank');
 }
 
-// ── UI HELPERS ─────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// HELPERS
+// ─────────────────────────────────────────────────────────────────────────────
+function syncFormData(cid) {
+  const nameEl  = document.getElementById(cid + '_name');
+  const phoneEl = document.getElementById(cid + '_phone');
+  const locEl   = document.getElementById(cid + '_loc');
+  if (nameEl)  formData.name  = nameEl.value.trim();
+  if (phoneEl) formData.phone = phoneEl.value.trim();
+  if (locEl)   formData.loc   = locEl.value.trim();
+}
+
+function renderOrder() {
+  const sb  = document.getElementById('sidebarBody');
+  const shb = document.getElementById('sheetBody');
+  if (sb)  sb.innerHTML  = orderHTML('desk');
+  if (shb) shb.innerHTML = orderHTML('mob');
+}
+
 function toggleSheet() {
   const sheet   = document.getElementById('orderSheet');
   const overlay = document.getElementById('sheetOverlay');
