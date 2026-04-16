@@ -26,6 +26,29 @@ button{cursor:pointer;font-family:inherit}
 img{display:block;max-width:100%}
 textarea,input{font-family:inherit}
 
+/* ── PARALLAX LAYERS ── */
+/* .parallax-hero{position:relative;overflow:hidden}
+.parallax-layer{position:absolute;inset:0;pointer-events:none;will-change:transform}
+.plx-leaf1{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cellipse cx='100' cy='100' rx='40' ry='90' fill='rgba(255,255,255,0.04)' transform='rotate(-30 100 100)'/%3E%3C/svg%3E") repeat;background-size:220px 220px}
+.plx-leaf2{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cellipse cx='100' cy='100' rx='30' ry='70' fill='rgba(245,168,0,0.05)' transform='rotate(20 100 100)'/%3E%3C/svg%3E") repeat;background-size:160px 160px}
+.plx-dots{background:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px);background-size:36px 36px}
+.plx-circles{overflow:hidden}
+.plx-circle{position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.08)}
+.plx-circle:nth-child(1){width:400px;height:400px;top:-120px;right:-100px}
+.plx-circle:nth-child(2){width:260px;height:260px;bottom:-60px;left:-80px}
+.plx-circle:nth-child(3){width:160px;height:160px;top:40%;left:20%} */
+
+/* ── SCROLL PARALLAX SECTIONS ── */
+/* .section-parallax{position:relative;overflow:hidden}
+.section-parallax .sp-bg{position:absolute;inset:-30%;pointer-events:none;will-change:transform;opacity:.35} */
+
+/* ── FLOAT ORBS ── */
+/* .orb{position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none;animation:orbFloat 8s ease-in-out infinite}
+.orb1{width:300px;height:300px;background:rgba(245,168,0,.18);top:-60px;right:10%;animation-delay:0s}
+.orb2{width:200px;height:200px;background:rgba(37,144,63,.25);bottom:20px;left:5%;animation-delay:-3s}
+.orb3{width:150px;height:150px;background:rgba(233,30,140,.12);top:40%;right:5%;animation-delay:-6s}
+@keyframes orbFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-30px) scale(1.05)}} */
+
 /* NAVBAR */
 .nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav-h);background:rgba(13,59,26,.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center}
 .nav-inner{width:100%;max-width:1280px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:24px}
@@ -58,25 +81,27 @@ textarea,input{font-family:inherit}
 
 /* HERO */
 .hero{margin-top:var(--nav-h);background:linear-gradient(135deg,#0d3b1a 0%,#1a6b2f 50%,#25903f 100%);position:relative;overflow:hidden}
-.hero-inner{max-width:1280px;margin:0 auto;padding:80px 24px 100px;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:60px}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(245,168,0,.15);border:1px solid rgba(245,168,0,.35);color:var(--gold2);font-size:.78rem;font-weight:700;padding:6px 14px;border-radius:99px;margin-bottom:20px;letter-spacing:.5px}
-.hero-h1{font-family:'Pacifico',cursive;font-size:clamp(2.4rem,4vw,3.8rem);color:#fff;line-height:1.15;margin-bottom:16px}
+.hero-inner{max-width:1280px;margin:0 auto;padding:80px 24px 100px;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:60px;position:relative;z-index:2}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(245,168,0,.15);border:1px solid rgba(245,168,0,.35);color:var(--gold2);font-size:.78rem;font-weight:700;padding:6px 14px;border-radius:99px;margin-bottom:20px;letter-spacing:.5px;animation:fadeSlideDown .7s ease both}
+.hero-h1{font-family:'Pacifico',cursive;font-size:clamp(2.4rem,4vw,3.8rem);color:#fff;line-height:1.15;margin-bottom:16px;animation:fadeSlideUp .7s .1s ease both}
 .hero-h1 span{color:var(--gold)}
-.hero-p{color:rgba(255,255,255,.75);font-size:1rem;line-height:1.7;max-width:480px;margin-bottom:32px}
-.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.hero-p{color:rgba(255,255,255,.75);font-size:1rem;line-height:1.7;max-width:480px;margin-bottom:32px;animation:fadeSlideUp .7s .2s ease both}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;animation:fadeSlideUp .7s .3s ease both}
+@keyframes fadeSlideDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeSlideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 .btn-primary{padding:14px 28px;background:var(--gold);color:var(--gd);font-weight:800;font-size:.95rem;border-radius:99px;border:none;box-shadow:0 6px 20px rgba(245,168,0,.4);transition:all .2s}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(245,168,0,.5)}
 .btn-outline{padding:14px 28px;background:transparent;color:#fff;font-weight:700;font-size:.95rem;border-radius:99px;border:2px solid rgba(255,255,255,.35);transition:all .2s}
 .btn-outline:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.6)}
-.hero-image-wrap{display:flex;justify-content:center;align-items:center;position:relative}
+.hero-image-wrap{display:flex;justify-content:center;align-items:center;position:relative;animation:fadeSlideUp .8s .15s ease both}
 .hero-logo-glow{position:absolute;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(245,168,0,.25) 0%,transparent 70%)}
 .hero-logo{width:280px;height:280px;border-radius:50%;object-fit:cover;border:5px solid var(--gold);box-shadow:0 0 0 12px rgba(245,168,0,.15),0 24px 60px rgba(0,0,0,.3);animation:heroFloat 5s ease-in-out infinite;position:relative;z-index:1}
 @keyframes heroFloat{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-14px) rotate(1deg)}}
-.hero-stats{display:flex;gap:32px;margin-top:36px;flex-wrap:wrap}
+.hero-stats{display:flex;gap:32px;margin-top:36px;flex-wrap:wrap;animation:fadeSlideUp .7s .4s ease both}
 .stat{text-align:center}
 .stat-n{font-family:'Pacifico',cursive;font-size:1.8rem;color:var(--gold)}
 .stat-l{font-size:.75rem;color:rgba(255,255,255,.6);font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-top:2px}
-.hero-wave{position:absolute;bottom:-2px;left:0;right:0;height:70px}
+.hero-wave{position:absolute;bottom:-2px;left:0;right:0;height:70px;z-index:2}
 
 /* LOCATION BANNER */
 .loc-banner{background:var(--white);border-bottom:1px solid var(--border);padding:16px 24px}
@@ -97,8 +122,9 @@ textarea,input{font-family:inherit}
 .loc-copy:hover{border-color:var(--g)}
 
 /* SHOP */
-.shop-section{padding:60px 24px}
-.shop-inner{max-width:1280px;margin:0 auto}
+.shop-section{padding:60px 24px;position:relative;overflow:hidden}
+.shop-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(26,107,47,.05) 0%,transparent 70%);pointer-events:none}
+.shop-inner{max-width:1280px;margin:0 auto;position:relative;z-index:1}
 .shop-header{text-align:center;margin-bottom:48px}
 .shop-header h2{font-family:'Pacifico',cursive;font-size:clamp(1.8rem,3vw,2.6rem);color:var(--g);margin-bottom:8px}
 .shop-header p{color:var(--muted);font-size:1rem;max-width:500px;margin:0 auto}
@@ -110,23 +136,25 @@ textarea,input{font-family:inherit}
 .tab.active,.tab:hover{background:var(--g);border-color:var(--g);color:#fff}
 
 /* PRODUCT GRID */
-.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}
-.product-card{background:var(--white);border-radius:var(--r2);box-shadow:var(--sh);overflow:hidden;transition:transform .25s,box-shadow .25s;border:1.5px solid transparent;animation:fadeUp .5s ease both}
-.product-card:hover{transform:translateY(-5px);box-shadow:var(--sh2);border-color:var(--border)}
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.product-card:nth-child(1){animation-delay:.05s}.product-card:nth-child(2){animation-delay:.1s}.product-card:nth-child(3){animation-delay:.15s}.product-card:nth-child(4){animation-delay:.2s}.product-card:nth-child(5){animation-delay:.25s}.product-card:nth-child(6){animation-delay:.3s}
-.product-img-wrap{height:180px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-.product-emoji{font-size:5rem;line-height:1;filter:drop-shadow(0 8px 16px rgba(0,0,0,.12))}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px}
+.product-card{background:var(--white);border-radius:var(--r2);box-shadow:var(--sh);overflow:hidden;transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s;border:1.5px solid transparent;opacity:0;transform:translateY(28px)}
+.product-card.visible{animation:cardReveal .55s ease forwards}
+@keyframes cardReveal{to{opacity:1;transform:translateY(0)}}
+.product-card:hover{transform:translateY(-7px) scale(1.02);box-shadow:var(--sh2),0 0 0 2px rgba(26,107,47,.12);border-color:var(--border)}
+.product-img-wrap{height:160px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.product-emoji{font-size:4.5rem;line-height:1;filter:drop-shadow(0 8px 16px rgba(0,0,0,.12));transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+.product-card:hover .product-emoji{transform:scale(1.15) rotate(-5deg)}
 .product-badge{position:absolute;top:12px;left:12px;background:var(--gold);color:var(--gd);font-size:.65rem;font-weight:800;padding:3px 10px;border-radius:99px;letter-spacing:.5px}
 .product-badge.new{background:var(--pink);color:#fff}
-.product-body{padding:16px}
-.product-name{font-weight:800;font-size:.95rem;margin-bottom:4px}
-.product-desc{font-size:.75rem;color:var(--muted);line-height:1.5;margin-bottom:12px}
+.product-badge.seasonal{background:#ff7043;color:#fff}
+.product-body{padding:14px}
+.product-name{font-weight:800;font-size:.92rem;margin-bottom:4px}
+.product-desc{font-size:.72rem;color:var(--muted);line-height:1.5;margin-bottom:10px}
 .product-footer{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.product-price{font-family:'Pacifico',cursive;font-size:1.15rem;color:var(--g)}
-.add-btn{background:var(--g);color:#fff;border:none;width:36px;height:36px;border-radius:10px;font-size:1.2rem;display:flex;align-items:center;justify-content:center;transition:all .15s;box-shadow:0 3px 10px rgba(26,107,47,.25)}
-.add-btn:hover{background:var(--gm);transform:scale(1.08)}
-.add-btn.added{background:var(--pink)}
+.product-price{font-family:'Pacifico',cursive;font-size:1.1rem;color:var(--g)}
+.add-btn{background:var(--g);color:#fff;border:none;width:34px;height:34px;border-radius:10px;font-size:1.2rem;display:flex;align-items:center;justify-content:center;transition:all .2s cubic-bezier(.34,1.56,.64,1);box-shadow:0 3px 10px rgba(26,107,47,.25)}
+.add-btn:hover{background:var(--gm);transform:scale(1.15) rotate(90deg)}
+.add-btn.added{background:var(--pink);transform:scale(1.2)}
 
 /* ORDER SIDEBAR */
 .order-sidebar{background:var(--white);border-radius:var(--r2);box-shadow:var(--sh2);border:1.5px solid var(--border);position:sticky;top:calc(var(--nav-h) + 20px);overflow:hidden}
@@ -137,12 +165,14 @@ textarea,input{font-family:inherit}
 
 /* CART ITEMS */
 .cart-empty{text-align:center;padding:32px 0;color:var(--muted)}
-.cart-empty-icon{font-size:3rem;margin-bottom:8px}
+.cart-empty-icon{font-size:3rem;margin-bottom:8px;animation:wobble 2s ease-in-out infinite}
+@keyframes wobble{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
 .cart-empty p{font-size:.85rem;font-weight:600}
 .cart-items{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;max-height:220px;overflow-y:auto}
 .cart-items::-webkit-scrollbar{width:4px}
 .cart-items::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
-.cart-item{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg);border-radius:12px;border:1px solid var(--border)}
+.cart-item{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg);border-radius:12px;border:1px solid var(--border);animation:slideIn .3s ease}
+@keyframes slideIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
 .cart-item-em{font-size:1.6rem;line-height:1}
 .cart-item-info{flex:1}
 .cart-item-name{font-size:.82rem;font-weight:700}
@@ -150,22 +180,22 @@ textarea,input{font-family:inherit}
 .cart-item-right{display:flex;align-items:center;gap:6px}
 .qty-mini{display:flex;align-items:center;gap:4px}
 .qty-mini button{width:24px;height:24px;border-radius:6px;border:none;background:var(--border);color:var(--text);font-size:.85rem;font-weight:800;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.qty-mini button:hover{background:var(--g);color:#fff}
+.qty-mini button:hover{background:var(--g);color:#fff;transform:scale(1.1)}
 .qty-mini span{font-size:.8rem;font-weight:800;min-width:16px;text-align:center}
 .cart-item-price{font-size:.82rem;font-weight:800;color:var(--g);white-space:nowrap}
-.cart-remove{background:none;border:none;color:#ccc;font-size:.85rem;padding:2px}
-.cart-remove:hover{color:var(--pink)}
+.cart-remove{background:none;border:none;color:#ccc;font-size:.85rem;padding:2px;transition:all .2s}
+.cart-remove:hover{color:var(--pink);transform:rotate(90deg) scale(1.2)}
 
 /* FORM */
 .pref-label{font-size:.8rem;font-weight:800;color:var(--text);margin-bottom:8px;display:flex;align-items:center;gap:6px}
 .sugar-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
-.sugar-opt{padding:10px 8px;border-radius:12px;border:2px solid var(--border);background:var(--bg);font-size:.78rem;font-weight:700;color:var(--muted);text-align:center;transition:all .18s}
+.sugar-opt{padding:10px 8px;border-radius:12px;border:2px solid var(--border);background:var(--bg);font-size:.78rem;font-weight:700;color:var(--muted);text-align:center;transition:all .2s}
 .sugar-opt.act{background:var(--g);border-color:var(--g);color:#fff}
 .sugar-opt span{display:block;font-size:1.3rem;margin-bottom:3px}
 .field{margin-bottom:12px}
 .field label{display:block;font-size:.78rem;font-weight:700;color:var(--text);margin-bottom:6px}
-.inp{width:100%;padding:11px 14px;border-radius:12px;border:2px solid var(--border);background:var(--bg);font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600;outline:none;transition:border-color .2s;color:var(--text)}
-.inp:focus{border-color:var(--g);background:#fff}
+.inp{width:100%;padding:11px 14px;border-radius:12px;border:2px solid var(--border);background:var(--bg);font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600;outline:none;transition:border-color .2s,box-shadow .2s;color:var(--text)}
+.inp:focus{border-color:var(--g);background:#fff;box-shadow:0 0 0 4px rgba(26,107,47,.08)}
 .inp::placeholder{color:#aac8aa;font-weight:500}
 .phone-wrap{display:flex;gap:6px}
 .phone-code{padding:11px 12px;border-radius:12px;border:2px solid var(--border);background:var(--bg);font-size:.85rem;font-weight:700;color:var(--g);white-space:nowrap}
@@ -181,18 +211,6 @@ textarea,input{font-family:inherit}
 .gps-btn:hover{transform:scale(1.04)}
 .gps-btn:disabled{opacity:.6;transform:none}
 
-/* PAYMENT SECTION */
-.payment-section{margin-bottom:14px}
-.payment-label{font-size:.8rem;font-weight:800;color:var(--text);margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.payment-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.pay-opt{padding:10px 8px;border-radius:14px;border:2.5px solid var(--border);background:var(--bg);font-size:.75rem;font-weight:700;color:var(--muted);text-align:center;transition:all .2s;cursor:pointer}
-.pay-opt:hover{border-color:var(--g)}
-.pay-opt.act{background:#fff;border-color:var(--g);color:var(--g);box-shadow:0 4px 12px rgba(26,107,47,.15)}
-.pay-opt.act.cod{border-color:#e67e22;color:#e67e22;box-shadow:0 4px 12px rgba(230,126,34,.15)}
-.pay-opt span{display:block;font-size:1.4rem;margin-bottom:4px}
-.pay-opt strong{display:block;font-size:.78rem;font-weight:800;margin-bottom:2px}
-.pay-opt em{display:block;font-size:.65rem;font-weight:600;opacity:.7;font-style:normal}
-
 /* ORDER TOTAL */
 .order-total-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-top:2px dashed var(--border);margin-bottom:14px}
 .total-label{font-size:.8rem;color:var(--muted);font-weight:600}
@@ -203,11 +221,6 @@ textarea,input{font-family:inherit}
 .pay-now-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(102,126,234,.5)}
 .pay-now-btn:active{transform:scale(.97)}
 .pay-now-btn:disabled{opacity:.6;transform:none;cursor:not-allowed}
-
-/* COD BUTTON */
-.cod-btn{width:100%;padding:15px;background:linear-gradient(135deg,#f39c12,#e67e22);color:#fff;border:none;border-radius:14px;font-family:'DM Sans',sans-serif;font-weight:800;font-size:.95rem;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 6px 20px rgba(230,126,34,.4);transition:all .2s;letter-spacing:.2px;margin-bottom:10px}
-.cod-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(230,126,34,.5)}
-.cod-btn:active{transform:scale(.97)}
 
 /* WA BUTTON (after payment) */
 .wa-btn{width:100%;padding:15px;background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;border:none;border-radius:14px;font-family:'DM Sans',sans-serif;font-weight:800;font-size:.95rem;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 6px 20px rgba(37,211,102,.35);transition:all .2s;letter-spacing:.2px}
@@ -224,16 +237,28 @@ textarea,input{font-family:inherit}
 .payment-success-text strong{display:block;font-size:.82rem;font-weight:800;color:#2e7d32}
 .payment-success-text span{font-size:.72rem;color:#388e3c;font-weight:600}
 .payment-id{font-size:.65rem;color:#43a047;font-weight:700;margin-top:2px;word-break:break-all}
-
 .err-msg{background:#ffeaea;color:#c62828;font-size:.75rem;font-weight:700;padding:8px 12px;border-radius:10px;margin-bottom:10px;border:1px solid #ffcdd2;display:none}
 
-/* FEATURES */
-.features{background:var(--gd);padding:48px 24px}
-.features-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
-.feature{text-align:center}
-.feature-icon{font-size:2.2rem;margin-bottom:10px}
+/* FEATURES STRIP */
+.features{background:var(--gd);padding:48px 24px;position:relative;overflow:hidden}
+.features::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.features-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:28px;position:relative;z-index:1}
+.feature{text-align:center;transition:transform .3s}
+.feature:hover{transform:translateY(-6px)}
+.feature-icon{font-size:2.2rem;margin-bottom:10px;display:block;animation:featureFloat 4s ease-in-out infinite}
+.feature:nth-child(2) .feature-icon{animation-delay:-1s}
+.feature:nth-child(3) .feature-icon{animation-delay:-2s}
+.feature:nth-child(4) .feature-icon{animation-delay:-3s}
+@keyframes featureFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 .feature h4{color:#fff;font-weight:800;font-size:.9rem;margin-bottom:4px}
 .feature p{color:rgba(255,255,255,.55);font-size:.75rem;line-height:1.5}
+
+/* MARQUEE STRIP */
+.marquee-wrap{background:var(--gold);overflow:hidden;padding:10px 0;white-space:nowrap}
+.marquee-track{display:inline-block;animation:marquee 18s linear infinite}
+.marquee-track span{display:inline-block;padding:0 28px;font-size:.82rem;font-weight:800;color:var(--gd);letter-spacing:.5px}
+.marquee-track span::after{content:'🌿';margin-left:12px}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* FOOTER */
 footer{background:var(--text);color:rgba(255,255,255,.6);padding:32px 24px;text-align:center}
@@ -244,8 +269,8 @@ footer a{color:var(--gold);font-weight:700}
 
 /* MOBILE CART FAB */
 .mobile-cart-float{display:none;position:fixed;bottom:20px;right:20px;z-index:150}
-.mobile-cart-fab{width:58px;height:58px;border-radius:50%;background:var(--gold);border:none;color:var(--gd);font-size:1.4rem;box-shadow:0 6px 20px rgba(245,168,0,.4);position:relative;transition:transform .15s}
-.mobile-cart-fab:active{transform:scale(.92)}
+.mobile-cart-fab{width:58px;height:58px;border-radius:50%;background:var(--gold);border:none;color:var(--gd);font-size:1.4rem;box-shadow:0 6px 20px rgba(245,168,0,.4);position:relative;transition:transform .2s cubic-bezier(.34,1.56,.64,1)}
+.mobile-cart-fab:active{transform:scale(.88)}
 .fab-count{position:absolute;top:-4px;right:-4px;width:22px;height:22px;border-radius:50%;background:var(--pink);color:#fff;font-size:.7rem;font-weight:800;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg)}
 
 /* MOBILE ORDER SHEET */
@@ -262,7 +287,7 @@ footer a{color:var(--gold);font-weight:700}
 
 @media(max-width:1024px){.shop-layout{grid-template-columns:1fr}.order-sidebar{display:none}.mobile-cart-float{display:block}.features-inner{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:768px){.hero-inner{grid-template-columns:1fr;text-align:center;padding:48px 20px 80px;gap:36px}.hero-image-wrap{order:-1}.hero-logo{width:200px;height:200px}.hero-logo-glow{width:250px;height:250px}.hero-p{margin:0 auto 24px}.hero-btns{justify-content:center}.hero-stats{justify-content:center}.nav-links,.nav-info{display:none}.hamburger{display:flex}.loc-banner-inner{flex-direction:column;align-items:flex-start;gap:12px}.loc-divider{display:none}.shop-section{padding:40px 16px}.features-inner{grid-template-columns:repeat(2,1fr);gap:20px}}
-@media(max-width:480px){.features-inner{grid-template-columns:1fr 1fr}.products-grid{grid-template-columns:repeat(2,1fr)}.product-img-wrap{height:140px}.product-emoji{font-size:3.5rem}}
+@media(max-width:480px){.features-inner{grid-template-columns:1fr 1fr}.products-grid{grid-template-columns:repeat(2,1fr)}.product-img-wrap{height:130px}.product-emoji{font-size:3.2rem}}
 </style>
 </head>
 <body>
@@ -299,8 +324,22 @@ footer a{color:var(--gold);font-weight:700}
   </div>
 </div>
 
-<!-- HERO -->
-<section class="hero">
+<!-- HERO with parallax -->
+<section class="hero parallax-hero" id="heroSection">
+  <!-- parallax layers -->
+  <div class="parallax-layer plx-leaf1" id="plxLeaf1"></div>
+  <div class="parallax-layer plx-leaf2" id="plxLeaf2"></div>
+  <div class="parallax-layer plx-dots" id="plxDots"></div>
+  <div class="parallax-layer plx-circles" id="plxCircles">
+    <div class="plx-circle"></div>
+    <div class="plx-circle"></div>
+    <div class="plx-circle"></div>
+  </div>
+  <!-- floating orbs -->
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+
   <div class="hero-inner">
     <div class="hero-text">
       <div class="hero-badge">🌿 100% Natural · No Preservatives</div>
@@ -308,11 +347,11 @@ footer a{color:var(--gold);font-weight:700}
       <p class="hero-p">Rose Milk, Fresh Coconut Water & Seasonal Juices — delivered to your doorstep. Order in seconds via WhatsApp.</p>
       <div class="hero-btns">
         <button class="btn-primary" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">🥤 Order Now</button>
-        <a class="btn-outline" href="https://maps.google.com/?q=Thanjavur,Tamil+Nadu" target="_blank">📍 Find Us</a>
+        <a class="btn-outline" href="https://maps.google.com/?q=17A,main road viraganur,madurai,Tamil+Nadu" target="_blank">📍 Find Us</a>
       </div>
       <div class="hero-stats">
         <div class="stat"><div class="stat-n">500+</div><div class="stat-l">Happy Customers</div></div>
-        <div class="stat"><div class="stat-n">3</div><div class="stat-l">Signature Drinks</div></div>
+        <div class="stat"><div class="stat-n">10</div><div class="stat-l">Signature Drinks</div></div>
         <div class="stat"><div class="stat-n">4.9★</div><div class="stat-l">Customer Rating</div></div>
       </div>
     </div>
@@ -326,6 +365,14 @@ footer a{color:var(--gold);font-weight:700}
   </svg>
 </section>
 
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>Rose Milk</span><span>Coconut Water</span><span>Orange Juice</span><span>Lemon Juice</span><span>Sarbath</span><span>Fruit Salad</span><span>Tender Coconut</span><span>Watermelon Juice</span><span>Mohabbat Sarbath</span><span>Boiled Egg</span>
+    <span>Rose Milk</span><span>Coconut Water</span><span>Orange Juice</span><span>Lemon Juice</span><span>Sarbath</span><span>Fruit Salad</span><span>Tender Coconut</span><span>Watermelon Juice</span><span>Mohabbat Sarbath</span><span>Boiled Egg</span>
+  </div>
+</div>
+
 <!-- LOCATION BANNER -->
 <div class="loc-banner" id="location">
   <div class="loc-banner-inner">
@@ -333,13 +380,13 @@ footer a{color:var(--gold);font-weight:700}
       <div class="loc-icon">📍</div>
       <div class="loc-text">
         <strong>CocoNex Juice Shop</strong>
-        <span>No. 12, Anna Nagar Main Road, Near Bus Stand, Thanjavur – 613 001, Tamil Nadu</span>
+        <span>No. 17A, Main Road Viraganur,Madurai, Tamil Nadu</span>
       </div>
     </div>
     <div class="loc-divider"></div>
     <div class="loc-hours"><div class="open-dot"></div><span>Open · Mon–Sun · 8:00 AM – 10:00 PM</span></div>
     <div class="loc-btns">
-      <a class="loc-act loc-maps" href="https://maps.google.com/?q=No.+12+Anna+Nagar+Main+Road+Thanjavur+Tamil+Nadu" target="_blank">🗺️ Google Maps</a>
+      <a class="loc-act loc-maps" href="https://maps.google.com/?q=No.+12+Main+Road+Madurai+Tamil+Nadu" target="_blank">🗺️ Google Maps</a>
       <button class="loc-act loc-copy" onclick="copyAddr()">📋 Copy</button>
     </div>
   </div>
@@ -353,89 +400,127 @@ footer a{color:var(--gold);font-weight:700}
       <p>All drinks are freshly prepared on order. No artificial flavours. No preservatives.</p>
     </div>
     <div class="filter-tabs">
-      <button class="tab active" onclick="filterTab(this,'all')">All Drinks</button>
+      <button class="tab active" onclick="filterTab(this,'all')">All Items</button>
       <button class="tab" onclick="filterTab(this,'milk')">🌹 Rose Milk</button>
       <button class="tab" onclick="filterTab(this,'coconut')">🥥 Coconut</button>
       <button class="tab" onclick="filterTab(this,'juice')">🍹 Juices</button>
+      <button class="tab" onclick="filterTab(this,'sarbath')">🌺 Sarbath</button>
+      <button class="tab" onclick="filterTab(this,'food')">🥗 Food</button>
     </div>
     <div class="shop-layout">
       <div>
         <div class="products-grid" id="productsGrid">
 
+          <!-- ROSE MILK ₹50 -->
           <div class="product-card" data-cat="milk">
             <div class="product-img-wrap" style="background:linear-gradient(135deg,#fce4ec,#f8bbd0)">
               <div class="product-emoji">🌹</div>
               <div class="product-badge">BESTSELLER</div>
             </div>
             <div class="product-body">
-              <div class="product-name">Classic Rose Milk</div>
-              <div class="product-desc">Creamy chilled milk with pure rose essence & sabja seeds</div>
-              <div class="product-footer">
-                <div class="product-price">₹60</div>
-                <button class="add-btn" onclick="addToCart(this,'Classic Rose Milk',60,'🌹')">+</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-card" data-cat="milk">
-            <div class="product-img-wrap" style="background:linear-gradient(135deg,#f3e5f5,#e1bee7)">
-              <div class="product-emoji">🌸</div>
-              <div class="product-badge new">NEW</div>
-            </div>
-            <div class="product-body">
-              <div class="product-name">Rose Milk Special</div>
-              <div class="product-desc">Extra thick rose milk with cardamom & dry fruits topping</div>
-              <div class="product-footer">
-                <div class="product-price">₹80</div>
-                <button class="add-btn" onclick="addToCart(this,'Rose Milk Special',80,'🌸')">+</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-card" data-cat="coconut">
-            <div class="product-img-wrap" style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9)">
-              <div class="product-emoji">🥥</div>
-              <div class="product-badge">FRESH</div>
-            </div>
-            <div class="product-body">
-              <div class="product-name">Fresh Coconut Water</div>
-              <div class="product-desc">Pure chilled coconut water straight from the shell</div>
+              <div class="product-name">Rose Milk</div>
+              <div class="product-desc">Chilled creamy milk with pure rose essence & fresh sabja seeds</div>
               <div class="product-footer">
                 <div class="product-price">₹50</div>
-                <button class="add-btn" onclick="addToCart(this,'Fresh Coconut Water',50,'🥥')">+</button>
+                <button class="add-btn" onclick="addToCart(this,'Rose Milk',50,'🌹')">+</button>
               </div>
             </div>
           </div>
 
+          <!-- COCONUT MILK ₹60 -->
           <div class="product-card" data-cat="coconut">
             <div class="product-img-wrap" style="background:linear-gradient(135deg,#fff8e1,#ffecb3)">
-              <div class="product-emoji">🍶</div>
+              <div class="product-emoji">🥥</div>
             </div>
             <div class="product-body">
               <div class="product-name">Coconut Milk</div>
-              <div class="product-desc">Rich creamy coconut milk, naturally sweet & nourishing</div>
+              <div class="product-desc">Rich, delicious & naturally sweet coconut milk, freshly extracted</div>
               <div class="product-footer">
-                <div class="product-price">₹70</div>
-                <button class="add-btn" onclick="addToCart(this,'Coconut Milk',70,'🍶')">+</button>
+                <div class="product-price">₹60</div>
+                <button class="add-btn" onclick="addToCart(this,'Coconut Milk',60,'🥥')">+</button>
               </div>
             </div>
           </div>
 
+          <!-- ORANGE JUICE ₹50 -->
           <div class="product-card" data-cat="juice">
             <div class="product-img-wrap" style="background:linear-gradient(135deg,#fff3e0,#ffe0b2)">
-              <div class="product-emoji">🥭</div>
-              <div class="product-badge">SEASONAL</div>
+              <div class="product-emoji">🍊</div>
+              <div class="product-badge seasonal">FRESH</div>
             </div>
             <div class="product-body">
-              <div class="product-name">Fresh Mango Juice</div>
-              <div class="product-desc">Cold pressed seasonal mango juice, pulpy & refreshing</div>
+              <div class="product-name">Orange Juice</div>
+              <div class="product-desc">Freshly squeezed juicy oranges, tangy, sweet & full of vitamin C</div>
               <div class="product-footer">
-                <div class="product-price">₹70</div>
-                <button class="add-btn" onclick="addToCart(this,'Fresh Mango Juice',70,'🥭')">+</button>
+                <div class="product-price">₹50</div>
+                <button class="add-btn" onclick="addToCart(this,'Orange Juice',50,'🍊')">+</button>
               </div>
             </div>
           </div>
 
+          <!-- LEMON JUICE ₹40 -->
+          <div class="product-card" data-cat="juice">
+            <div class="product-img-wrap" style="background:linear-gradient(135deg,#f9fbe7,#f0f4c3)">
+              <div class="product-emoji">🍋</div>
+            </div>
+            <div class="product-body">
+              <div class="product-name">Lemon Juice</div>
+              <div class="product-desc">Zesty fresh lemon juice with a hint of salt — the perfect cooler</div>
+              <div class="product-footer">
+                <div class="product-price">₹40</div>
+                <button class="add-btn" onclick="addToCart(this,'Lemon Juice',40,'🍋')">+</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- SARBATH ₹40 -->
+          <div class="product-card" data-cat="sarbath">
+            <div class="product-img-wrap" style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9)">
+              <div class="product-emoji">🌺</div>
+              <div class="product-badge new">NEW</div>
+            </div>
+            <div class="product-body">
+              <div class="product-name">Sarbath</div>
+              <div class="product-desc">Classic chilled sarbath with rose water & nannari — refreshingly sweet</div>
+              <div class="product-footer">
+                <div class="product-price">₹40</div>
+                <button class="add-btn" onclick="addToCart(this,'Sarbath',40,'🌺')">+</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- FRUIT SALAD ₹60 -->
+          <div class="product-card" data-cat="food">
+            <div class="product-img-wrap" style="background:linear-gradient(135deg,#fce4ec,#e1f5fe)">
+              <div class="product-emoji">🥗</div>
+            </div>
+            <div class="product-body">
+              <div class="product-name">Fruit Salad</div>
+              <div class="product-desc">Seasonal fresh fruits tossed with honey & a squeeze of lemon</div>
+              <div class="product-footer">
+                <div class="product-price">₹60</div>
+                <button class="add-btn" onclick="addToCart(this,'Fruit Salad',60,'🥗')">+</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- TENDER COCONUT 250ml ₹70 -->
+          <div class="product-card" data-cat="coconut">
+            <div class="product-img-wrap" style="background:linear-gradient(135deg,#e8f5e9,#b2dfdb)">
+              <div class="product-emoji">🌴</div>
+              <div class="product-badge">250 ML</div>
+            </div>
+            <div class="product-body">
+              <div class="product-name">Tender Coconut</div>
+              <div class="product-desc">Pure chilled tender coconut water (250 ml) — straight from the shell</div>
+              <div class="product-footer">
+                <div class="product-price">₹70</div>
+                <button class="add-btn" onclick="addToCart(this,'Tender Coconut (250ml)',70,'🌴')">+</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- WATERMELON JUICE ₹40 -->
           <div class="product-card" data-cat="juice">
             <div class="product-img-wrap" style="background:linear-gradient(135deg,#fce4ec,#ffcdd2)">
               <div class="product-emoji">🍉</div>
@@ -445,8 +530,39 @@ footer a{color:var(--gold);font-weight:700}
               <div class="product-name">Watermelon Juice</div>
               <div class="product-desc">Icy cold watermelon blended fresh with a pinch of black salt</div>
               <div class="product-footer">
-                <div class="product-price">₹60</div>
-                <button class="add-btn" onclick="addToCart(this,'Watermelon Juice',60,'🍉')">+</button>
+                <div class="product-price">₹40</div>
+                <button class="add-btn" onclick="addToCart(this,'Watermelon Juice',40,'🍉')">+</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- MOHABBAT SARBATH ₹50 -->
+          <div class="product-card" data-cat="sarbath">
+            <div class="product-img-wrap" style="background:linear-gradient(135deg,#f3e5f5,#e1bee7)">
+              <div class="product-emoji">💜</div>
+              <div class="product-badge">SPECIAL</div>
+            </div>
+            <div class="product-body">
+              <div class="product-name">Mohabbat Sarbath</div>
+              <div class="product-desc">Old Delhi favourite — rose milk layered with watermelon & basil seeds</div>
+              <div class="product-footer">
+                <div class="product-price">₹50</div>
+                <button class="add-btn" onclick="addToCart(this,'Mohabbat Sarbath',50,'💜')">+</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- BOILED EGG ₹15 -->
+          <div class="product-card" data-cat="food">
+            <div class="product-img-wrap" style="background:linear-gradient(135deg,#fffde7,#fff9c4)">
+              <div class="product-emoji">🥚</div>
+            </div>
+            <div class="product-body">
+              <div class="product-name">Boiled Egg</div>
+              <div class="product-desc">Farm-fresh boiled egg — a healthy protein snack on the go</div>
+              <div class="product-footer">
+                <div class="product-price">₹15</div>
+                <button class="add-btn" onclick="addToCart(this,'Boiled Egg',15,'🥚')">+</button>
               </div>
             </div>
           </div>
@@ -458,7 +574,7 @@ footer a{color:var(--gold);font-weight:700}
       <div class="order-sidebar" id="desktopSidebar">
         <div class="sidebar-head">
           <h3>🛒 Your Order</h3>
-          <p>Add drinks from the menu</p>
+          <p>Add items from the menu</p>
         </div>
         <div class="sidebar-body" id="sidebarBody"></div>
       </div>
@@ -469,10 +585,10 @@ footer a{color:var(--gold);font-weight:700}
 <!-- FEATURES -->
 <div class="features">
   <div class="features-inner">
-    <div class="feature"><div class="feature-icon">🌿</div><h4>100% Natural</h4><p>No artificial colours, flavours or preservatives ever</p></div>
-    <div class="feature"><div class="feature-icon">⚡</div><h4>Made Fresh</h4><p>Every order prepared fresh when you order</p></div>
-    <div class="feature"><div class="feature-icon">🚚</div><h4>Home Delivery</h4><p>Quick delivery to your doorstep in Thanjavur</p></div>
-    <div class="feature"><div class="feature-icon">💬</div><h4>WhatsApp Order</h4><p>Order in seconds, confirm in minutes</p></div>
+    <div class="feature"><span class="feature-icon">🌿</span><h4>100% Natural</h4><p>No artificial colours, flavours or preservatives ever</p></div>
+    <div class="feature"><span class="feature-icon">⚡</span><h4>Made Fresh</h4><p>Every order prepared fresh when you order</p></div>
+    <div class="feature"><span class="feature-icon">🚚</span><h4>Home Delivery</h4><p>Quick delivery to your doorstep in Thanjavur</p></div>
+    <div class="feature"><span class="feature-icon">💬</span><h4>WhatsApp Order</h4><p>Order in seconds, confirm in minutes</p></div>
   </div>
 </div>
 
@@ -480,10 +596,10 @@ footer a{color:var(--gold);font-weight:700}
 <footer id="contact">
   <div class="f-logo">Coco<span>Nex</span></div>
   <p>Fresh • Natural • Refreshing<br>
-  📍 No. 12, Anna Nagar Main Road, Thanjavur – 613 001<br>
-  📞 <a href="tel:+919384155672">+91 93841 55672</a> &nbsp;·&nbsp;
-  💬 <a href="https://wa.me/919384155672" target="_blank">WhatsApp Us</a></p>
-  <p style="margin-top:12px;font-size:.72rem;opacity:.5">© 2025 CocoNex. All rights reserved.</p>
+  📍 No. 17A, Main Road Viraganur, Madurai1<br>
+  📞 <a href="tel:+917708486840">+91 93841 55672</a> &nbsp;·&nbsp;
+  💬 <a href="https://wa.me/917708486840" target="_blank">WhatsApp Us</a></p>
+  <p style="margin-top:12px;font-size:.72rem;opacity:.5">© 2026 CocoNex. All rights reserved.</p>
 </footer>
 
 <!-- MOBILE CART FAB -->
@@ -507,27 +623,56 @@ footer a{color:var(--gold);font-weight:700}
 </div>
 
 <script>
-// ─────────────────────────────────────────────────────────────────────────────
-// CONFIGURATION — update these values
-// ─────────────────────────────────────────────────────────────────────────────
-const WA_NUMBER     = '919384155672';       // WhatsApp number (country code, no +)
-const RAZORPAY_KEY  = 'rzp_test_XXXXXXXXXXXXXXXX'; // ← REPLACE with your Razorpay Key ID
-//  Get your Key ID from: https://dashboard.razorpay.com/app/keys
-//  For live orders use rzp_live_XXXXXXXXXXXXXXXX
+// ── CONFIG ──
+const WA_NUMBER    = '917708486840';
+const RAZORPAY_KEY = 'rzp_test_XXXXXXXXXXXXXXXX'; // ← Replace with your key
 
-// ─────────────────────────────────────────────────────────────────────────────
-// STATE
-// ─────────────────────────────────────────────────────────────────────────────
-let cart       = [];
-let sugar      = 'with';
-let payMethod  = 'online';   // 'online' | 'cod'
-let gps        = { coords: null, loading: false, error: null };
-let formData   = { name: '', phone: '', loc: '' };
-let paymentDone = { done: false, paymentId: '', method: '' };
+// ── STATE ──
+let cart        = [];
+let sugar       = 'with';
+let gps         = { coords: null, loading: false, error: null };
+let formData    = { name: '', phone: '', loc: '' };
+let paymentDone = { done: false, paymentId: '' };
 
-// ─────────────────────────────────────────────────────────────────────────────
-// CART LOGIC
-// ─────────────────────────────────────────────────────────────────────────────
+// ── PARALLAX ──
+(function initParallax() {
+  const hero = document.getElementById('heroSection');
+  if (!hero) return;
+  const leaf1   = document.getElementById('plxLeaf1');
+  const leaf2   = document.getElementById('plxLeaf2');
+  const dots    = document.getElementById('plxDots');
+  const circles = document.getElementById('plxCircles');
+
+  function onScroll() {
+    const scrollY = window.scrollY;
+    const heroH   = hero.offsetHeight;
+    if (scrollY > heroH + 100) return;
+    if (leaf1)   leaf1.style.transform   = `translateY(${scrollY * 0.25}px)`;
+    if (leaf2)   leaf2.style.transform   = `translateY(${scrollY * 0.4}px)`;
+    if (dots)    dots.style.transform    = `translateY(${scrollY * 0.15}px)`;
+    if (circles) circles.style.transform = `translateY(${scrollY * 0.35}px)`;
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+})();
+
+// ── SCROLL REVEAL for product cards ──
+(function initReveal() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        const card = entry.target;
+        const delay = Array.from(card.parentNode.children).indexOf(card) * 60;
+        setTimeout(() => card.classList.add('visible'), delay);
+        observer.unobserve(card);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.product-card').forEach(card => observer.observe(card));
+})();
+
+// ── CART LOGIC ──
 function addToCart(btn, name, price, emoji) {
   const existing = cart.find(i => i.name === name);
   if (existing) existing.qty++;
@@ -535,8 +680,7 @@ function addToCart(btn, name, price, emoji) {
   btn.textContent = '✓';
   btn.classList.add('added');
   setTimeout(() => { btn.textContent = '+'; btn.classList.remove('added'); }, 800);
-  // Reset payment state when cart changes
-  paymentDone = { done: false, paymentId: '', method: '' };
+  paymentDone = { done: false, paymentId: '' };
   renderOrder();
   updateCartCount();
   if (window.innerWidth <= 1024) document.getElementById('mobileCartFloat').style.display = 'block';
@@ -547,7 +691,7 @@ function changeQty(name, delta) {
   if (!item) return;
   item.qty += delta;
   if (item.qty <= 0) cart = cart.filter(i => i.name !== name);
-  paymentDone = { done: false, paymentId: '', method: '' };
+  paymentDone = { done: false, paymentId: '' };
   renderOrder();
   updateCartCount();
   if (cart.length === 0) document.getElementById('mobileCartFloat').style.display = 'none';
@@ -555,7 +699,7 @@ function changeQty(name, delta) {
 
 function removeItem(name) {
   cart = cart.filter(i => i.name !== name);
-  paymentDone = { done: false, paymentId: '', method: '' };
+  paymentDone = { done: false, paymentId: '' };
   renderOrder();
   updateCartCount();
   if (cart.length === 0) document.getElementById('mobileCartFloat').style.display = 'none';
@@ -566,73 +710,49 @@ function getTotal() { return cart.reduce((s, i) => s + i.price * i.qty, 0); }
 function updateCartCount() {
   const total = cart.reduce((s, i) => s + i.qty, 0);
   document.getElementById('cartCount').textContent = total;
-  document.getElementById('fabCount').textContent = total;
+  document.getElementById('fabCount').textContent  = total;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// RENDER ORDER FORM
-// ─────────────────────────────────────────────────────────────────────────────
-function escapeAttr(v){ return (v||'').replace(/"/g,'&quot;') }
-function escapeHtml(v){ return (v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') }
+// ── RENDER ──
+function escapeAttr(v){ return (v||'').replace(/"/g,'&quot;'); }
+function escapeHtml(v){ return (v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-function gpsStatusClass(){
-  if(gps.loading) return 'gps-status ok';
-  if(gps.error) return 'gps-status err';
-  if(gps.coords) return 'gps-status ok';
-  return 'gps-status';
-}
-function gpsStatusText(){
-  if(gps.loading) return '⏳ Getting your location…';
-  if(gps.error) return '❌ ' + gps.error;
-  if(gps.coords) return `✅ Location captured! <a href="https://maps.google.com/?q=${gps.coords.lat},${gps.coords.lng}" target="_blank" style="color:var(--g);font-weight:800">View on Maps ↗</a>`;
+function gpsStatusText() {
+  if (gps.loading) return '⏳ Getting your location…';
+  if (gps.error)   return '❌ ' + gps.error;
+  if (gps.coords)  return `✅ Location captured! <a href="https://maps.google.com/?q=${gps.coords.lat},${gps.coords.lng}" target="_blank" style="color:var(--g);font-weight:800">View on Maps ↗</a>`;
   return '';
 }
 
 function paymentSuccessHTML(cid) {
   if (!paymentDone.done) return '';
-  return `
-    <div class="payment-success show" id="${cid}_paySuccess">
-      <div class="payment-success-inner">
-        <div class="payment-success-icon">✅</div>
-        <div class="payment-success-text">
-          <strong>Payment Successful!</strong>
-          <span>Now confirm your order on WhatsApp</span>
-          <div class="payment-id">ID: ${paymentDone.paymentId}</div>
-        </div>
+  return `<div class="payment-success show">
+    <div class="payment-success-inner">
+      <div class="payment-success-icon">✅</div>
+      <div class="payment-success-text">
+        <strong>Payment Successful!</strong>
+        <span>Now confirm your order on WhatsApp</span>
+        <div class="payment-id">ID: ${paymentDone.paymentId}</div>
       </div>
-    </div>`;
+    </div>
+  </div>`;
 }
 
 function actionButtonsHTML(cid) {
   if (paymentDone.done) {
-    // Payment done → show WhatsApp confirm button
-    return `
-      <button class="wa-btn" onclick="sendToWhatsApp('${cid}','paid')">
-        <div class="wa-icon">
-          <svg viewBox="0 0 24 24" fill="#25d366" xmlns="http://www.w3.org/2000/svg">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-          </svg>
-        </div>
-        ✅ Confirm Order on WhatsApp
-      </button>`;
+    return `<button class="wa-btn" onclick="sendToWhatsApp('${cid}','paid')">
+      <div class="wa-icon"><svg viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>
+      ✅ Confirm Order on WhatsApp
+    </button>`;
   }
-
-  if (payMethod === 'online') {
-    return `
-      <button class="pay-now-btn" onclick="startRazorpay('${cid}')" ${cart.length===0?'disabled':''}>
-        💳 Pay Now — ₹${getTotal()}
-      </button>`;
-  } else {
-    return `
-      <button class="cod-btn" onclick="sendToWhatsApp('${cid}','cod')">
-        🚚 Place COD Order via WhatsApp
-      </button>`;
-  }
+  return `<button class="pay-now-btn" onclick="startRazorpay('${cid}')" ${cart.length===0?'disabled':''}>
+    💳 Pay Now — ₹${getTotal()}
+  </button>`;
 }
 
 function orderHTML(cid) {
   const cartHTML = cart.length === 0
-    ? `<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>Add drinks from the menu!</p></div>`
+    ? `<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>Add items from the menu!</p></div>`
     : `<div class="cart-items">${cart.map(i => `
         <div class="cart-item">
           <div class="cart-item-em">${i.emoji}</div>
@@ -650,6 +770,10 @@ function orderHTML(cid) {
             <button class="cart-remove" onclick="removeItem('${i.name.replace(/'/g,"\\'")}')">✕</button>
           </div>
         </div>`).join('')}</div>`;
+
+  const gpsVisible = gps.error || gps.coords || gps.loading;
+  const gpsBg = gps.error ? '#ffeaea' : '#e8f5e9';
+  const gpsColor = gps.error ? '#c62828' : '#2e7d32';
 
   return `
     ${cartHTML}
@@ -676,30 +800,12 @@ function orderHTML(cid) {
           <span>${gps.loading?'Wait':'GPS'}</span>
         </button>
       </div>
-      <div id="${cid}_gpsStatus" class="${gpsStatusClass()}" style="${gps.error||gps.coords||gps.loading?'display:block':'display:none'};font-size:.72rem;font-weight:700;padding:6px 10px;border-radius:8px;margin-top:8px;background:${gps.error?'#ffeaea':'#e8f5e9'};color:${gps.error?'#c62828':'#2e7d32'}">${gpsStatusText()}</div>
-      <div id="${cid}_mapPreview" style="margin-top:8px;border-radius:10px;overflow:hidden;${gps.coords?'height:140px':'height:0'};transition:height .35s">
+      <div style="${gpsVisible?'display:block':'display:none'};font-size:.72rem;font-weight:700;padding:6px 10px;border-radius:8px;margin-top:8px;background:${gpsBg};color:${gpsColor}">${gpsStatusText()}</div>
+      <div style="margin-top:8px;border-radius:10px;overflow:hidden;${gps.coords?'height:140px':'height:0'};transition:height .35s">
         ${gps.coords?`<iframe src="https://maps.google.com/maps?q=${gps.coords.lat},${gps.coords.lng}&z=16&output=embed" style="width:100%;height:100%;border:none" allowfullscreen loading="lazy"></iframe>`:''}
       </div>
     </div>
-
-    <!-- PAYMENT METHOD SELECTOR -->
-    <div class="payment-section">
-      <div class="payment-label">💳 Payment Method</div>
-      <div class="payment-opts">
-        <button class="pay-opt ${payMethod==='online'?'act':''}" onclick="setPayMethod('online')">
-          <span>💳</span>
-          <strong>Pay Now</strong>
-          <em>UPI · Card · Netbanking</em>
-        </button>
-        <button class="pay-opt ${payMethod==='cod'?'act cod':''}" onclick="setPayMethod('cod')">
-          <span>💵</span>
-          <strong>Cash on Delivery</strong>
-          <em>Pay when delivered</em>
-        </button>
-      </div>
-    </div>
-
-    <div class="err-msg" id="${cid}_err">⚠️ Please add a drink and fill your name!</div>
+    <div class="err-msg" id="${cid}_err">⚠️ Please add an item and enter your name!</div>
     ${paymentSuccessHTML(cid)}
     <div class="order-total-row">
       <span class="total-label">Total Amount</span>
@@ -709,167 +815,98 @@ function orderHTML(cid) {
   `;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// SUGAR & PAYMENT METHOD
-// ─────────────────────────────────────────────────────────────────────────────
+// ── SUGAR ──
 function setSugar(v) { sugar = v; renderOrder(); }
 
-function setPayMethod(v) {
-  payMethod = v;
-  // Reset payment done state if switching method
-  paymentDone = { done: false, paymentId: '', method: '' };
-  renderOrder();
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// GPS
-// ─────────────────────────────────────────────────────────────────────────────
+// ── GPS ──
 function getGPS(cid) {
-  if (!navigator.geolocation) {
-    gps.error = 'GPS not supported by your browser.';
-    gps.loading = false;
-    renderOrder();
-    return;
-  }
-  gps.loading = true;
-  gps.error = null;
-  gps.coords = null;
+  if (!navigator.geolocation) { gps.error = 'GPS not supported.'; renderOrder(); return; }
+  gps.loading = true; gps.error = null; gps.coords = null;
   renderOrder();
-
   navigator.geolocation.getCurrentPosition(
-    function(pos) {
+    pos => {
       gps.loading = false;
       gps.coords = { lat: pos.coords.latitude.toFixed(6), lng: pos.coords.longitude.toFixed(6) };
-      gps.error = null;
       formData.loc = 'GPS: ' + gps.coords.lat + ', ' + gps.coords.lng;
       renderOrder();
     },
-    function(err) {
+    err => {
       gps.loading = false;
-      gps.coords = null;
-      if (err.code === 1) gps.error = 'Permission denied. Please allow location access.';
-      else if (err.code === 2) gps.error = 'Location unavailable. Type your address manually.';
-      else gps.error = 'Location timed out. Type your address manually.';
+      if (err.code === 1) gps.error = 'Permission denied.';
+      else if (err.code === 2) gps.error = 'Location unavailable. Type your address.';
+      else gps.error = 'Timed out. Type your address.';
       renderOrder();
     },
     { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 }
   );
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// RAZORPAY — PAY NOW
-// ─────────────────────────────────────────────────────────────────────────────
+// ── RAZORPAY ──
 function startRazorpay(cid) {
-  // Sync form data from DOM
   syncFormData(cid);
-
   const errEl = document.getElementById(cid + '_err');
   if (cart.length === 0 || !formData.name) {
     if (errEl) { errEl.style.display = 'block'; setTimeout(() => { if(errEl) errEl.style.display='none'; }, 3500); }
     return;
   }
-
-  const amountPaise = getTotal() * 100; // Razorpay uses paise (1 INR = 100 paise)
-
   const options = {
     key: RAZORPAY_KEY,
-    amount: amountPaise,
+    amount: getTotal() * 100,
     currency: 'INR',
     name: 'CocoNex',
     description: 'Fresh Juice & Rose Milk Order',
     image: 'coc.jpeg',
-    // order_id: 'order_XXXX',   // Uncomment and pass Razorpay order_id if you have a backend
-    prefill: {
-      name: formData.name,
-      contact: '+91' + formData.phone,
-    },
-    notes: {
-      delivery_address: formData.loc || 'Not specified',
-      sugar_preference: sugar === 'with' ? 'With Sugar' : 'Without Sugar',
-    },
-    theme: {
-      color: '#1a6b2f',
-    },
+    prefill: { name: formData.name, contact: '+91' + formData.phone },
+    notes: { delivery_address: formData.loc || 'Not specified', sugar_preference: sugar === 'with' ? 'With Sugar' : 'Without Sugar' },
+    theme: { color: '#1a6b2f' },
     handler: function(response) {
-      // Payment successful!
-      paymentDone = {
-        done: true,
-        paymentId: response.razorpay_payment_id,
-        method: 'online'
-      };
+      paymentDone = { done: true, paymentId: response.razorpay_payment_id };
       renderOrder();
-      // Auto-send WhatsApp after 500ms
       setTimeout(() => sendToWhatsApp(cid, 'paid'), 500);
     },
-    modal: {
-      ondismiss: function() {
-        // User closed without paying — do nothing
-      }
-    }
+    modal: { ondismiss: function(){} }
   };
-
   try {
     const rzp = new Razorpay(options);
-    rzp.on('payment.failed', function(response) {
-      alert('Payment failed: ' + (response.error.description || 'Please try again.'));
-    });
+    rzp.on('payment.failed', r => alert('Payment failed: ' + (r.error.description || 'Try again.')));
     rzp.open();
   } catch(e) {
-    alert('⚠️ Razorpay could not load. Please check your Key ID in the code, or use Cash on Delivery.');
+    alert('⚠️ Razorpay could not load. Please check your Key ID.');
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// WHATSAPP ORDER — works for both paid & COD
-// ─────────────────────────────────────────────────────────────────────────────
+// ── WHATSAPP ──
 function sendToWhatsApp(cid, type) {
   syncFormData(cid);
-
   const errEl = document.getElementById(cid + '_err');
   if (cart.length === 0 || !formData.name) {
     if (errEl) { errEl.style.display = 'block'; setTimeout(() => { if(errEl) errEl.style.display='none'; }, 3500); }
     return;
   }
-
   const sugarTxt  = sugar === 'with' ? 'With Sugar 🍭' : 'Without Sugar 🚫';
   const itemsText = cart.map(i => `  • ${i.emoji} ${i.name} x${i.qty} = ₹${i.price * i.qty}`).join('\n');
   const gpsLine   = gps.coords ? `\n🗺️ GPS: https://maps.google.com/?q=${gps.coords.lat},${gps.coords.lng}` : '';
   const phoneLine = formData.phone ? `📞 Phone: +91 ${formData.phone}\n` : '';
-
-  let paymentLine = '';
-  if (type === 'paid') {
-    paymentLine = `\n💳 *Payment: PAID ONLINE* ✅\n🔖 Payment ID: ${paymentDone.paymentId}`;
-  } else {
-    paymentLine = `\n💵 *Payment: CASH ON DELIVERY* 🚪`;
-  }
-
+  const payLine   = `\n💳 *Payment: PAID ONLINE* ✅\n🔖 Payment ID: ${paymentDone.paymentId}`;
   const msg =
     `🥥 *CocoNex Order* 🌹\n\n` +
-    `👤 Name: ${formData.name}\n` +
-    phoneLine +
+    `👤 Name: ${formData.name}\n` + phoneLine +
     `\n🛒 *Items Ordered:*\n${itemsText}\n\n` +
     `🍬 Sugar: ${sugarTxt}\n` +
-    `💰 Total: ₹${getTotal()}` +
-    paymentLine + `\n\n` +
+    `💰 Total: ₹${getTotal()}` + payLine + `\n\n` +
     `🚚 *Delivery Address:*\n${formData.loc || 'Not specified'}${gpsLine}\n\n` +
-    (type === 'paid'
-      ? `✅ Payment done! Please confirm & deliver. 🙏`
-      : `🙏 Please confirm my COD order!`);
-
-  const waUrl = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg);
-  window.open(waUrl, '_blank');
+    `✅ Payment done! Please confirm & deliver. 🙏`;
+  window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// HELPERS
-// ─────────────────────────────────────────────────────────────────────────────
+// ── HELPERS ──
 function syncFormData(cid) {
-  const nameEl  = document.getElementById(cid + '_name');
-  const phoneEl = document.getElementById(cid + '_phone');
-  const locEl   = document.getElementById(cid + '_loc');
-  if (nameEl)  formData.name  = nameEl.value.trim();
-  if (phoneEl) formData.phone = phoneEl.value.trim();
-  if (locEl)   formData.loc   = locEl.value.trim();
+  const n = document.getElementById(cid + '_name');
+  const p = document.getElementById(cid + '_phone');
+  const l = document.getElementById(cid + '_loc');
+  if (n) formData.name  = n.value.trim();
+  if (p) formData.phone = p.value.trim();
+  if (l) formData.loc   = l.value.trim();
 }
 
 function renderOrder() {
@@ -894,23 +931,15 @@ function filterTab(btn, cat) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
   document.querySelectorAll('.product-card').forEach(card => {
-    card.style.display = (cat === 'all' || card.dataset.cat === cat) ? 'block' : 'none';
+    const show = cat === 'all' || card.dataset.cat === cat;
+    card.style.display = show ? 'block' : 'none';
   });
 }
 
 function copyAddr() {
-  const addr = 'CocoNex Juice Shop, No. 12, Anna Nagar Main Road, Near Bus Stand, Thanjavur – 613 001, Tamil Nadu';
-  if (navigator.clipboard) {
-    navigator.clipboard.writeText(addr).then(() => alert('📋 Address copied!'));
-  } else {
-    const t = document.createElement('textarea');
-    t.value = addr;
-    document.body.appendChild(t);
-    t.select();
-    document.execCommand('copy');
-    document.body.removeChild(t);
-    alert('📋 Address copied!');
-  }
+  const addr = 'CocoNex Juice Shop, No. 17A, Main Road Viraganur,Madurai, Tamil Nadu';
+  if (navigator.clipboard) navigator.clipboard.writeText(addr).then(() => alert('📋 Address copied!'));
+  else { const t = document.createElement('textarea'); t.value = addr; document.body.appendChild(t); t.select(); document.execCommand('copy'); document.body.removeChild(t); alert('📋 Address copied!'); }
 }
 
 // INIT
