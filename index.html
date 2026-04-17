@@ -6,6 +6,7 @@
 <meta name="theme-color" content="#1a6b2f">
 <title>CocoNex – Fresh Juice & Rose Milk</title>
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -24,6 +25,29 @@ a{text-decoration:none;color:inherit}
 button{cursor:pointer;font-family:inherit}
 img{display:block;max-width:100%}
 textarea,input{font-family:inherit}
+
+/* ── PARALLAX LAYERS ── */
+/* .parallax-hero{position:relative;overflow:hidden}
+.parallax-layer{position:absolute;inset:0;pointer-events:none;will-change:transform}
+.plx-leaf1{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cellipse cx='100' cy='100' rx='40' ry='90' fill='rgba(255,255,255,0.04)' transform='rotate(-30 100 100)'/%3E%3C/svg%3E") repeat;background-size:220px 220px}
+.plx-leaf2{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cellipse cx='100' cy='100' rx='30' ry='70' fill='rgba(245,168,0,0.05)' transform='rotate(20 100 100)'/%3E%3C/svg%3E") repeat;background-size:160px 160px}
+.plx-dots{background:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px);background-size:36px 36px}
+.plx-circles{overflow:hidden}
+.plx-circle{position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.08)}
+.plx-circle:nth-child(1){width:400px;height:400px;top:-120px;right:-100px}
+.plx-circle:nth-child(2){width:260px;height:260px;bottom:-60px;left:-80px}
+.plx-circle:nth-child(3){width:160px;height:160px;top:40%;left:20%} */
+
+/* ── SCROLL PARALLAX SECTIONS ── */
+/* .section-parallax{position:relative;overflow:hidden}
+.section-parallax .sp-bg{position:absolute;inset:-30%;pointer-events:none;will-change:transform;opacity:.35} */
+
+/* ── FLOAT ORBS ── */
+/* .orb{position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none;animation:orbFloat 8s ease-in-out infinite}
+.orb1{width:300px;height:300px;background:rgba(245,168,0,.18);top:-60px;right:10%;animation-delay:0s}
+.orb2{width:200px;height:200px;background:rgba(37,144,63,.25);bottom:20px;left:5%;animation-delay:-3s}
+.orb3{width:150px;height:150px;background:rgba(233,30,140,.12);top:40%;right:5%;animation-delay:-6s}
+@keyframes orbFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-30px) scale(1.05)}} */
 
 /* NAVBAR */
 .nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav-h);background:rgba(13,59,26,.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center}
@@ -192,37 +216,13 @@ textarea,input{font-family:inherit}
 .total-label{font-size:.8rem;color:var(--muted);font-weight:600}
 .total-amount{font-family:'Pacifico',cursive;font-size:1.4rem;color:var(--g)}
 
-/* UPI PAYMENT BOX */
-.upi-box{background:linear-gradient(135deg,#e8f5e9,#f1f8e9);border:2px solid rgba(26,107,47,.2);border-radius:16px;padding:16px;margin-bottom:12px;display:none}
-.upi-box.show{display:block}
-.upi-box-title{font-size:.85rem;font-weight:800;color:var(--g);margin-bottom:12px;text-align:center;display:flex;align-items:center;justify-content:center;gap:6px}
-.upi-apps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
-.upi-app-btn{padding:8px 4px;border-radius:12px;border:2px solid var(--border);background:#fff;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:.65rem;font-weight:800;color:var(--text);transition:all .2s;cursor:pointer}
-.upi-app-btn:hover{border-color:var(--g);background:var(--bg2);transform:translateY(-2px)}
-.upi-app-icon{font-size:1.6rem;line-height:1}
-.upi-id-box{background:#fff;border:2px solid var(--border);border-radius:12px;padding:10px 14px;margin-bottom:12px}
-.upi-id-label{font-size:.7rem;color:var(--muted);font-weight:700;margin-bottom:4px}
-.upi-id-row{display:flex;align-items:center;gap:8px}
-.upi-id-val{font-size:.88rem;font-weight:800;color:var(--g);flex:1;letter-spacing:.3px}
-.upi-copy-btn{padding:6px 12px;border-radius:8px;background:var(--g);color:#fff;border:none;font-size:.72rem;font-weight:800;transition:all .15s}
-.upi-copy-btn:hover{background:var(--gm)}
-.upi-amount-badge{background:var(--gd);color:#fff;font-family:'Pacifico',cursive;font-size:1rem;text-align:center;padding:8px;border-radius:10px;margin-bottom:12px}
-.upi-steps{font-size:.72rem;color:var(--muted);line-height:1.8;background:#fff;border-radius:10px;padding:10px 12px;border:1px solid var(--border)}
-.upi-steps strong{color:var(--g)}
-.upi-confirm-row{display:flex;gap:8px;margin-top:12px}
-.upi-txn-inp{flex:1;padding:10px 12px;border-radius:10px;border:2px solid var(--border);background:#fff;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;outline:none;color:var(--text);transition:border-color .2s}
-.upi-txn-inp:focus{border-color:var(--g)}
-.upi-txn-inp::placeholder{color:#aac8aa;font-weight:500}
-.upi-paid-btn{padding:10px 14px;background:var(--g);color:#fff;border:none;border-radius:10px;font-size:.78rem;font-weight:800;white-space:nowrap;transition:all .2s}
-.upi-paid-btn:hover{background:var(--gm);transform:translateY(-1px)}
-
 /* PAY NOW BUTTON */
-.pay-now-btn{width:100%;padding:15px;background:linear-gradient(135deg,#1a6b2f,#25903f);color:#fff;border:none;border-radius:14px;font-family:'DM Sans',sans-serif;font-weight:800;font-size:.95rem;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 6px 20px rgba(26,107,47,.4);transition:all .2s;letter-spacing:.2px;margin-bottom:10px}
-.pay-now-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(26,107,47,.5)}
+.pay-now-btn{width:100%;padding:15px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border:none;border-radius:14px;font-family:'DM Sans',sans-serif;font-weight:800;font-size:.95rem;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 6px 20px rgba(102,126,234,.4);transition:all .2s;letter-spacing:.2px;margin-bottom:10px}
+.pay-now-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(102,126,234,.5)}
 .pay-now-btn:active{transform:scale(.97)}
 .pay-now-btn:disabled{opacity:.6;transform:none;cursor:not-allowed}
 
-/* WA BUTTON */
+/* WA BUTTON (after payment) */
 .wa-btn{width:100%;padding:15px;background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;border:none;border-radius:14px;font-family:'DM Sans',sans-serif;font-weight:800;font-size:.95rem;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 6px 20px rgba(37,211,102,.35);transition:all .2s;letter-spacing:.2px}
 .wa-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(37,211,102,.45)}
 .wa-btn:active{transform:scale(.97)}
@@ -287,7 +287,7 @@ footer a{color:var(--gold);font-weight:700}
 
 @media(max-width:1024px){.shop-layout{grid-template-columns:1fr}.order-sidebar{display:none}.mobile-cart-float{display:block}.features-inner{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:768px){.hero-inner{grid-template-columns:1fr;text-align:center;padding:48px 20px 80px;gap:36px}.hero-image-wrap{order:-1}.hero-logo{width:200px;height:200px}.hero-logo-glow{width:250px;height:250px}.hero-p{margin:0 auto 24px}.hero-btns{justify-content:center}.hero-stats{justify-content:center}.nav-links,.nav-info{display:none}.hamburger{display:flex}.loc-banner-inner{flex-direction:column;align-items:flex-start;gap:12px}.loc-divider{display:none}.shop-section{padding:40px 16px}.features-inner{grid-template-columns:repeat(2,1fr);gap:20px}}
-@media(max-width:480px){.features-inner{grid-template-columns:1fr 1fr}.products-grid{grid-template-columns:repeat(2,1fr)}.product-img-wrap{height:130px}.product-emoji{font-size:3.2rem}.upi-apps{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:480px){.features-inner{grid-template-columns:1fr 1fr}.products-grid{grid-template-columns:repeat(2,1fr)}.product-img-wrap{height:130px}.product-emoji{font-size:3.2rem}}
 </style>
 </head>
 <body>
@@ -324,8 +324,22 @@ footer a{color:var(--gold);font-weight:700}
   </div>
 </div>
 
-<!-- HERO -->
-<section class="hero" id="heroSection">
+<!-- HERO with parallax -->
+<section class="hero parallax-hero" id="heroSection">
+  <!-- parallax layers -->
+  <div class="parallax-layer plx-leaf1" id="plxLeaf1"></div>
+  <div class="parallax-layer plx-leaf2" id="plxLeaf2"></div>
+  <div class="parallax-layer plx-dots" id="plxDots"></div>
+  <div class="parallax-layer plx-circles" id="plxCircles">
+    <div class="plx-circle"></div>
+    <div class="plx-circle"></div>
+    <div class="plx-circle"></div>
+  </div>
+  <!-- floating orbs -->
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+
   <div class="hero-inner">
     <div class="hero-text">
       <div class="hero-badge">🌿 100% Natural · No Preservatives</div>
@@ -333,7 +347,7 @@ footer a{color:var(--gold);font-weight:700}
       <p class="hero-p">Rose Milk, Fresh Coconut Water & Seasonal Juices — delivered to your doorstep. Order in seconds via WhatsApp.</p>
       <div class="hero-btns">
         <button class="btn-primary" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">🥤 Order Now</button>
-        <a class="btn-outline" href="https://maps.google.com/?q=17A,main+road+viraganur,madurai,Tamil+Nadu" target="_blank">📍 Find Us</a>
+        <a class="btn-outline" href="https://maps.google.com/?q=17A,main road viraganur,madurai,Tamil+Nadu" target="_blank">📍 Find Us</a>
       </div>
       <div class="hero-stats">
         <div class="stat"><div class="stat-n">500+</div><div class="stat-l">Happy Customers</div></div>
@@ -366,13 +380,13 @@ footer a{color:var(--gold);font-weight:700}
       <div class="loc-icon">📍</div>
       <div class="loc-text">
         <strong>CocoNex Juice Shop</strong>
-        <span>No. 17A, Main Road Viraganur, Madurai, Tamil Nadu</span>
+        <span>No. 17A, Main Road Viraganur,Madurai, Tamil Nadu</span>
       </div>
     </div>
     <div class="loc-divider"></div>
     <div class="loc-hours"><div class="open-dot"></div><span>Open · Mon–Sun · 8:00 AM – 10:00 PM</span></div>
     <div class="loc-btns">
-      <a class="loc-act loc-maps" href="https://maps.google.com/?q=17A,main+road+viraganur,madurai,Tamil+Nadu" target="_blank">🗺️ Google Maps</a>
+      <a class="loc-act loc-maps" href="https://maps.google.com/?q=No.+12+Main+Road+Madurai+Tamil+Nadu" target="_blank">🗺️ Google Maps</a>
       <button class="loc-act loc-copy" onclick="copyAddr()">📋 Copy</button>
     </div>
   </div>
@@ -397,6 +411,7 @@ footer a{color:var(--gold);font-weight:700}
       <div>
         <div class="products-grid" id="productsGrid">
 
+          <!-- ROSE MILK ₹50 -->
           <div class="product-card" data-cat="milk">
             <div class="product-img-wrap" style="background:linear-gradient(135deg,#fce4ec,#f8bbd0)">
               <div class="product-emoji">🌹</div>
@@ -412,6 +427,7 @@ footer a{color:var(--gold);font-weight:700}
             </div>
           </div>
 
+          <!-- COCONUT MILK ₹60 -->
           <div class="product-card" data-cat="coconut">
             <div class="product-img-wrap" style="background:linear-gradient(135deg,#fff8e1,#ffecb3)">
               <div class="product-emoji">🥥</div>
@@ -426,6 +442,7 @@ footer a{color:var(--gold);font-weight:700}
             </div>
           </div>
 
+          <!-- ORANGE JUICE ₹50 -->
           <div class="product-card" data-cat="juice">
             <div class="product-img-wrap" style="background:linear-gradient(135deg,#fff3e0,#ffe0b2)">
               <div class="product-emoji">🍊</div>
@@ -441,6 +458,7 @@ footer a{color:var(--gold);font-weight:700}
             </div>
           </div>
 
+          <!-- LEMON JUICE ₹40 -->
           <div class="product-card" data-cat="juice">
             <div class="product-img-wrap" style="background:linear-gradient(135deg,#f9fbe7,#f0f4c3)">
               <div class="product-emoji">🍋</div>
@@ -455,6 +473,7 @@ footer a{color:var(--gold);font-weight:700}
             </div>
           </div>
 
+          <!-- SARBATH ₹40 -->
           <div class="product-card" data-cat="sarbath">
             <div class="product-img-wrap" style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9)">
               <div class="product-emoji">🌺</div>
@@ -470,6 +489,7 @@ footer a{color:var(--gold);font-weight:700}
             </div>
           </div>
 
+          <!-- FRUIT SALAD ₹60 -->
           <div class="product-card" data-cat="food">
             <div class="product-img-wrap" style="background:linear-gradient(135deg,#fce4ec,#e1f5fe)">
               <div class="product-emoji">🥗</div>
@@ -484,6 +504,7 @@ footer a{color:var(--gold);font-weight:700}
             </div>
           </div>
 
+          <!-- TENDER COCONUT 250ml ₹70 -->
           <div class="product-card" data-cat="coconut">
             <div class="product-img-wrap" style="background:linear-gradient(135deg,#e8f5e9,#b2dfdb)">
               <div class="product-emoji">🌴</div>
@@ -499,6 +520,7 @@ footer a{color:var(--gold);font-weight:700}
             </div>
           </div>
 
+          <!-- WATERMELON JUICE ₹40 -->
           <div class="product-card" data-cat="juice">
             <div class="product-img-wrap" style="background:linear-gradient(135deg,#fce4ec,#ffcdd2)">
               <div class="product-emoji">🍉</div>
@@ -514,6 +536,7 @@ footer a{color:var(--gold);font-weight:700}
             </div>
           </div>
 
+          <!-- MOHABBAT SARBATH ₹50 -->
           <div class="product-card" data-cat="sarbath">
             <div class="product-img-wrap" style="background:linear-gradient(135deg,#f3e5f5,#e1bee7)">
               <div class="product-emoji">💜</div>
@@ -529,6 +552,7 @@ footer a{color:var(--gold);font-weight:700}
             </div>
           </div>
 
+          <!-- BOILED EGG ₹15 -->
           <div class="product-card" data-cat="food">
             <div class="product-img-wrap" style="background:linear-gradient(135deg,#fffde7,#fff9c4)">
               <div class="product-emoji">🥚</div>
@@ -563,7 +587,7 @@ footer a{color:var(--gold);font-weight:700}
   <div class="features-inner">
     <div class="feature"><span class="feature-icon">🌿</span><h4>100% Natural</h4><p>No artificial colours, flavours or preservatives ever</p></div>
     <div class="feature"><span class="feature-icon">⚡</span><h4>Made Fresh</h4><p>Every order prepared fresh when you order</p></div>
-    <div class="feature"><span class="feature-icon">🚚</span><h4>Home Delivery</h4><p>Quick delivery to your doorstep in Madurai</p></div>
+    <div class="feature"><span class="feature-icon">🚚</span><h4>Home Delivery</h4><p>Quick delivery to your doorstep in Thanjavur</p></div>
     <div class="feature"><span class="feature-icon">💬</span><h4>WhatsApp Order</h4><p>Order in seconds, confirm in minutes</p></div>
   </div>
 </div>
@@ -572,9 +596,9 @@ footer a{color:var(--gold);font-weight:700}
 <footer id="contact">
   <div class="f-logo">Coco<span>Nex</span></div>
   <p>Fresh • Natural • Refreshing<br>
-  📍 No. 17A, Main Road Viraganur, Madurai, Tamil Nadu<br>
-  📞 <a href="tel:+919384155672">+91 93841 55672</a> &nbsp;·&nbsp;
-  💬 <a href="https://wa.me/919384155672" target="_blank">WhatsApp Us</a></p>
+  📍 No. 17A, Main Road Viraganur, Madurai1<br>
+  📞 <a href="tel:+917708486840">+91 93841 55672</a> &nbsp;·&nbsp;
+  💬 <a href="https://wa.me/917708486840" target="_blank">WhatsApp Us</a></p>
   <p style="margin-top:12px;font-size:.72rem;opacity:.5">© 2026 CocoNex. All rights reserved.</p>
 </footer>
 
@@ -599,24 +623,44 @@ footer a{color:var(--gold);font-weight:700}
 </div>
 
 <script>
-// ── CONFIG ── CHANGE THESE TO YOUR DETAILS
-const WA_NUMBER  = '919384155672';        // WhatsApp number with country code
-const UPI_ID     = 'ashamold2002-3@okhdfcbank';        // ← Replace with your UPI ID (e.g. 9876543210@paytm)
-const UPI_NAME   = 'CocoNex';             // Name shown during UPI payment
-const WA_GROUP   = 'https://chat.whatsapp.com/C1nZoqh3qS8GnHKrhX2EyG';        // Replace with your WhatsApp group link number or keep same
+// ── CONFIG ──
+const WA_NUMBER    = '917708486840';
+const RAZORPAY_ID='rzp_live_SeSfBiWR5jVqJU';
+const RAZORPAY_KEY = '3LlT3Nhtq6QuPQxiui9qALr6'; // ← Replace with your key
 
 // ── STATE ──
 let cart        = [];
 let sugar       = 'with';
 let gps         = { coords: null, loading: false, error: null };
 let formData    = { name: '', phone: '', loc: '' };
-let paymentDone = { done: false, txnId: '' };
-let upiShown    = false;
+let paymentDone = { done: false, paymentId: '' };
+
+// ── PARALLAX ──
+(function initParallax() {
+  const hero = document.getElementById('heroSection');
+  if (!hero) return;
+  const leaf1   = document.getElementById('plxLeaf1');
+  const leaf2   = document.getElementById('plxLeaf2');
+  const dots    = document.getElementById('plxDots');
+  const circles = document.getElementById('plxCircles');
+
+  function onScroll() {
+    const scrollY = window.scrollY;
+    const heroH   = hero.offsetHeight;
+    if (scrollY > heroH + 100) return;
+    if (leaf1)   leaf1.style.transform   = `translateY(${scrollY * 0.25}px)`;
+    if (leaf2)   leaf2.style.transform   = `translateY(${scrollY * 0.4}px)`;
+    if (dots)    dots.style.transform    = `translateY(${scrollY * 0.15}px)`;
+    if (circles) circles.style.transform = `translateY(${scrollY * 0.35}px)`;
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+})();
 
 // ── SCROLL REVEAL for product cards ──
 (function initReveal() {
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
+    entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
         const card = entry.target;
         const delay = Array.from(card.parentNode.children).indexOf(card) * 60;
@@ -625,6 +669,7 @@ let upiShown    = false;
       }
     });
   }, { threshold: 0.1 });
+
   document.querySelectorAll('.product-card').forEach(card => observer.observe(card));
 })();
 
@@ -636,8 +681,7 @@ function addToCart(btn, name, price, emoji) {
   btn.textContent = '✓';
   btn.classList.add('added');
   setTimeout(() => { btn.textContent = '+'; btn.classList.remove('added'); }, 800);
-  paymentDone = { done: false, txnId: '' };
-  upiShown = false;
+  paymentDone = { done: false, paymentId: '' };
   renderOrder();
   updateCartCount();
   if (window.innerWidth <= 1024) document.getElementById('mobileCartFloat').style.display = 'block';
@@ -648,8 +692,7 @@ function changeQty(name, delta) {
   if (!item) return;
   item.qty += delta;
   if (item.qty <= 0) cart = cart.filter(i => i.name !== name);
-  paymentDone = { done: false, txnId: '' };
-  upiShown = false;
+  paymentDone = { done: false, paymentId: '' };
   renderOrder();
   updateCartCount();
   if (cart.length === 0) document.getElementById('mobileCartFloat').style.display = 'none';
@@ -657,8 +700,7 @@ function changeQty(name, delta) {
 
 function removeItem(name) {
   cart = cart.filter(i => i.name !== name);
-  paymentDone = { done: false, txnId: '' };
-  upiShown = false;
+  paymentDone = { done: false, paymentId: '' };
   renderOrder();
   updateCartCount();
   if (cart.length === 0) document.getElementById('mobileCartFloat').style.display = 'none';
@@ -672,22 +714,7 @@ function updateCartCount() {
   document.getElementById('fabCount').textContent  = total;
 }
 
-// ── UPI DEEP LINK BUILDER ──
-function buildUPILink(app) {
-  const amount  = getTotal();
-  const note    = encodeURIComponent('CocoNex Order - ' + formData.name);
-  const upiBase = `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(UPI_NAME)}&am=${amount}&cu=INR&tn=${note}`;
-  const appLinks = {
-    gpay:   `tez://upi/pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(UPI_NAME)}&am=${amount}&cu=INR&tn=${note}`,
-    phonepe:`phonepe://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(UPI_NAME)}&am=${amount}&cu=INR&tn=${note}`,
-    paytm:  `paytmmp://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(UPI_NAME)}&am=${amount}&cu=INR&tn=${note}`,
-    bhim:   `bhim://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(UPI_NAME)}&am=${amount}&cu=INR&tn=${note}`,
-    any:    upiBase
-  };
-  return appLinks[app] || upiBase;
-}
-
-// ── HELPERS ──
+// ── RENDER ──
 function escapeAttr(v){ return (v||'').replace(/"/g,'&quot;'); }
 function escapeHtml(v){ return (v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
@@ -698,75 +725,32 @@ function gpsStatusText() {
   return '';
 }
 
-// ── UPI PAYMENT BOX HTML ──
-function upiBoxHTML(cid) {
-  if (!upiShown) return '';
-  const total = getTotal();
-  return `
-  <div class="upi-box show">
-    <div class="upi-box-title">💳 Pay ₹${total} via UPI</div>
-    <div class="upi-amount-badge">₹${total} — CocoNex Order</div>
-    <div class="upi-apps">
-      <button class="upi-app-btn" onclick="openUPI('gpay','${cid}')">
-        <div class="upi-app-icon">🟢</div>GPay
-      </button>
-      <button class="upi-app-btn" onclick="openUPI('phonepe','${cid}')">
-        <div class="upi-app-icon">🟣</div>PhonePe
-      </button>
-      <button class="upi-app-btn" onclick="openUPI('paytm','${cid}')">
-        <div class="upi-app-icon">🔵</div>Paytm
-      </button>
-      <button class="upi-app-btn" onclick="openUPI('any','${cid}')">
-        <div class="upi-app-icon">📱</div>Others
-      </button>
-    </div>
-    <div class="upi-id-box">
-      <div class="upi-id-label">UPI ID</div>
-      <div class="upi-id-row">
-        <div class="upi-id-val">${UPI_ID}</div>
-        <button class="upi-copy-btn" onclick="copyUPI()">Copy</button>
+function paymentSuccessHTML(cid) {
+  if (!paymentDone.done) return '';
+  return `<div class="payment-success show">
+    <div class="payment-success-inner">
+      <div class="payment-success-icon">✅</div>
+      <div class="payment-success-text">
+        <strong>Payment Successful!</strong>
+        <span>Now confirm your order on WhatsApp</span>
+        <div class="payment-id">ID: ${paymentDone.paymentId}</div>
       </div>
-    </div>
-    <div class="upi-steps">
-      <strong>How to pay:</strong><br>
-      1️⃣ Tap any UPI app above<br>
-      2️⃣ Pay ₹${total} to <strong>${UPI_ID}</strong><br>
-      3️⃣ Copy the Transaction ID / UTR<br>
-      4️⃣ Paste below & tap <strong>Confirm Order ✅</strong>
-    </div>
-    <div class="upi-confirm-row">
-      <input class="upi-txn-inp" id="${cid}_txn" placeholder="Paste Transaction ID / UTR…" maxlength="30" value="${escapeAttr(paymentDone.txnId)}" oninput="paymentDone.txnId=this.value">
-      <button class="upi-paid-btn" onclick="confirmPaid('${cid}')">Confirm Order ✅</button>
     </div>
   </div>`;
 }
 
-// ── ACTION BUTTONS ──
 function actionButtonsHTML(cid) {
   if (paymentDone.done) {
-    return `
-    <div class="payment-success show">
-      <div class="payment-success-inner">
-        <div class="payment-success-icon">✅</div>
-        <div class="payment-success-text">
-          <strong>Payment Confirmed!</strong>
-          <span>Now send your order to WhatsApp</span>
-          <div class="payment-id">Txn ID: ${paymentDone.txnId}</div>
-        </div>
-      </div>
-    </div>
-    <button class="wa-btn" onclick="sendToWhatsApp('${cid}')">
+    return `<button class="wa-btn" onclick="sendToWhatsApp('${cid}','paid')">
       <div class="wa-icon"><svg viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>
-      ✅ Send Order to WhatsApp
+      ✅ Confirm Order on WhatsApp
     </button>`;
   }
-  return `
-  <button class="pay-now-btn" onclick="showUPI('${cid}')" ${cart.length===0?'disabled':''}>
-    💳 Pay via UPI — ₹${getTotal()}
+  return `<button class="pay-now-btn" onclick="startRazorpay('${cid}')" ${cart.length===0?'disabled':''}>
+    💳 Pay Now — ₹${getTotal()}
   </button>`;
 }
 
-// ── MAIN ORDER HTML ──
 function orderHTML(cid) {
   const cartHTML = cart.length === 0
     ? `<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>Add items from the menu!</p></div>`
@@ -823,92 +807,13 @@ function orderHTML(cid) {
       </div>
     </div>
     <div class="err-msg" id="${cid}_err">⚠️ Please add an item and enter your name!</div>
+    ${paymentSuccessHTML(cid)}
     <div class="order-total-row">
       <span class="total-label">Total Amount</span>
       <span class="total-amount">₹${getTotal()}</span>
     </div>
-    ${upiBoxHTML(cid)}
     ${actionButtonsHTML(cid)}
   `;
-}
-
-// ── UPI FLOW ──
-function showUPI(cid) {
-  syncFormData(cid);
-  const errEl = document.getElementById(cid + '_err');
-  if (cart.length === 0 || !formData.name) {
-    if (errEl) { errEl.style.display = 'block'; setTimeout(() => { if(errEl) errEl.style.display='none'; }, 3500); }
-    return;
-  }
-  upiShown = true;
-  renderOrder();
-  // Scroll to UPI box
-  setTimeout(() => {
-    const upiEl = document.querySelector('.upi-box.show');
-    if (upiEl) upiEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }, 100);
-}
-
-function openUPI(app, cid) {
-  syncFormData(cid);
-  const link = buildUPILink(app);
-  window.location.href = link;
-  // Fallback: if app not installed, open generic UPI link after brief delay
-  setTimeout(() => {
-    // On desktop or if app not found, show instructions
-  }, 800);
-}
-
-function copyUPI() {
-  if (navigator.clipboard) {
-    navigator.clipboard.writeText(UPI_ID).then(() => alert('✅ UPI ID copied: ' + UPI_ID));
-  } else {
-    const t = document.createElement('textarea');
-    t.value = UPI_ID;
-    document.body.appendChild(t);
-    t.select();
-    document.execCommand('copy');
-    document.body.removeChild(t);
-    alert('✅ UPI ID copied: ' + UPI_ID);
-  }
-}
-
-function confirmPaid(cid) {
-  const txnEl = document.getElementById(cid + '_txn');
-  const txnId = txnEl ? txnEl.value.trim() : paymentDone.txnId.trim();
-  if (!txnId) {
-    alert('⚠️ Please enter your Transaction ID / UTR number after payment!');
-    return;
-  }
-  paymentDone = { done: true, txnId };
-  upiShown = false;
-  renderOrder();
-  // Auto-open WhatsApp after short delay
-  setTimeout(() => sendToWhatsApp(cid), 400);
-}
-
-// ── WHATSAPP ──
-function sendToWhatsApp(cid) {
-  syncFormData(cid);
-  const errEl = document.getElementById(cid + '_err');
-  if (cart.length === 0 || !formData.name) {
-    if (errEl) { errEl.style.display = 'block'; setTimeout(() => { if(errEl) errEl.style.display='none'; }, 3500); }
-    return;
-  }
-  const sugarTxt  = sugar === 'with' ? 'With Sugar 🍭' : 'Without Sugar 🚫';
-  const itemsText = cart.map(i => `  • ${i.emoji} ${i.name} x${i.qty} = ₹${i.price * i.qty}`).join('\n');
-  const gpsLine   = gps.coords ? `\n🗺️ GPS: https://maps.google.com/?q=${gps.coords.lat},${gps.coords.lng}` : '';
-  const phoneLine = formData.phone ? `📞 Phone: +91 ${formData.phone}\n` : '';
-  const payLine   = `\n💳 *Payment: PAID via UPI* ✅\n🔖 Transaction ID: ${paymentDone.txnId}`;
-  const msg =
-    `🥥 *CocoNex Order* 🌹\n\n` +
-    `👤 Name: ${formData.name}\n` + phoneLine +
-    `\n🛒 *Items Ordered:*\n${itemsText}\n\n` +
-    `🍬 Sugar: ${sugarTxt}\n` +
-    `💰 Total: ₹${getTotal()}` + payLine + `\n\n` +
-    `🚚 *Delivery Address:*\n${formData.loc || 'Not specified'}${gpsLine}\n\n` +
-    `✅ Payment done! Please confirm & deliver. 🙏`;
-  window.open('https://wa.me/' + WA_GROUP + '?text=' + encodeURIComponent(msg), '_blank');
 }
 
 // ── SUGAR ──
@@ -937,7 +842,65 @@ function getGPS(cid) {
   );
 }
 
-// ── SYNC + RENDER ──
+// ── RAZORPAY ──
+function startRazorpay(cid) {
+  syncFormData(cid);
+  const errEl = document.getElementById(cid + '_err');
+  if (cart.length === 0 || !formData.name) {
+    if (errEl) { errEl.style.display = 'block'; setTimeout(() => { if(errEl) errEl.style.display='none'; }, 3500); }
+    return;
+  }
+  const options = {
+    key: RAZORPAY_KEY,
+    amount: getTotal() * 100,
+    currency: 'INR',
+    name: 'CocoNex',
+    description: 'Fresh Juice & Rose Milk Order',
+    image: 'coc.jpeg',
+    prefill: { name: formData.name, contact: '+91' + formData.phone },
+    notes: { delivery_address: formData.loc || 'Not specified', sugar_preference: sugar === 'with' ? 'With Sugar' : 'Without Sugar' },
+    theme: { color: '#1a6b2f' },
+    handler: function(response) {
+      paymentDone = { done: true, paymentId: response.razorpay_payment_id };
+      renderOrder();
+      setTimeout(() => sendToWhatsApp(cid, 'paid'), 500);
+    },
+    modal: { ondismiss: function(){} }
+  };
+  try {
+    const rzp = new Razorpay(options);
+    rzp.on('payment.failed', r => alert('Payment failed: ' + (r.error.description || 'Try again.')));
+    rzp.open();
+  } catch(e) {
+    alert('⚠️ Razorpay could not load. Please check your Key ID.');
+  }
+}
+
+// ── WHATSAPP ──
+function sendToWhatsApp(cid, type) {
+  syncFormData(cid);
+  const errEl = document.getElementById(cid + '_err');
+  if (cart.length === 0 || !formData.name) {
+    if (errEl) { errEl.style.display = 'block'; setTimeout(() => { if(errEl) errEl.style.display='none'; }, 3500); }
+    return;
+  }
+  const sugarTxt  = sugar === 'with' ? 'With Sugar 🍭' : 'Without Sugar 🚫';
+  const itemsText = cart.map(i => `  • ${i.emoji} ${i.name} x${i.qty} = ₹${i.price * i.qty}`).join('\n');
+  const gpsLine   = gps.coords ? `\n🗺️ GPS: https://maps.google.com/?q=${gps.coords.lat},${gps.coords.lng}` : '';
+  const phoneLine = formData.phone ? `📞 Phone: +91 ${formData.phone}\n` : '';
+  const payLine   = `\n💳 *Payment: PAID ONLINE* ✅\n🔖 Payment ID: ${paymentDone.paymentId}`;
+  const msg =
+    `🥥 *CocoNex Order* 🌹\n\n` +
+    `👤 Name: ${formData.name}\n` + phoneLine +
+    `\n🛒 *Items Ordered:*\n${itemsText}\n\n` +
+    `🍬 Sugar: ${sugarTxt}\n` +
+    `💰 Total: ₹${getTotal()}` + payLine + `\n\n` +
+    `🚚 *Delivery Address:*\n${formData.loc || 'Not specified'}${gpsLine}\n\n` +
+    `✅ Payment done! Please confirm & deliver. 🙏`;
+  window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
+}
+
+// ── HELPERS ──
 function syncFormData(cid) {
   const n = document.getElementById(cid + '_name');
   const p = document.getElementById(cid + '_phone');
@@ -975,7 +938,7 @@ function filterTab(btn, cat) {
 }
 
 function copyAddr() {
-  const addr = 'CocoNex Juice Shop, No. 17A, Main Road Viraganur, Madurai, Tamil Nadu';
+  const addr = 'CocoNex Juice Shop, No. 17A, Main Road Viraganur,Madurai, Tamil Nadu';
   if (navigator.clipboard) navigator.clipboard.writeText(addr).then(() => alert('📋 Address copied!'));
   else { const t = document.createElement('textarea'); t.value = addr; document.body.appendChild(t); t.select(); document.execCommand('copy'); document.body.removeChild(t); alert('📋 Address copied!'); }
 }
