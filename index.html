@@ -123,46 +123,19 @@ textarea,input{font-family:inherit}
 .tab.active,.tab:hover{background:var(--g);border-color:var(--g);color:#fff}
 .tab:active{transform:scale(.95)}
 
-/* ══════════════════════════════════════
-   FIX 1: RESPONSIVE PRODUCT IMAGES
-   Uses padding-top ratio trick so images
-   scale perfectly on all screen sizes
-══════════════════════════════════════ */
+/* PRODUCT CARDS */
 .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:18px}
 .product-card{background:var(--white);border-radius:20px;box-shadow:var(--sh);overflow:hidden;transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s;border:1.5px solid transparent;opacity:0;transform:translateY(24px)}
 .product-card.visible{animation:cardReveal .5s ease forwards}
 @keyframes cardReveal{to{opacity:1;transform:translateY(0)}}
 .product-card:hover{transform:translateY(-6px) scale(1.015);box-shadow:var(--sh2),0 0 0 2px rgba(26,107,47,.1);border-color:var(--border)}
-
-.product-img-wrap{
-  position:relative;
-  width:100%;
-  padding-top:62%;   /* controls aspect ratio — change % to adjust height */
-  overflow:hidden;
-  background:var(--bg2);
-}
-.product-img-wrap img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  transition:transform .4s ease;
-}
+.product-img-wrap{position:relative;width:100%;padding-top:62%;overflow:hidden;background:var(--bg2)}
+.product-img-wrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
 .product-card:hover .product-img-wrap img{transform:scale(1.08)}
-.product-img-fallback{
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:3.5rem;
-  background:var(--bg2);
-}
+.product-img-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:3.5rem;background:var(--bg2)}
 .product-badge{position:absolute;top:10px;left:10px;background:var(--gold);color:var(--gd);font-size:.62rem;font-weight:800;padding:3px 9px;border-radius:99px;letter-spacing:.5px;z-index:2}
 .product-badge.new{background:var(--pink);color:#fff}
 .product-badge.seasonal{background:#ff7043;color:#fff}
-
 .product-body{padding:13px}
 .product-name{font-weight:800;font-size:.9rem;margin-bottom:3px}
 .product-desc{font-size:.7rem;color:var(--muted);line-height:1.5;margin-bottom:9px}
@@ -235,27 +208,9 @@ textarea,input{font-family:inherit}
 .gps-status.show{display:block}
 .gps-status.ok{background:#e8f5e9;color:#2e7d32}
 .gps-status.err{background:#ffeaea;color:#c62828}
-
-/* ══════════════════════════════════════
-   FIX 3: MAP ALWAYS VISIBLE WHEN GPS OK
-══════════════════════════════════════ */
-.gps-map-wrap{
-  display:none;          /* hidden by default */
-  margin-top:10px;
-  border-radius:10px;
-  overflow:hidden;
-  height:155px;
-  border:2px solid rgba(233,30,140,.2);
-}
-.gps-map-wrap.show{
-  display:block;         /* shown when GPS captured */
-}
-.gps-map-wrap iframe{
-  width:100%;
-  height:100%;
-  border:none;
-  display:block;
-}
+.gps-map-wrap{display:none;margin-top:10px;border-radius:10px;overflow:hidden;height:155px;border:2px solid rgba(233,30,140,.2)}
+.gps-map-wrap.show{display:block}
+.gps-map-wrap iframe{width:100%;height:100%;border:none;display:block}
 
 /* TOTAL & BUTTONS */
 .order-total-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-top:2px dashed var(--border);margin-bottom:12px}
@@ -285,10 +240,26 @@ textarea,input{font-family:inherit}
 .err-msg{background:#ffeaea;color:#c62828;font-size:.73rem;font-weight:700;padding:8px 11px;border-radius:9px;margin-bottom:9px;border:1px solid #ffcdd2;display:none}
 .sec-badge{display:flex;align-items:center;justify-content:center;gap:6px;color:var(--muted);font-size:.67rem;font-weight:700;opacity:.7;padding-bottom:4px}
 
+/* SESSION RESTORE BANNER */
+.session-banner{background:linear-gradient(135deg,#fff8e1,#fff3cd);border:1.5px solid #f5a800;border-radius:13px;padding:11px 14px;margin-bottom:13px;display:none;align-items:center;gap:10px}
+.session-banner.show{display:flex}
+.session-banner-icon{font-size:1.4rem;flex-shrink:0}
+.session-banner-text strong{display:block;font-size:.78rem;font-weight:800;color:#b36a00}
+.session-banner-text span{font-size:.7rem;color:#946000;font-weight:600}
+.session-clear{background:none;border:1.5px solid rgba(179,106,0,.3);color:#b36a00;font-size:.68rem;font-weight:700;padding:4px 9px;border-radius:7px;cursor:pointer;margin-left:auto;flex-shrink:0;transition:all .2s}
+.session-clear:hover{background:rgba(179,106,0,.08)}
+
 /* AUTO-SENT NOTICE */
 .wa-auto-notice{background:#e3f2fd;border:1.5px solid #90caf9;border-radius:11px;padding:11px 13px;margin-bottom:9px;text-align:center}
 .wa-auto-notice strong{display:block;font-size:.8rem;font-weight:800;color:#1565c0;margin-bottom:2px}
 .wa-auto-notice span{font-size:.7rem;color:#1976d2;font-weight:600}
+
+/* WA SENDING OVERLAY */
+.wa-sending{background:linear-gradient(135deg,#e8f5e9,#f1f8e9);border:1.5px solid #4caf50;border-radius:11px;padding:14px 13px;margin-bottom:9px;text-align:center;display:none}
+.wa-sending.show{display:block}
+.wa-sending-spinner{width:28px;height:28px;border:3px solid rgba(37,211,102,.3);border-top-color:#25d366;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 8px}
+.wa-sending strong{display:block;font-size:.82rem;font-weight:800;color:#2e7d32;margin-bottom:2px}
+.wa-sending span{font-size:.7rem;color:#388e3c;font-weight:600}
 
 /* FEATURES */
 .features{background:var(--gd);padding:44px 20px;position:relative;overflow:hidden}
@@ -329,9 +300,7 @@ footer a{color:var(--gold);font-weight:700}
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--gd);color:#fff;padding:10px 20px;border-radius:99px;font-size:.8rem;font-weight:700;box-shadow:0 6px 20px rgba(0,0,0,.18);opacity:0;transition:all .3s;z-index:500;white-space:nowrap;pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-/* ══════════════════════════════════════
-   RESPONSIVE
-══════════════════════════════════════ */
+/* RESPONSIVE */
 @media(max-width:1024px){
   .shop-layout{grid-template-columns:1fr}
   .order-sidebar{display:none}
@@ -355,9 +324,7 @@ footer a{color:var(--gold);font-weight:700}
 }
 @media(max-width:480px){
   .features-inner{grid-template-columns:1fr 1fr}
-  /* 2-col grid on mobile — images auto-resize via padding-top ratio */
   .products-grid{grid-template-columns:repeat(2,1fr);gap:11px}
-  /* Slightly taller image ratio on narrow screens */
   .product-img-wrap{padding-top:68%}
   .hero-stats .stat-n{font-size:1.3rem}
   .filter-tabs{gap:6px}
@@ -680,44 +647,49 @@ footer a{color:var(--gold);font-weight:700}
 </div>
 
 <script>
-// ── Image fallback ──
+// ═══════════════════════════════════════════════════════
+// IMAGE FALLBACK
+// ═══════════════════════════════════════════════════════
 function imgFallback(img, emoji) {
   var wrap = img.parentNode;
   if (!wrap) return;
   wrap.innerHTML = '<div class="product-img-fallback">' + emoji + '</div>';
 }
 
-// ══════════════════════════════════════════
-// CONFIG — update WA_GROUP_LINK with your actual group invite link
-// To get it: WhatsApp → open your group → ⋮ menu → Invite via Link → Copy
-// ══════════════════════════════════════════
-const CONFIG = Object.freeze({
-  WA_GROUP_LINK: 'https://chat.whatsapp.com/C1nZoqh3qS8GnHKrhX2EyG', // ← your group link
+// ═══════════════════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════════════════
+var CONFIG = Object.freeze({
+  WA_GROUP_LINK: 'https://chat.whatsapp.com/C1nZoqh3qS8GnHKrhX2EyG',
   WA_NUMBER:     '917708486840',
   RAZORPAY_KEY:  'rzp_live_SeSfBiWR5jVqJU',
   SHOP_NAME:     'CocoNex',
   SHOP_IMG:      'coc.jpeg',
-  CURRENCY:      'INR'
+  CURRENCY:      'INR',
+  SESSION_TTL:   60 * 60 * 1000,   // 1 hour in ms
+  STORAGE_KEY:   'coconex_session_v2'
 });
 
-// ══════════════════════════════════════════
-// STATE
-// ══════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
+// STATE  — restored from localStorage on load
+// ═══════════════════════════════════════════════════════
 var state = {
   cart:        [],
   sugar:       'with',
   gps:         { coords: null, loading: false, error: null },
   form:        { name: '', phone: '', loc: '' },
   payment:     { done: false, id: '', timestamp: null },
-  orderLocked: false
+  orderLocked: false,
+  sessionStart: Date.now()   // tracks when cart was first touched
 };
 
+// ── Helpers ──────────────────────────────────────────
 function sanitize(str) {
   if (typeof str !== 'string') return '';
   return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
             .replace(/"/g,'&quot;').replace(/'/g,'&#x27;').trim().slice(0,200);
 }
-function sanitizePhone(p) { return p.replace(/[^0-9]/g,'').slice(0,10); }
+function sanitizePhone(p) { return String(p || '').replace(/[^0-9]/g,'').slice(0,10); }
 
 function validateForm() {
   var errors = [];
@@ -729,34 +701,105 @@ function validateForm() {
   return errors;
 }
 
-// ── Preload Razorpay ──
-function preloadRazorpay() {
-  if (typeof Razorpay !== 'undefined') return;
-  if (document.querySelector('script[src*="razorpay"]')) return;
-  var s = document.createElement('script');
-  s.src = 'https://checkout.razorpay.com/v1/checkout.js';
-  document.head.appendChild(s);
-}
-preloadRazorpay();
+// ═══════════════════════════════════════════════════════
+// ★ FEATURE 2 — localStorage session (1-hour TTL)
+// ═══════════════════════════════════════════════════════
+var _sessionRestored = false;   // flag: was data loaded from storage?
 
-// ══════════════════════════════════════════
+function saveSession() {
+  // Only save if cart has items OR form has data
+  var hasData = state.cart.length > 0 ||
+                state.form.name || state.form.phone || state.form.loc;
+  if (!hasData) { clearSession(); return; }
+
+  try {
+    var snap = {
+      cart:         state.cart,
+      sugar:        state.sugar,
+      form:         state.form,
+      payment:      state.payment,
+      gps:          { coords: state.gps.coords },   // don't save loading/error
+      sessionStart: state.sessionStart,
+      savedAt:      Date.now()
+    };
+    localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify(snap));
+  } catch(e) { /* storage full or private mode — silently ignore */ }
+}
+
+function loadSession() {
+  try {
+    var raw = localStorage.getItem(CONFIG.STORAGE_KEY);
+    if (!raw) return false;
+    var snap = JSON.parse(raw);
+    if (!snap || !snap.savedAt) return false;
+
+    // Expire after TTL
+    if (Date.now() - snap.savedAt > CONFIG.SESSION_TTL) {
+      clearSession();
+      return false;
+    }
+
+    // Restore
+    state.cart         = Array.isArray(snap.cart) ? snap.cart : [];
+    state.sugar        = snap.sugar === 'without' ? 'without' : 'with';
+    state.form         = snap.form  || { name:'', phone:'', loc:'' };
+    state.payment      = snap.payment || { done:false, id:'', timestamp:null };
+    state.sessionStart = snap.sessionStart || Date.now();
+    if (snap.gps && snap.gps.coords) {
+      state.gps.coords = snap.gps.coords;
+    }
+
+    return state.cart.length > 0;   // return true only if cart had items
+  } catch(e) {
+    clearSession();
+    return false;
+  }
+}
+
+function clearSession() {
+  try { localStorage.removeItem(CONFIG.STORAGE_KEY); } catch(e) {}
+  state.cart         = [];
+  state.sugar        = 'with';
+  state.form         = { name:'', phone:'', loc:'' };
+  state.payment      = { done:false, id:'', timestamp:null };
+  state.gps          = { coords:null, loading:false, error:null };
+  state.orderLocked  = false;
+  state.sessionStart = Date.now();
+  _sessionRestored   = false;
+  renderOrder();
+  updateCartCount();
+  document.getElementById('mobileCartFloat').style.display = 'none';
+  showToast('🗑️ Cart cleared');
+}
+
+// Save on every change (throttled to avoid thrash)
+var _saveTimer = null;
+function debouncedSave() {
+  clearTimeout(_saveTimer);
+  _saveTimer = setTimeout(saveSession, 400);
+}
+
+// ═══════════════════════════════════════════════════════
 // CART
-// ══════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
 function addToCart(btn, name, price, emoji, imgUrl) {
   var safeName  = sanitize(name);
-  var safePrice = Math.max(0, Math.min(9999, parseInt(price, 10) || 0));
+  var safePrice = Math.max(0, Math.min(9999, parseInt(price,10) || 0));
   var existing  = state.cart.find(function(i){ return i.name === safeName; });
   if (existing) { existing.qty = Math.min(existing.qty + 1, 20); }
-  else { state.cart.push({ name: safeName, price: safePrice, emoji: emoji, imgUrl: imgUrl, qty: 1 }); }
+  else { state.cart.push({ name:safeName, price:safePrice, emoji:emoji, imgUrl:imgUrl, qty:1 }); }
+
+  if (!state.sessionStart) state.sessionStart = Date.now();
 
   btn.textContent = '✓';
   btn.classList.add('added');
   setTimeout(function(){ btn.textContent = '+'; btn.classList.remove('added'); }, 700);
 
-  state.payment = { done: false, id: '', timestamp: null };
-  state.orderLocked = false;
+  state.payment      = { done:false, id:'', timestamp:null };
+  state.orderLocked  = false;
   renderOrder();
   updateCartCount();
+  debouncedSave();
   showToast('Added to order!');
   if (window.innerWidth <= 1024) document.getElementById('mobileCartFloat').style.display = 'block';
 }
@@ -766,20 +809,29 @@ function changeQty(encodedName, delta) {
   var item = state.cart.find(function(i){ return i.name === name; });
   if (!item) return;
   item.qty += delta;
-  if (item.qty <= 0) { state.cart = state.cart.filter(function(i){ return i.name !== name; }); showToast('Item removed'); }
-  state.payment = { done: false, id: '', timestamp: null };
+  if (item.qty <= 0) {
+    state.cart = state.cart.filter(function(i){ return i.name !== name; });
+    showToast('Item removed');
+  }
+  state.payment = { done:false, id:'', timestamp:null };
   state.orderLocked = false;
-  renderOrder(); updateCartCount();
-  if (state.cart.length === 0) document.getElementById('mobileCartFloat').style.display = 'none';
+  renderOrder(); updateCartCount(); debouncedSave();
+  if (state.cart.length === 0) {
+    document.getElementById('mobileCartFloat').style.display = 'none';
+    clearSession();
+  }
 }
 
 function removeItem(encodedName) {
   var name = decodeURIComponent(encodedName);
   state.cart = state.cart.filter(function(i){ return i.name !== name; });
-  state.payment = { done: false, id: '', timestamp: null };
+  state.payment = { done:false, id:'', timestamp:null };
   state.orderLocked = false;
-  renderOrder(); updateCartCount();
-  if (state.cart.length === 0) document.getElementById('mobileCartFloat').style.display = 'none';
+  renderOrder(); updateCartCount(); debouncedSave();
+  if (state.cart.length === 0) {
+    document.getElementById('mobileCartFloat').style.display = 'none';
+    clearSession();
+  }
 }
 
 function getTotal() { return state.cart.reduce(function(s,i){ return s + i.price * i.qty; }, 0); }
@@ -790,9 +842,9 @@ function updateCartCount() {
   document.getElementById('fabCount').textContent  = total;
 }
 
-// ══════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
 // RENDER ORDER
-// ══════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
 function renderOrder() {
   var sb  = document.getElementById('sidebarBody');
   var shb = document.getElementById('sheetBody');
@@ -801,13 +853,27 @@ function renderOrder() {
 }
 
 function buildOrderHTML(cid) {
-  // Cart
+  // ── Session restore banner ──
+  var sessionBannerHTML = '';
+  if (_sessionRestored) {
+    var minutesLeft = Math.max(0, Math.round((CONFIG.SESSION_TTL - (Date.now() - state.sessionStart)) / 60000));
+    sessionBannerHTML = '<div class="session-banner show">' +
+      '<div class="session-banner-icon">🔄</div>' +
+      '<div class="session-banner-text">' +
+        '<strong>Welcome back! Your cart is restored</strong>' +
+        '<span>Items saved · expires in ~' + minutesLeft + ' min</span>' +
+      '</div>' +
+      '<button class="session-clear" onclick="clearSession()">Clear</button>' +
+    '</div>';
+  }
+
+  // ── Cart items ──
   var cartHTML;
   if (state.cart.length === 0) {
     cartHTML = '<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>Add items from the menu!</p></div>';
   } else {
     var items = state.cart.map(function(i) {
-      var enc = encodeURIComponent(i.name);
+      var enc   = encodeURIComponent(i.name);
       var thumb = i.imgUrl
         ? '<img src="' + i.imgUrl + '" alt="' + sanitize(i.name) + '" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:8px">'
         : '<span style="font-size:1.3rem">' + i.emoji + '</span>';
@@ -828,22 +894,22 @@ function buildOrderHTML(cid) {
     cartHTML = '<div class="cart-items">' + items + '</div>';
   }
 
-  // Sugar
+  // ── Sugar ──
   var sugarHTML = '<div class="pref-label">🍬 Sugar Preference</div>' +
     '<div class="sugar-row">' +
       '<button class="sugar-opt ' + (state.sugar==='with'?'act':'') + '" onclick="setSugar(\'with\')"><span>🍭</span>With Sugar</button>' +
       '<button class="sugar-opt ' + (state.sugar==='without'?'act':'') + '" onclick="setSugar(\'without\')"><span>🚫</span>No Sugar</button>' +
     '</div>';
 
-  // Form
+  // ── Form ──
   var formHTML = '<div class="field"><label>👤 Your Name *</label>' +
-    '<input class="inp" id="' + cid + '_name" placeholder="Enter your name…" maxlength="50" value="' + sanitize(state.form.name) + '" oninput="state.form.name=this.value.slice(0,50)" autocomplete="name"></div>' +
+    '<input class="inp" id="' + cid + '_name" placeholder="Enter your name…" maxlength="50" value="' + sanitize(state.form.name) + '" oninput="state.form.name=this.value.slice(0,50);debouncedSave()" autocomplete="name"></div>' +
     '<div class="field"><label>📞 Phone Number</label><div class="phone-wrap">' +
     '<div class="phone-code">🇮🇳 +91</div>' +
-    '<input class="inp" id="' + cid + '_phone" type="tel" placeholder="10-digit mobile" maxlength="10" value="' + sanitize(state.form.phone) + '" oninput="state.form.phone=this.value.replace(/[^0-9]/g,\'\').slice(0,10);this.value=state.form.phone" autocomplete="tel-national" inputmode="numeric" style="flex:1">' +
+    '<input class="inp" id="' + cid + '_phone" type="tel" placeholder="10-digit mobile" maxlength="10" value="' + sanitize(state.form.phone) + '" oninput="state.form.phone=this.value.replace(/[^0-9]/g,\'\').slice(0,10);this.value=state.form.phone;debouncedSave()" autocomplete="tel-national" inputmode="numeric" style="flex:1">' +
     '</div></div>';
 
-  // Delivery + FIX 3 MAP
+  // ── Delivery + GPS Map ──
   var gpsOk   = !!state.gps.coords;
   var gpsLoad = state.gps.loading;
   var gpsErr  = !!state.gps.error;
@@ -854,11 +920,14 @@ function buildOrderHTML(cid) {
   } else {
     mapHTML = '<div class="gps-map-wrap"></div>';
   }
-  var gpsStatusClass = (gpsOk || gpsErr || gpsLoad) ? ('gps-status show ' + (gpsOk ? 'ok' : 'err')) : 'gps-status';
+  var gpsStatusClass = (gpsOk || gpsErr || gpsLoad)
+    ? ('gps-status show ' + (gpsOk ? 'ok' : 'err'))
+    : 'gps-status';
+
   var deliveryHTML = '<div class="delivery-box">' +
     '<div class="pref-label" style="color:var(--pink)">🚚 Delivery Address</div>' +
     '<div class="delivery-row">' +
-      '<textarea class="delivery-inp" id="' + cid + '_loc" rows="2" placeholder="Enter full delivery address…" maxlength="300" oninput="state.form.loc=this.value.slice(0,300)">' + sanitize(state.form.loc) + '</textarea>' +
+      '<textarea class="delivery-inp" id="' + cid + '_loc" rows="2" placeholder="Enter full delivery address…" maxlength="300" oninput="state.form.loc=this.value.slice(0,300);debouncedSave()">' + sanitize(state.form.loc) + '</textarea>' +
       '<button class="gps-btn" onclick="getGPS(\'' + cid + '\')" ' + (gpsLoad ? 'disabled' : '') + '>' +
         '<span style="font-size:1.1rem">' + (gpsLoad ? '⏳' : '📡') + '</span>' +
         '<span>' + (gpsLoad ? 'Wait…' : 'GPS') + '</span>' +
@@ -868,38 +937,47 @@ function buildOrderHTML(cid) {
     mapHTML +
   '</div>';
 
-  var total = getTotal();
-  var errId = cid + '_err';
+  var total  = getTotal();
+  var errId  = cid + '_err';
 
-  // Payment success banner
+  // ── Payment success banner ──
   var successHTML = state.payment.done
     ? '<div class="payment-success show"><div class="payment-success-inner">' +
         '<div class="payment-success-icon">✅</div>' +
         '<div class="payment-success-text"><strong>Payment Successful!</strong>' +
-        '<span>Order sent to WhatsApp automatically ✓</span>' +
+        '<span>WhatsApp opened automatically — user just tapped Send ✓</span>' +
         '<div class="payment-id">ID: ' + sanitize(state.payment.id) + '</div>' +
         '</div></div></div>'
     : '';
 
-  // Action button — FIX 2: after payment show resend button, auto-send already happened
+  // ── WA sending animation slot ──
+  var waSendingHTML = '<div class="wa-sending" id="' + cid + '_wasending">' +
+    '<div class="wa-sending-spinner"></div>' +
+    '<strong>Opening WhatsApp with your order…</strong>' +
+    '<span>Message is pre-filled — just tap Send!</span>' +
+  '</div>';
+
+  // ── Action buttons ──
   var actionBtn;
   if (state.payment.done) {
     actionBtn = '<div class="wa-auto-notice">' +
-        '<strong>📲 WhatsApp group opened!</strong>' +
-        '<span>Your order message was copied. Just paste &amp; send in the group.</span>' +
+        '<strong>📲 WhatsApp opened with your order!</strong>' +
+        '<span>Message is pre-filled — just tap Send ✅</span>' +
       '</div>' +
+      waSendingHTML +
       '<button class="wa-btn" onclick="sendWhatsAppGroup(\'' + cid + '\')">' +
         '<div class="wa-icon"><svg viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>' +
         '📲 Resend to WhatsApp' +
       '</button>';
   } else {
-    actionBtn = '<button class="pay-now-btn" onclick="startRazorpay(\'' + cid + '\')" ' + (state.cart.length === 0 ? 'disabled' : '') + ' id="' + cid + '_paybtn">' +
-      '<span class="pay-loader" id="' + cid + '_loader"></span>' +
-      '<span id="' + cid + '_paytxt">💳 Pay Now — ₹' + total + '</span>' +
-    '</button>';
+    actionBtn = waSendingHTML +
+      '<button class="pay-now-btn" onclick="startRazorpay(\'' + cid + '\')" ' + (state.cart.length === 0 ? 'disabled' : '') + ' id="' + cid + '_paybtn">' +
+        '<span class="pay-loader" id="' + cid + '_loader"></span>' +
+        '<span id="' + cid + '_paytxt">💳 Pay Now — ₹' + total + '</span>' +
+      '</button>';
   }
 
-  return cartHTML + sugarHTML + formHTML + deliveryHTML +
+  return sessionBannerHTML + cartHTML + sugarHTML + formHTML + deliveryHTML +
     '<div class="err-msg" id="' + errId + '"></div>' +
     successHTML +
     '<div class="order-total-row"><span class="total-label">Total Amount</span><span class="total-amount">₹' + total + '</span></div>' +
@@ -907,9 +985,9 @@ function buildOrderHTML(cid) {
     '<div class="sec-badge">🔒 Secured by Razorpay</div>';
 }
 
-// ══════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
 // GPS
-// ══════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
 function getGpsStatusText() {
   if (state.gps.loading) return '⏳ Getting your location…';
   if (state.gps.error)   return '❌ ' + sanitize(state.gps.error);
@@ -919,7 +997,7 @@ function getGpsStatusText() {
 
 function getGPS(cid) {
   if (!navigator.geolocation) { state.gps.error = 'GPS not supported.'; renderOrder(); return; }
-  state.gps = { coords: null, loading: true, error: null };
+  state.gps = { coords:null, loading:true, error:null };
   renderOrder();
   var timer = setTimeout(function() {
     state.gps.loading = false; state.gps.error = 'Timed out. Please type your address.'; renderOrder();
@@ -928,9 +1006,9 @@ function getGPS(cid) {
     function(pos) {
       clearTimeout(timer);
       state.gps.loading = false;
-      state.gps.coords = { lat: pos.coords.latitude.toFixed(6), lng: pos.coords.longitude.toFixed(6) };
-      state.form.loc = 'GPS: ' + state.gps.coords.lat + ', ' + state.gps.coords.lng;
-      renderOrder();
+      state.gps.coords  = { lat: pos.coords.latitude.toFixed(6), lng: pos.coords.longitude.toFixed(6) };
+      state.form.loc    = 'GPS: ' + state.gps.coords.lat + ', ' + state.gps.coords.lng;
+      renderOrder(); debouncedSave();
     },
     function(err) {
       clearTimeout(timer);
@@ -939,13 +1017,13 @@ function getGPS(cid) {
       state.gps.error = msgs[err.code] || 'Could not get location.';
       renderOrder();
     },
-    { enableHighAccuracy: true, timeout: 12000, maximumAge: 60000 }
+    { enableHighAccuracy:true, timeout:12000, maximumAge:60000 }
   );
 }
 
-// ══════════════════════════════════════════
-// RAZORPAY — AUTO WhatsApp after payment (FIX 2)
-// ══════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
+// RAZORPAY  — auto-sends to WhatsApp group after payment
+// ═══════════════════════════════════════════════════════
 function startRazorpay(cid) {
   syncFormFromDOM(cid);
   var errors = validateForm();
@@ -976,28 +1054,32 @@ function startRazorpay(cid) {
     name:        CONFIG.SHOP_NAME,
     description: buildOrderDesc(),
     image:       CONFIG.SHOP_IMG,
-    prefill:     { name: name, contact: phone ? '+91' + phone : '' },
+    prefill:     { name:name, contact: phone ? '+91' + phone : '' },
     notes: {
       delivery_address: sanitize(state.form.loc) || 'Not specified',
       sugar_preference: state.sugar === 'with' ? 'With Sugar' : 'Without Sugar'
     },
-    theme:  { color: '#1a6b2f' },
-    method: { upi: true, card: true, netbanking: true, wallet: true },
+    theme:  { color:'#1a6b2f' },
+    method: { upi:true, card:true, netbanking:true, wallet:true },
 
-    // ── PAYMENT SUCCESS: auto-send WhatsApp immediately ──
+    // ★ FEATURE 1: AUTO WhatsApp after payment — no user tap needed
     handler: function(response) {
       state.payment = {
         done:      true,
         id:        response.razorpay_payment_id,
-        timestamp: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
+        timestamp: new Date().toLocaleString('en-IN', { timeZone:'Asia/Kolkata' })
       };
       state.orderLocked = false;
       setPayBtnLoading(cid, false);
-      renderOrder();
-      showToast('✅ Payment done! Opening WhatsApp group…');
+      saveSession();      // persist payment state
 
-      // Auto send — copies message to clipboard and opens group
-      sendWhatsAppGroup(cid);
+      // Show sending animation immediately
+      showWaSending(cid, true);
+      renderOrder();
+      showToast('✅ Payment done! Opening WhatsApp…');
+
+      // Auto-send: copy msg + open group
+      autoSendWhatsApp(cid);
     },
 
     modal: {
@@ -1007,7 +1089,7 @@ function startRazorpay(cid) {
         renderOrder();
         showToast('Payment cancelled');
       },
-      escape: true, animation: true
+      escape:true, animation:true
     }
   };
 
@@ -1028,48 +1110,52 @@ function startRazorpay(cid) {
   }
 }
 
-function setPayBtnLoading(cid, loading) {
-  var btn    = document.getElementById(cid + '_paybtn');
-  var loader = document.getElementById(cid + '_loader');
-  var txt    = document.getElementById(cid + '_paytxt');
-  if (btn)    btn.disabled = loading;
-  if (loader) loader.style.display = loading ? 'block' : 'none';
-  if (txt)    txt.textContent = loading ? 'Processing…' : '💳 Pay Now — ₹' + getTotal();
+// ── Show/hide WA sending spinner ──────────────────────
+function showWaSending(cid, show) {
+  ['desk','mob'].forEach(function(id) {
+    var el = document.getElementById(id + '_wasending');
+    if (el) el.style.display = show ? 'block' : 'none';
+  });
 }
 
-function buildOrderDesc() {
-  return CONFIG.SHOP_NAME + ': ' + state.cart.map(function(i){ return i.name + 'x' + i.qty; }).join(', ').slice(0, 255);
+// ═══════════════════════════════════════════════════════
+// ★ FEATURE 1: AUTO-SEND — message pre-filled, user only taps Send
+// Uses wa.me/?text= which pre-populates the WhatsApp chat input.
+// User opens WhatsApp → message is already typed → just tap Send.
+// ═══════════════════════════════════════════════════════
+function autoSendWhatsApp(cid) {
+  setTimeout(function() {
+    var msg    = buildWhatsAppMsg();
+    var waUrl  = 'https://wa.me/' + CONFIG.WA_NUMBER + '?text=' + encodeURIComponent(msg);
+    window.open(waUrl, '_blank', 'noopener,noreferrer');
+    showWaSending(cid, false);
+    showToast('📲 WhatsApp opened — just tap Send!');
+    renderOrder();
+  }, 600);
 }
 
-// ══════════════════════════════════════════
-// FIX 2: WhatsApp Group — auto-send flow
-// WhatsApp group invite links don't support ?text= param,
-// so we: 1) copy order message to clipboard, 2) open group link.
-// User just long-presses the message box → Paste → Send.
-// ══════════════════════════════════════════
+// ── Manual resend (for "Resend" button) ──────────────
 function sendWhatsAppGroup(cid) {
   syncFormFromDOM(cid);
-  var msg = buildWhatsAppMsg();
-
-  // Copy to clipboard
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(msg).then(function() {
-      showToast('📋 Order copied! Paste in WhatsApp group.');
-    }).catch(function() { legacyCopy(msg); });
-  } else {
-    legacyCopy(msg);
-  }
-
-  // Open WhatsApp group link after tiny delay
+  showWaSending(cid, true);
   setTimeout(function() {
-    window.open(CONFIG.WA_GROUP_LINK, '_blank', 'noopener,noreferrer');
-  }, 350);
+    var msg   = buildWhatsAppMsg();
+    var waUrl = 'https://wa.me/' + CONFIG.WA_NUMBER + '?text=' + encodeURIComponent(msg);
+    window.open(waUrl, '_blank', 'noopener,noreferrer');
+    showWaSending(cid, false);
+    showToast('📲 WhatsApp opened — just tap Send!');
+  }, 400);
 }
 
+// ── Build WhatsApp message ────────────────────────────
 function buildWhatsAppMsg() {
   var sugarTxt  = state.sugar === 'with' ? 'With Sugar 🍭' : 'Without Sugar 🚫';
-  var itemsText = state.cart.map(function(i){ return '  • ' + i.emoji + ' ' + i.name + ' × ' + i.qty + ' = ₹' + (i.price * i.qty); }).join('\n');
-  var gpsLine   = state.gps.coords ? '\n🗺️ GPS: https://maps.google.com/?q=' + state.gps.coords.lat + ',' + state.gps.coords.lng : '';
+  var itemsText = state.cart.map(function(i){
+    return '  • ' + i.emoji + ' ' + i.name + ' × ' + i.qty + ' = ₹' + (i.price * i.qty);
+  }).join('\n');
+  var gpsLine   = state.gps.coords
+    ? '\n🗺️ GPS: https://maps.google.com/?q=' + state.gps.coords.lat + ',' + state.gps.coords.lng
+    : '';
   var phoneLine = state.form.phone ? '📞 Phone: +91 ' + sanitize(state.form.phone) + '\n' : '';
   var payLine   = state.payment.done
     ? '\n💳 *PAID ONLINE ✅*\n🔖 Payment ID: ' + sanitize(state.payment.id) + '\n⏱️ ' + sanitize(state.payment.timestamp)
@@ -1088,19 +1174,32 @@ function buildWhatsAppMsg() {
          '✅ Please confirm & deliver. Thank you! 🙏';
 }
 
-// ══════════════════════════════════════════
+function buildOrderDesc() {
+  return CONFIG.SHOP_NAME + ': ' + state.cart.map(function(i){ return i.name + 'x' + i.qty; }).join(', ').slice(0,255);
+}
+
+// ═══════════════════════════════════════════════════════
 // HELPERS
-// ══════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
+function setPayBtnLoading(cid, loading) {
+  var btn    = document.getElementById(cid + '_paybtn');
+  var loader = document.getElementById(cid + '_loader');
+  var txt    = document.getElementById(cid + '_paytxt');
+  if (btn)    btn.disabled = loading;
+  if (loader) loader.style.display = loading ? 'block' : 'none';
+  if (txt)    txt.textContent = loading ? 'Processing…' : '💳 Pay Now — ₹' + getTotal();
+}
+
 function syncFormFromDOM(cid) {
   var n = document.getElementById(cid + '_name');
   var p = document.getElementById(cid + '_phone');
   var l = document.getElementById(cid + '_loc');
-  if (n) state.form.name  = n.value.trim().slice(0, 50);
+  if (n) state.form.name  = n.value.trim().slice(0,50);
   if (p) state.form.phone = sanitizePhone(p.value);
-  if (l) state.form.loc   = l.value.trim().slice(0, 300);
+  if (l) state.form.loc   = l.value.trim().slice(0,300);
 }
 
-function setSugar(v) { state.sugar = v; renderOrder(); }
+function setSugar(v) { state.sugar = v; debouncedSave(); renderOrder(); }
 
 function showErr(cid, msg) {
   var el = document.getElementById(cid + '_err');
@@ -1125,14 +1224,22 @@ function legacyCopy(text) {
   t.style.cssText = 'position:fixed;top:-9999px;left:-9999px';
   document.body.appendChild(t);
   t.select();
-  try { document.execCommand('copy'); showToast('📋 Order copied! Paste in group.'); }
-  catch(e) {}
+  try { document.execCommand('copy'); } catch(e) {}
   document.body.removeChild(t);
 }
 
-// ══════════════════════════════════════════
+function preloadRazorpay() {
+  if (typeof Razorpay !== 'undefined') return;
+  if (document.querySelector('script[src*="razorpay"]')) return;
+  var s = document.createElement('script');
+  s.src = 'https://checkout.razorpay.com/v1/checkout.js';
+  document.head.appendChild(s);
+}
+preloadRazorpay();
+
+// ═══════════════════════════════════════════════════════
 // UI CONTROLS
-// ══════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
 function toggleSheet() {
   var sheet   = document.getElementById('orderSheet');
   var overlay = document.getElementById('sheetOverlay');
@@ -1162,11 +1269,11 @@ function filterTab(btn, cat) {
 function copyAddr() {
   var addr = 'CocoNex Juice Shop, No. 17A, Main Road Viraganur, Madurai, Tamil Nadu';
   if (navigator.clipboard) {
-    navigator.clipboard.writeText(addr).then(function(){ showToast('📋 Address copied!'); }).catch(function(){ legacyCopy(addr); });
-  } else { legacyCopy(addr); }
+    navigator.clipboard.writeText(addr).then(function(){ showToast('📋 Address copied!'); }).catch(function(){ legacyCopy(addr); showToast('📋 Address copied!'); });
+  } else { legacyCopy(addr); showToast('📋 Address copied!'); }
 }
 
-// ── Scroll reveal ──
+// ── Scroll reveal ──────────────────────────────────────
 (function() {
   if (!window.IntersectionObserver) {
     document.querySelectorAll('.product-card').forEach(function(c){ c.classList.add('visible'); });
@@ -1181,11 +1288,11 @@ function copyAddr() {
       setTimeout(function(){ card.classList.add('visible'); }, idx * 55);
       obs.unobserve(card);
     });
-  }, { threshold: 0.08 });
+  }, { threshold:0.08 });
   document.querySelectorAll('.product-card').forEach(function(c){ obs.observe(c); });
 })();
 
-// ── Keyboard ──
+// ── Keyboard ──────────────────────────────────────────
 document.addEventListener('keydown', function(e) {
   if (e.key !== 'Escape') return;
   var drawer = document.getElementById('mobileDrawer');
@@ -1194,7 +1301,21 @@ document.addEventListener('keydown', function(e) {
   else if (sheet.classList.contains('open')) toggleSheet();
 });
 
-renderOrder();
+// ═══════════════════════════════════════════════════════
+// ★ BOOT — restore session on page load
+// ═══════════════════════════════════════════════════════
+(function init() {
+  var hadCart = loadSession();
+  if (hadCart) {
+    _sessionRestored = true;
+    updateCartCount();
+    if (window.innerWidth <= 1024) {
+      document.getElementById('mobileCartFloat').style.display = 'block';
+    }
+    showToast('🛒 Your previous cart restored!');
+  }
+  renderOrder();
+})();
 </script>
 </body>
 </html>
