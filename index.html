@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#1a6b2f">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: blob:; script-src 'self' 'unsafe-inline' https://checkout.razorpay.com https://fonts.googleapis.com https://api.razorpay.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; img-src * data: blob:; connect-src https:; frame-src https://maps.google.com https://api.razorpay.com">
-<title>CocoNex – Fresh Juice & Rose Milk</title>
+<title>CocoNex – Fresh Juice &amp; Rose Milk</title>
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <style>
@@ -26,7 +26,6 @@ a{text-decoration:none;color:inherit}
 button{cursor:pointer;font-family:inherit;-webkit-tap-highlight-color:transparent}
 img{display:block;max-width:100%;object-fit:cover}
 textarea,input{font-family:inherit}
-select{font-family:inherit}
 
 /* ── NAVBAR ── */
 .nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav-h);background:rgba(13,59,26,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center}
@@ -61,7 +60,6 @@ select{font-family:inherit}
 
 /* HERO */
 .hero{margin-top:var(--nav-h);background:linear-gradient(135deg,#0d3b1a 0%,#1a6b2f 55%,#25903f 100%);position:relative;overflow:hidden}
-/* .hero-bg-pattern{position:absolute;inset:0;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23fff' fill-opacity='1'%3E%3Cpath d='M40 10 C30 10 20 20 20 30 C20 45 35 55 40 70 C45 55 60 45 60 30 C60 20 50 10 40 10Z'/%3E%3C/g%3E%3C/svg%3E");background-size:80px 80px} */
 .hero-inner{max-width:1280px;margin:0 auto;padding:70px 24px 90px;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:50px;position:relative;z-index:2}
 .hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(245,168,0,.15);border:1px solid rgba(245,168,0,.3);color:var(--gold2);font-size:.75rem;font-weight:700;padding:5px 13px;border-radius:99px;margin-bottom:18px;letter-spacing:.5px;animation:fadeSlideDown .6s ease both}
 .hero-h1{font-family:'Pacifico',cursive;font-size:clamp(2.2rem,3.8vw,3.5rem);color:#fff;line-height:1.15;margin-bottom:14px;animation:fadeSlideUp .6s .1s ease both}
@@ -70,7 +68,7 @@ select{font-family:inherit}
 .hero-btns{display:flex;gap:10px;flex-wrap:wrap;animation:fadeSlideUp .6s .3s ease both}
 @keyframes fadeSlideDown{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeSlideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.btn-primary{padding:13px 26px;background:var(--gold);color:var(--gd);font-weight:800;font-size:.92rem;border-radius:99px;border:none;box-shadow:0 6px 20px rgba(245,168,0,.38);transition:all .2s;-webkit-tap-highlight-color:transparent}
+.btn-primary{padding:13px 26px;background:var(--gold);color:var(--gd);font-weight:800;font-size:.92rem;border-radius:99px;border:none;box-shadow:0 6px 20px rgba(245,168,0,.38);transition:all .2s}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(245,168,0,.48)}
 .btn-primary:active{transform:scale(.95)}
 .btn-outline{padding:13px 26px;background:transparent;color:#fff;font-weight:700;font-size:.92rem;border-radius:99px;border:2px solid rgba(255,255,255,.32);transition:all .2s}
@@ -121,29 +119,50 @@ select{font-family:inherit}
 
 /* FILTER TABS */
 .filter-tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:22px}
-.tab{padding:8px 18px;border-radius:99px;font-size:.8rem;font-weight:700;border:2px solid var(--border);background:var(--white);color:var(--muted);transition:all .2s;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.tab{padding:8px 18px;border-radius:99px;font-size:.8rem;font-weight:700;border:2px solid var(--border);background:var(--white);color:var(--muted);transition:all .2s;cursor:pointer}
 .tab.active,.tab:hover{background:var(--g);border-color:var(--g);color:#fff}
 .tab:active{transform:scale(.95)}
 
-/* PRODUCT GRID */
+/* ══════════════════════════════════════
+   FIX 1: RESPONSIVE PRODUCT IMAGES
+   Uses padding-top ratio trick so images
+   scale perfectly on all screen sizes
+══════════════════════════════════════ */
 .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:18px}
 .product-card{background:var(--white);border-radius:20px;box-shadow:var(--sh);overflow:hidden;transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s;border:1.5px solid transparent;opacity:0;transform:translateY(24px)}
 .product-card.visible{animation:cardReveal .5s ease forwards}
 @keyframes cardReveal{to{opacity:1;transform:translateY(0)}}
 .product-card:hover{transform:translateY(-6px) scale(1.015);box-shadow:var(--sh2),0 0 0 2px rgba(26,107,47,.1);border-color:var(--border)}
-.product-img-wrap{height:155px;position:relative;overflow:hidden}
 
-.product-img-fallback{display:flex;align-items:center;justify-content:center;height:100%;font-size:3.5rem;background:var(--bg2);}
-
-.product-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
-.product-card:hover 
-.product-img-fallback{display:flex;align-items:center;justify-content:center;height:100%;font-size:3.5rem;background:var(--bg2);}
-
-.product-img-wrap img{transform:scale(1.08)}
-.product-img-fallback{display:flex;align-items:center;justify-content:center;height:100%;font-size:4rem}
+.product-img-wrap{
+  position:relative;
+  width:100%;
+  padding-top:62%;   /* controls aspect ratio — change % to adjust height */
+  overflow:hidden;
+  background:var(--bg2);
+}
+.product-img-wrap img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .4s ease;
+}
+.product-card:hover .product-img-wrap img{transform:scale(1.08)}
+.product-img-fallback{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:3.5rem;
+  background:var(--bg2);
+}
 .product-badge{position:absolute;top:10px;left:10px;background:var(--gold);color:var(--gd);font-size:.62rem;font-weight:800;padding:3px 9px;border-radius:99px;letter-spacing:.5px;z-index:2}
 .product-badge.new{background:var(--pink);color:#fff}
 .product-badge.seasonal{background:#ff7043;color:#fff}
+
 .product-body{padding:13px}
 .product-name{font-weight:800;font-size:.9rem;margin-bottom:3px}
 .product-desc{font-size:.7rem;color:var(--muted);line-height:1.5;margin-bottom:9px}
@@ -173,9 +192,8 @@ select{font-family:inherit}
 .cart-items::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 .cart-item{display:flex;align-items:center;gap:9px;padding:9px 11px;background:var(--bg);border-radius:11px;border:1px solid var(--border);animation:slideIn .25s ease}
 @keyframes slideIn{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:translateX(0)}}
-.cart-item-thumb{width:36px;height:36px;border-radius:8px;overflow:hidden;flex-shrink:0;background:var(--bg2)}
+.cart-item-thumb{width:36px;height:36px;border-radius:8px;overflow:hidden;flex-shrink:0;background:var(--bg2);display:flex;align-items:center;justify-content:center}
 .cart-item-thumb img{width:100%;height:100%;object-fit:cover}
-.cart-item-thumb-em{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;background:var(--bg2);flex-shrink:0}
 .cart-item-info{flex:1;min-width:0}
 .cart-item-name{font-size:.78rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cart-item-sub{font-size:.67rem;color:var(--muted);font-weight:500}
@@ -217,8 +235,27 @@ select{font-family:inherit}
 .gps-status.show{display:block}
 .gps-status.ok{background:#e8f5e9;color:#2e7d32}
 .gps-status.err{background:#ffeaea;color:#c62828}
-.gps-map-wrap{margin-top:7px;border-radius:9px;overflow:hidden;height:0;transition:height .35s}
-.gps-map-wrap.show{height:130px}
+
+/* ══════════════════════════════════════
+   FIX 3: MAP ALWAYS VISIBLE WHEN GPS OK
+══════════════════════════════════════ */
+.gps-map-wrap{
+  display:none;          /* hidden by default */
+  margin-top:10px;
+  border-radius:10px;
+  overflow:hidden;
+  height:155px;
+  border:2px solid rgba(233,30,140,.2);
+}
+.gps-map-wrap.show{
+  display:block;         /* shown when GPS captured */
+}
+.gps-map-wrap iframe{
+  width:100%;
+  height:100%;
+  border:none;
+  display:block;
+}
 
 /* TOTAL & BUTTONS */
 .order-total-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-top:2px dashed var(--border);margin-bottom:12px}
@@ -246,9 +283,12 @@ select{font-family:inherit}
 .payment-success-text span{font-size:.7rem;color:#388e3c;font-weight:600}
 .payment-id{font-size:.62rem;color:#43a047;font-weight:700;margin-top:2px;word-break:break-all}
 .err-msg{background:#ffeaea;color:#c62828;font-size:.73rem;font-weight:700;padding:8px 11px;border-radius:9px;margin-bottom:9px;border:1px solid #ffcdd2;display:none}
-
-/* SECURITY BADGE */
 .sec-badge{display:flex;align-items:center;justify-content:center;gap:6px;color:var(--muted);font-size:.67rem;font-weight:700;opacity:.7;padding-bottom:4px}
+
+/* AUTO-SENT NOTICE */
+.wa-auto-notice{background:#e3f2fd;border:1.5px solid #90caf9;border-radius:11px;padding:11px 13px;margin-bottom:9px;text-align:center}
+.wa-auto-notice strong{display:block;font-size:.8rem;font-weight:800;color:#1565c0;margin-bottom:2px}
+.wa-auto-notice span{font-size:.7rem;color:#1976d2;font-weight:600}
 
 /* FEATURES */
 .features{background:var(--gd);padding:44px 20px;position:relative;overflow:hidden}
@@ -289,7 +329,9 @@ footer a{color:var(--gold);font-weight:700}
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--gd);color:#fff;padding:10px 20px;border-radius:99px;font-size:.8rem;font-weight:700;box-shadow:0 6px 20px rgba(0,0,0,.18);opacity:0;transition:all .3s;z-index:500;white-space:nowrap;pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-/* RESPONSIVE */
+/* ══════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════ */
 @media(max-width:1024px){
   .shop-layout{grid-template-columns:1fr}
   .order-sidebar{display:none}
@@ -313,11 +355,14 @@ footer a{color:var(--gold);font-weight:700}
 }
 @media(max-width:480px){
   .features-inner{grid-template-columns:1fr 1fr}
-  .products-grid{grid-template-columns:repeat(2,1fr);gap:12px}
-  .product-img-wrap{height:125px}
+  /* 2-col grid on mobile — images auto-resize via padding-top ratio */
+  .products-grid{grid-template-columns:repeat(2,1fr);gap:11px}
+  /* Slightly taller image ratio on narrow screens */
+  .product-img-wrap{padding-top:68%}
   .hero-stats .stat-n{font-size:1.3rem}
   .filter-tabs{gap:6px}
   .tab{padding:7px 13px;font-size:.76rem}
+  .gps-map-wrap.show{height:130px}
 }
 @media(max-width:360px){
   .products-grid{grid-template-columns:1fr}
@@ -326,34 +371,33 @@ footer a{color:var(--gold);font-weight:700}
 </head>
 <body>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <!-- NAVBAR -->
-<nav class="nav" role="navigation" aria-label="Main navigation">
+<nav class="nav">
   <div class="nav-inner">
-    <a class="nav-logo" href="#" aria-label="CocoNex Home">
+    <a class="nav-logo" href="#">
       <img src="coc.jpeg" alt="CocoNex Logo" width="42" height="42" loading="eager">
       <span class="nav-logo-text">Coco<span>Nex</span></span>
     </a>
-    <div class="nav-links" role="menubar">
-      <a class="nav-link active" href="#" role="menuitem">Home</a>
-      <a class="nav-link" href="#shop" role="menuitem">Menu</a>
-      <a class="nav-link" href="#location" role="menuitem">Location</a>
-      <a class="nav-link" href="#contact" role="menuitem">Contact</a>
+    <div class="nav-links">
+      <a class="nav-link active" href="#">Home</a>
+      <a class="nav-link" href="#shop">Menu</a>
+      <a class="nav-link" href="#location">Location</a>
+      <a class="nav-link" href="#contact">Contact</a>
     </div>
     <div class="nav-spacer"></div>
-    <div class="nav-info" aria-live="polite"><div class="nav-dot" aria-hidden="true"></div>Open · 8AM–10PM</div>
-    <button class="cart-btn" onclick="toggleSheet()" aria-label="View cart">🛒 My Order <span class="cart-count" id="cartCount" aria-live="polite">0</span></button>
-    <button class="hamburger" onclick="toggleDrawer()" aria-label="Open menu" aria-expanded="false" id="hamburgerBtn"><span></span><span></span><span></span></button>
+    <div class="nav-info"><div class="nav-dot"></div>Open · 8AM–10PM</div>
+    <button class="cart-btn" onclick="toggleSheet()">🛒 My Order <span class="cart-count" id="cartCount">0</span></button>
+    <button class="hamburger" onclick="toggleDrawer()" id="hamburgerBtn"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
 <!-- MOBILE DRAWER -->
-<div class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
+<div class="mobile-drawer" id="mobileDrawer">
   <div class="drawer-overlay" onclick="toggleDrawer()"></div>
   <div class="drawer-panel">
-    <button class="drawer-close" onclick="toggleDrawer()" aria-label="Close menu">✕</button>
+    <button class="drawer-close" onclick="toggleDrawer()">✕</button>
     <a class="drawer-link" href="#" onclick="toggleDrawer()">🏠 Home</a>
     <a class="drawer-link" href="#shop" onclick="toggleDrawer()">🥤 Menu</a>
     <a class="drawer-link" href="#location" onclick="toggleDrawer()">📍 Location</a>
@@ -362,35 +406,34 @@ footer a{color:var(--gold);font-weight:700}
 </div>
 
 <!-- HERO -->
-<section class="hero" id="heroSection" aria-label="Hero section">
-  <div class="hero-bg-pattern" aria-hidden="true"></div>
+<section class="hero">
   <div class="hero-inner">
     <div class="hero-text">
-      <div class="hero-badge" aria-label="Badge: 100% Natural, No Preservatives">🌿 100% Natural · No Preservatives</div>
+      <div class="hero-badge">🌿 100% Natural · No Preservatives</div>
       <h1 class="hero-h1">Taste Nature's<br><span>Freshness</span> in<br>Every Sip</h1>
-      <p class="hero-p">Rose Milk, Fresh Coconut Water & Seasonal Juices — delivered to your doorstep. Order in seconds via WhatsApp.</p>
+      <p class="hero-p">Rose Milk, Fresh Coconut Water &amp; Seasonal Juices — delivered to your doorstep. Order in seconds via WhatsApp.</p>
       <div class="hero-btns">
-        <button class="btn-primary" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})" aria-label="Order Now">🥤 Order Now</button>
-        <a class="btn-outline" href="https://maps.google.com/?q=17A+Main+Road+Viraganur+Madurai+Tamil+Nadu" target="_blank" rel="noopener noreferrer" aria-label="Find us on Google Maps">📍 Find Us</a>
+        <button class="btn-primary" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">🥤 Order Now</button>
+        <a class="btn-outline" href="https://maps.google.com/?q=17A+Main+Road+Viraganur+Madurai+Tamil+Nadu" target="_blank" rel="noopener noreferrer">📍 Find Us</a>
       </div>
-      <div class="hero-stats" aria-label="Statistics">
+      <div class="hero-stats">
         <div class="stat"><div class="stat-n">500+</div><div class="stat-l">Happy Customers</div></div>
         <div class="stat"><div class="stat-n">10</div><div class="stat-l">Signature Drinks</div></div>
         <div class="stat"><div class="stat-n">4.9★</div><div class="stat-l">Customer Rating</div></div>
       </div>
     </div>
-    <div class="hero-image-wrap" aria-hidden="true">
+    <div class="hero-image-wrap">
       <div class="hero-logo-glow"></div>
-      <img class="hero-logo" src="coc.jpeg" alt="CocoNex fresh juice shop" width="260" height="260" loading="eager">
+      <img class="hero-logo" src="coc.jpeg" alt="CocoNex" width="260" height="260" loading="eager">
     </div>
   </div>
-  <svg class="hero-wave" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <svg class="hero-wave" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M0,35 C400,65 1040,5 1440,35 L1440,60 L0,60 Z" fill="#f6fdf7"/>
   </svg>
 </section>
 
 <!-- MARQUEE -->
-<div class="marquee-wrap" aria-hidden="true">
+<div class="marquee-wrap">
   <div class="marquee-track">
     <span>Rose Milk</span><span>Coconut Water</span><span>Orange Juice</span><span>Lemon Juice</span><span>Sarbath</span><span>Fruit Salad</span><span>Tender Coconut</span><span>Watermelon Juice</span><span>Mohabbat Sarbath</span><span>Boiled Egg</span>
     <span>Rose Milk</span><span>Coconut Water</span><span>Orange Juice</span><span>Lemon Juice</span><span>Sarbath</span><span>Fruit Salad</span><span>Tender Coconut</span><span>Watermelon Juice</span><span>Mohabbat Sarbath</span><span>Boiled Egg</span>
@@ -401,89 +444,85 @@ footer a{color:var(--gold);font-weight:700}
 <div class="loc-banner" id="location">
   <div class="loc-banner-inner">
     <div class="loc-info">
-      <div class="loc-icon" aria-hidden="true">📍</div>
+      <div class="loc-icon">📍</div>
       <div class="loc-text">
         <strong>CocoNex Juice Shop</strong>
         <span>No. 17A, Main Road Viraganur, Madurai, Tamil Nadu</span>
       </div>
     </div>
-    <div class="loc-divider" aria-hidden="true"></div>
-    <div class="loc-hours"><div class="open-dot" aria-hidden="true"></div><span>Open · Mon–Sun · 8:00 AM – 10:00 PM</span></div>
+    <div class="loc-divider"></div>
+    <div class="loc-hours"><div class="open-dot"></div><span>Open · Mon–Sun · 8:00 AM – 10:00 PM</span></div>
     <div class="loc-btns">
-      <a class="loc-act loc-maps" href="https://maps.google.com/?q=17A+Main+Road+Viraganur+Madurai+Tamil+Nadu" target="_blank" rel="noopener noreferrer" aria-label="Open in Google Maps">🗺️ Google Maps</a>
-      <button class="loc-act loc-copy" onclick="copyAddr()" aria-label="Copy address">📋 Copy</button>
+      <a class="loc-act loc-maps" href="https://maps.google.com/?q=17A+Main+Road+Viraganur+Madurai+Tamil+Nadu" target="_blank" rel="noopener noreferrer">🗺️ Google Maps</a>
+      <button class="loc-act loc-copy" onclick="copyAddr()">📋 Copy</button>
     </div>
   </div>
 </div>
 
 <!-- SHOP SECTION -->
-<section class="shop-section" id="shop" aria-label="Our menu">
+<section class="shop-section" id="shop">
   <div class="shop-inner">
     <div class="shop-header">
       <h2>Our Fresh Menu</h2>
       <p>All drinks are freshly prepared on order. No artificial flavours. No preservatives.</p>
     </div>
-    <div class="filter-tabs" role="tablist" aria-label="Filter menu by category">
-      <button class="tab active" onclick="filterTab(this,'all')" role="tab" aria-selected="true">All Items</button>
-      <button class="tab" onclick="filterTab(this,'milk')" role="tab" aria-selected="false">🌹 Rose Milk</button>
-      <button class="tab" onclick="filterTab(this,'coconut')" role="tab" aria-selected="false">🥥 Coconut</button>
-      <button class="tab" onclick="filterTab(this,'juice')" role="tab" aria-selected="false">🍹 Juices</button>
-      <button class="tab" onclick="filterTab(this,'sarbath')" role="tab" aria-selected="false">🌺 Sarbath</button>
-      <button class="tab" onclick="filterTab(this,'food')" role="tab" aria-selected="false">🥗 Food</button>
+    <div class="filter-tabs">
+      <button class="tab active" onclick="filterTab(this,'all')">All Items</button>
+      <button class="tab" onclick="filterTab(this,'milk')">🌹 Rose Milk</button>
+      <button class="tab" onclick="filterTab(this,'coconut')">🥥 Coconut</button>
+      <button class="tab" onclick="filterTab(this,'juice')">🍹 Juices</button>
+      <button class="tab" onclick="filterTab(this,'sarbath')">🌺 Sarbath</button>
+      <button class="tab" onclick="filterTab(this,'food')">🥗 Food</button>
     </div>
     <div class="shop-layout">
       <div>
-        <div class="products-grid" id="productsGrid" role="list">
+        <div class="products-grid" id="productsGrid">
 
-          <!-- ROSE MILK -->
-          <div class="product-card" data-cat="milk" role="listitem">
+          <div class="product-card" data-cat="milk">
             <div class="product-img-wrap">
               <img src="https://images.pexels.com/photos/3407777/pexels-photo-3407777.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Rose Milk" loading="lazy" onerror="imgFallback(this,'🌹')">
               <div class="product-badge">BESTSELLER</div>
             </div>
             <div class="product-body">
               <div class="product-name">Rose Milk</div>
-              <div class="product-desc">Chilled creamy milk with pure rose essence & fresh sabja seeds</div>
+              <div class="product-desc">Chilled creamy milk with pure rose essence &amp; fresh sabja seeds</div>
               <div class="product-footer">
                 <div class="product-price">₹50</div>
-                <button class="add-btn" onclick="addToCart(this,'Rose Milk',50,'🌹','https://images.pexels.com/photos/3407777/pexels-photo-3407777.jpeg?auto=compress&cs=tinysrgb&w=80')" aria-label="Add Rose Milk to cart">+</button>
+                <button class="add-btn" onclick="addToCart(this,'Rose Milk',50,'🌹','https://images.pexels.com/photos/3407777/pexels-photo-3407777.jpeg?auto=compress&cs=tinysrgb&w=80')">+</button>
               </div>
             </div>
           </div>
 
-          <!-- COCONUT MILK -->
-          <div class="product-card" data-cat="coconut" role="listitem">
+          <div class="product-card" data-cat="coconut">
             <div class="product-img-wrap">
               <img src="https://images.pexels.com/photos/2615323/pexels-photo-2615323.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Coconut Milk" loading="lazy" onerror="imgFallback(this,'🥥')">
             </div>
             <div class="product-body">
               <div class="product-name">Coconut Milk</div>
-              <div class="product-desc">Rich, delicious & naturally sweet coconut milk, freshly extracted</div>
+              <div class="product-desc">Rich, delicious &amp; naturally sweet coconut milk, freshly extracted</div>
               <div class="product-footer">
                 <div class="product-price">₹60</div>
-                <button class="add-btn" onclick="addToCart(this,'Coconut Milk',60,'🥥','https://images.pexels.com/photos/2615323/pexels-photo-2615323.jpeg?auto=compress&cs=tinysrgb&w=80')" aria-label="Add Coconut Milk to cart">+</button>
+                <button class="add-btn" onclick="addToCart(this,'Coconut Milk',60,'🥥','https://images.pexels.com/photos/2615323/pexels-photo-2615323.jpeg?auto=compress&cs=tinysrgb&w=80')">+</button>
               </div>
             </div>
           </div>
 
-          <!-- ORANGE JUICE -->
-          <div class="product-card" data-cat="juice" role="listitem">
+          <div class="product-card" data-cat="juice">
             <div class="product-img-wrap">
               <img src="https://images.pexels.com/photos/96974/pexels-photo-96974.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Orange Juice" loading="lazy" onerror="imgFallback(this,'🍊')">
               <div class="product-badge seasonal">FRESH</div>
             </div>
             <div class="product-body">
               <div class="product-name">Orange Juice</div>
-              <div class="product-desc">Freshly squeezed juicy oranges, tangy, sweet & full of vitamin C</div>
+              <div class="product-desc">Freshly squeezed juicy oranges, tangy, sweet &amp; full of vitamin C</div>
               <div class="product-footer">
                 <div class="product-price">₹50</div>
-                <button class="add-btn" onclick="addToCart(this,'Orange Juice',50,'🍊','https://images.pexels.com/photos/96974/pexels-photo-96974.jpeg?auto=compress&cs=tinysrgb&w=80')" aria-label="Add Orange Juice to cart">+</button>
+                <button class="add-btn" onclick="addToCart(this,'Orange Juice',50,'🍊','https://images.pexels.com/photos/96974/pexels-photo-96974.jpeg?auto=compress&cs=tinysrgb&w=80')">+</button>
               </div>
             </div>
           </div>
 
-          <!-- LEMON JUICE -->
-          <div class="product-card" data-cat="juice" role="listitem">
+          <div class="product-card" data-cat="juice">
             <div class="product-img-wrap">
               <img src="https://images.pexels.com/photos/1346347/pexels-photo-1346347.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Lemon Juice" loading="lazy" onerror="imgFallback(this,'🍋')">
             </div>
@@ -492,44 +531,41 @@ footer a{color:var(--gold);font-weight:700}
               <div class="product-desc">Zesty fresh lemon juice with a hint of salt — the perfect cooler</div>
               <div class="product-footer">
                 <div class="product-price">₹40</div>
-                <button class="add-btn" onclick="addToCart(this,'Lemon Juice',40,'🍋','https://images.pexels.com/photos/1346347/pexels-photo-1346347.jpeg?auto=compress&cs=tinysrgb&w=80')" aria-label="Add Lemon Juice to cart">+</button>
+                <button class="add-btn" onclick="addToCart(this,'Lemon Juice',40,'🍋','https://images.pexels.com/photos/1346347/pexels-photo-1346347.jpeg?auto=compress&cs=tinysrgb&w=80')">+</button>
               </div>
             </div>
           </div>
 
-          <!-- SARBATH -->
-          <div class="product-card" data-cat="sarbath" role="listitem">
+          <div class="product-card" data-cat="sarbath">
             <div class="product-img-wrap">
               <img src="https://images.pexels.com/photos/1194030/pexels-photo-1194030.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Sarbath" loading="lazy" onerror="imgFallback(this,'🌺')">
               <div class="product-badge new">NEW</div>
             </div>
             <div class="product-body">
               <div class="product-name">Sarbath</div>
-              <div class="product-desc">Classic chilled sarbath with rose water & nannari — refreshingly sweet</div>
+              <div class="product-desc">Classic chilled sarbath with rose water &amp; nannari — refreshingly sweet</div>
               <div class="product-footer">
                 <div class="product-price">₹40</div>
-                <button class="add-btn" onclick="addToCart(this,'Sarbath',40,'🌺','https://images.pexels.com/photos/1194030/pexels-photo-1194030.jpeg?auto=compress&cs=tinysrgb&w=80')" aria-label="Add Sarbath to cart">+</button>
+                <button class="add-btn" onclick="addToCart(this,'Sarbath',40,'🌺','https://images.pexels.com/photos/1194030/pexels-photo-1194030.jpeg?auto=compress&cs=tinysrgb&w=80')">+</button>
               </div>
             </div>
           </div>
 
-          <!-- FRUIT SALAD -->
-          <div class="product-card" data-cat="food" role="listitem">
+          <div class="product-card" data-cat="food">
             <div class="product-img-wrap">
               <img src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Fruit Salad" loading="lazy" onerror="imgFallback(this,'🥗')">
             </div>
             <div class="product-body">
               <div class="product-name">Fruit Salad</div>
-              <div class="product-desc">Seasonal fresh fruits tossed with honey & a squeeze of lemon</div>
+              <div class="product-desc">Seasonal fresh fruits tossed with honey &amp; a squeeze of lemon</div>
               <div class="product-footer">
                 <div class="product-price">₹60</div>
-                <button class="add-btn" onclick="addToCart(this,'Fruit Salad',60,'🥗','https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=80')" aria-label="Add Fruit Salad to cart">+</button>
+                <button class="add-btn" onclick="addToCart(this,'Fruit Salad',60,'🥗','https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=80')">+</button>
               </div>
             </div>
           </div>
 
-          <!-- TENDER COCONUT -->
-          <div class="product-card" data-cat="coconut" role="listitem">
+          <div class="product-card" data-cat="coconut">
             <div class="product-img-wrap">
               <img src="https://images.pexels.com/photos/1199019/pexels-photo-1199019.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Tender Coconut" loading="lazy" onerror="imgFallback(this,'🌴')">
               <div class="product-badge">250 ML</div>
@@ -539,13 +575,12 @@ footer a{color:var(--gold);font-weight:700}
               <div class="product-desc">Pure chilled tender coconut water (250 ml) — straight from the shell</div>
               <div class="product-footer">
                 <div class="product-price">₹1</div>
-                <button class="add-btn" onclick="addToCart(this,'Tender Coconut (250ml)',1,'🌴','https://images.pexels.com/photos/1199019/pexels-photo-1199019.jpeg?auto=compress&cs=tinysrgb&w=80')" aria-label="Add Tender Coconut to cart">+</button>
+                <button class="add-btn" onclick="addToCart(this,'Tender Coconut (250ml)',1,'🌴','https://images.pexels.com/photos/1199019/pexels-photo-1199019.jpeg?auto=compress&cs=tinysrgb&w=80')">+</button>
               </div>
             </div>
           </div>
 
-          <!-- WATERMELON JUICE -->
-          <div class="product-card" data-cat="juice" role="listitem">
+          <div class="product-card" data-cat="juice">
             <div class="product-img-wrap">
               <img src="https://images.pexels.com/photos/1337825/pexels-photo-1337825.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Watermelon Juice" loading="lazy" onerror="imgFallback(this,'🍉')">
               <div class="product-badge new">NEW</div>
@@ -555,29 +590,27 @@ footer a{color:var(--gold);font-weight:700}
               <div class="product-desc">Icy cold watermelon blended fresh with a pinch of black salt</div>
               <div class="product-footer">
                 <div class="product-price">₹40</div>
-                <button class="add-btn" onclick="addToCart(this,'Watermelon Juice',40,'🍉','https://images.pexels.com/photos/1337825/pexels-photo-1337825.jpeg?auto=compress&cs=tinysrgb&w=80')" aria-label="Add Watermelon Juice to cart">+</button>
+                <button class="add-btn" onclick="addToCart(this,'Watermelon Juice',40,'🍉','https://images.pexels.com/photos/1337825/pexels-photo-1337825.jpeg?auto=compress&cs=tinysrgb&w=80')">+</button>
               </div>
             </div>
           </div>
 
-          <!-- MOHABBAT SARBATH -->
-          <div class="product-card" data-cat="sarbath" role="listitem">
+          <div class="product-card" data-cat="sarbath">
             <div class="product-img-wrap">
               <img src="https://images.pexels.com/photos/3625372/pexels-photo-3625372.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Mohabbat Sarbath" loading="lazy" onerror="imgFallback(this,'💜')">
               <div class="product-badge">SPECIAL</div>
             </div>
             <div class="product-body">
               <div class="product-name">Mohabbat Sarbath</div>
-              <div class="product-desc">Old Delhi favourite — rose milk layered with watermelon & basil seeds</div>
+              <div class="product-desc">Old Delhi favourite — rose milk layered with watermelon &amp; basil seeds</div>
               <div class="product-footer">
                 <div class="product-price">₹50</div>
-                <button class="add-btn" onclick="addToCart(this,'Mohabbat Sarbath',50,'💜','https://images.pexels.com/photos/3625372/pexels-photo-3625372.jpeg?auto=compress&cs=tinysrgb&w=80')" aria-label="Add Mohabbat Sarbath to cart">+</button>
+                <button class="add-btn" onclick="addToCart(this,'Mohabbat Sarbath',50,'💜','https://images.pexels.com/photos/3625372/pexels-photo-3625372.jpeg?auto=compress&cs=tinysrgb&w=80')">+</button>
               </div>
             </div>
           </div>
 
-          <!-- BOILED EGG -->
-          <div class="product-card" data-cat="food" role="listitem">
+          <div class="product-card" data-cat="food">
             <div class="product-img-wrap">
               <img src="https://images.pexels.com/photos/6294248/pexels-photo-6294248.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Boiled Egg" loading="lazy" onerror="imgFallback(this,'🥚')">
             </div>
@@ -586,7 +619,7 @@ footer a{color:var(--gold);font-weight:700}
               <div class="product-desc">Farm-fresh boiled egg — a healthy protein snack on the go</div>
               <div class="product-footer">
                 <div class="product-price">₹15</div>
-                <button class="add-btn" onclick="addToCart(this,'Boiled Egg',15,'🥚','https://images.pexels.com/photos/6294248/pexels-photo-6294248.jpeg?auto=compress&cs=tinysrgb&w=80')" aria-label="Add Boiled Egg to cart">+</button>
+                <button class="add-btn" onclick="addToCart(this,'Boiled Egg',15,'🥚','https://images.pexels.com/photos/6294248/pexels-photo-6294248.jpeg?auto=compress&cs=tinysrgb&w=80')">+</button>
               </div>
             </div>
           </div>
@@ -595,7 +628,7 @@ footer a{color:var(--gold);font-weight:700}
       </div>
 
       <!-- DESKTOP SIDEBAR -->
-      <div class="order-sidebar" id="desktopSidebar" role="complementary" aria-label="Order summary">
+      <div class="order-sidebar" id="desktopSidebar">
         <div class="sidebar-head">
           <h3>🛒 Your Order</h3>
           <p>Add items from the menu</p>
@@ -607,12 +640,12 @@ footer a{color:var(--gold);font-weight:700}
 </section>
 
 <!-- FEATURES -->
-<div class="features" aria-label="Our features">
+<div class="features">
   <div class="features-inner">
-    <div class="feature"><span class="feature-icon" aria-hidden="true">🌿</span><h4>100% Natural</h4><p>No artificial colours, flavours or preservatives ever</p></div>
-    <div class="feature"><span class="feature-icon" aria-hidden="true">⚡</span><h4>Made Fresh</h4><p>Every order prepared fresh when you order</p></div>
-    <div class="feature"><span class="feature-icon" aria-hidden="true">🚚</span><h4>Home Delivery</h4><p>Quick delivery to your doorstep in Madurai</p></div>
-    <div class="feature"><span class="feature-icon" aria-hidden="true">💬</span><h4>WhatsApp Order</h4><p>Order in seconds, confirm in minutes</p></div>
+    <div class="feature"><span class="feature-icon">🌿</span><h4>100% Natural</h4><p>No artificial colours, flavours or preservatives ever</p></div>
+    <div class="feature"><span class="feature-icon">⚡</span><h4>Made Fresh</h4><p>Every order prepared fresh when you order</p></div>
+    <div class="feature"><span class="feature-icon">🚚</span><h4>Home Delivery</h4><p>Quick delivery to your doorstep in Madurai</p></div>
+    <div class="feature"><span class="feature-icon">💬</span><h4>WhatsApp Order</h4><p>Order in seconds, confirm in minutes</p></div>
   </div>
 </div>
 
@@ -627,307 +660,251 @@ footer a{color:var(--gold);font-weight:700}
 </footer>
 
 <!-- MOBILE CART FAB -->
-<div class="mobile-cart-float" id="mobileCartFloat" style="display:none" aria-label="Open cart">
-  <button class="mobile-cart-fab" onclick="toggleSheet()" aria-label="Open order sheet">🛒
-    <span class="fab-count" id="fabCount" aria-live="polite">0</span>
+<div class="mobile-cart-float" id="mobileCartFloat" style="display:none">
+  <button class="mobile-cart-fab" onclick="toggleSheet()">🛒
+    <span class="fab-count" id="fabCount">0</span>
   </button>
 </div>
 
 <div class="sheet-overlay" id="sheetOverlay" onclick="toggleSheet()"></div>
 
 <!-- MOBILE ORDER SHEET -->
-<div class="order-sheet" id="orderSheet" role="dialog" aria-modal="true" aria-label="Your order">
-  <div class="sheet-handle" aria-hidden="true"></div>
+<div class="order-sheet" id="orderSheet">
+  <div class="sheet-handle"></div>
   <div class="sheet-head">
     <h3>🛒 Your Order</h3>
-    <p>Review & place your order</p>
-    <button class="sheet-close" onclick="toggleSheet()" aria-label="Close order sheet">✕</button>
+    <p>Review &amp; place your order</p>
+    <button class="sheet-close" onclick="toggleSheet()">✕</button>
   </div>
   <div class="sheet-body" id="sheetBody"></div>
 </div>
 
 <script>
-
-// Image fallback handler
+// ── Image fallback ──
 function imgFallback(img, emoji) {
   var wrap = img.parentNode;
   if (!wrap) return;
-  var div = document.createElement('div');
-  div.className = 'product-img-fallback';
-  div.textContent = emoji;
-  wrap.innerHTML = '';
-  wrap.appendChild(div);
+  wrap.innerHTML = '<div class="product-img-fallback">' + emoji + '</div>';
 }
 
 // ══════════════════════════════════════════
-// CONFIG — change these values as needed
+// CONFIG — update WA_GROUP_LINK with your actual group invite link
+// To get it: WhatsApp → open your group → ⋮ menu → Invite via Link → Copy
 // ══════════════════════════════════════════
 const CONFIG = Object.freeze({
-  WA_NUMBER:     '917708486840',          // Your personal/business WhatsApp
-  WA_GROUP_LINK: 'https://chat.whatsapp.com/https://chat.whatsapp.com/C1nZoqh3qS8GnHKrhX2EyG', // ← Replace with your WhatsApp group invite link
+  WA_GROUP_LINK: 'https://chat.whatsapp.com/C1nZoqh3qS8GnHKrhX2EyG', // ← your group link
+  WA_NUMBER:     '917708486840',
   RAZORPAY_KEY:  'rzp_live_SeSfBiWR5jVqJU',
   SHOP_NAME:     'CocoNex',
   SHOP_IMG:      'coc.jpeg',
-  CURRENCY:      'INR',
-  MIN_ORDER:     0
+  CURRENCY:      'INR'
 });
 
 // ══════════════════════════════════════════
-// STATE — single source of truth
+// STATE
 // ══════════════════════════════════════════
-let state = {
+var state = {
   cart:        [],
   sugar:       'with',
   gps:         { coords: null, loading: false, error: null },
   form:        { name: '', phone: '', loc: '' },
   payment:     { done: false, id: '', timestamp: null },
-  orderLocked: false,
-  rzpLoaded:   false
+  orderLocked: false
 };
 
-// ══════════════════════════════════════════
-// SECURITY HELPERS
-// ══════════════════════════════════════════
 function sanitize(str) {
   if (typeof str !== 'string') return '';
-  return str
-    .replace(/&/g,'&amp;')
-    .replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;')
-    .replace(/'/g,'&#x27;')
-    .replace(/\//g,'&#x2F;')
-    .trim()
-    .slice(0, 200);
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+            .replace(/"/g,'&quot;').replace(/'/g,'&#x27;').trim().slice(0,200);
 }
-
-function sanitizePhone(p) {
-  return p.replace(/[^0-9]/g,'').slice(0,10);
-}
+function sanitizePhone(p) { return p.replace(/[^0-9]/g,'').slice(0,10); }
 
 function validateForm() {
-  const errors = [];
+  var errors = [];
   if (state.cart.length === 0) errors.push('Please add at least one item to your order.');
-  const name = state.form.name.trim();
+  var name = state.form.name.trim();
   if (!name || name.length < 2) errors.push('Please enter your name (min 2 characters).');
-  const phone = sanitizePhone(state.form.phone);
+  var phone = sanitizePhone(state.form.phone);
   if (phone.length > 0 && phone.length !== 10) errors.push('Phone number must be 10 digits.');
   return errors;
 }
 
-// ══════════════════════════════════════════
-// PRELOAD RAZORPAY
-// ══════════════════════════════════════════
+// ── Preload Razorpay ──
 function preloadRazorpay() {
-  if (typeof Razorpay !== 'undefined') { state.rzpLoaded = true; return; }
+  if (typeof Razorpay !== 'undefined') return;
   if (document.querySelector('script[src*="razorpay"]')) return;
-  const s = document.createElement('script');
+  var s = document.createElement('script');
   s.src = 'https://checkout.razorpay.com/v1/checkout.js';
-  s.onload = () => { state.rzpLoaded = true; };
   document.head.appendChild(s);
 }
-// Mark as loaded if already present
-document.addEventListener('DOMContentLoaded', () => {
-  if (typeof Razorpay !== 'undefined') state.rzpLoaded = true;
-});
 preloadRazorpay();
 
 // ══════════════════════════════════════════
-// CART LOGIC
+// CART
 // ══════════════════════════════════════════
 function addToCart(btn, name, price, emoji, imgUrl) {
-  const safeName = sanitize(name);
-  const safePrice = Math.max(0, Math.min(9999, parseInt(price, 10) || 0));
-
-  const existing = state.cart.find(i => i.name === safeName);
-  if (existing) {
-    existing.qty = Math.min(existing.qty + 1, 20);
-  } else {
-    state.cart.push({ name: safeName, price: safePrice, emoji, imgUrl, qty: 1 });
-  }
+  var safeName  = sanitize(name);
+  var safePrice = Math.max(0, Math.min(9999, parseInt(price, 10) || 0));
+  var existing  = state.cart.find(function(i){ return i.name === safeName; });
+  if (existing) { existing.qty = Math.min(existing.qty + 1, 20); }
+  else { state.cart.push({ name: safeName, price: safePrice, emoji: emoji, imgUrl: imgUrl, qty: 1 }); }
 
   btn.textContent = '✓';
   btn.classList.add('added');
-  setTimeout(() => { btn.textContent = '+'; btn.classList.remove('added'); }, 700);
+  setTimeout(function(){ btn.textContent = '+'; btn.classList.remove('added'); }, 700);
 
   state.payment = { done: false, id: '', timestamp: null };
   state.orderLocked = false;
   renderOrder();
   updateCartCount();
   showToast('Added to order!');
-
-  if (window.innerWidth <= 1024) {
-    document.getElementById('mobileCartFloat').style.display = 'block';
-  }
+  if (window.innerWidth <= 1024) document.getElementById('mobileCartFloat').style.display = 'block';
 }
 
 function changeQty(encodedName, delta) {
-  const name = decodeURIComponent(encodedName);
-  const item = state.cart.find(i => i.name === name);
+  var name = decodeURIComponent(encodedName);
+  var item = state.cart.find(function(i){ return i.name === name; });
   if (!item) return;
   item.qty += delta;
-  if (item.qty <= 0) {
-    state.cart = state.cart.filter(i => i.name !== name);
-    showToast('Item removed');
-  }
+  if (item.qty <= 0) { state.cart = state.cart.filter(function(i){ return i.name !== name; }); showToast('Item removed'); }
   state.payment = { done: false, id: '', timestamp: null };
   state.orderLocked = false;
-  renderOrder();
-  updateCartCount();
+  renderOrder(); updateCartCount();
   if (state.cart.length === 0) document.getElementById('mobileCartFloat').style.display = 'none';
 }
 
 function removeItem(encodedName) {
-  const name = decodeURIComponent(encodedName);
-  state.cart = state.cart.filter(i => i.name !== name);
+  var name = decodeURIComponent(encodedName);
+  state.cart = state.cart.filter(function(i){ return i.name !== name; });
   state.payment = { done: false, id: '', timestamp: null };
   state.orderLocked = false;
-  renderOrder();
-  updateCartCount();
+  renderOrder(); updateCartCount();
   if (state.cart.length === 0) document.getElementById('mobileCartFloat').style.display = 'none';
 }
 
-function getTotal() {
-  return state.cart.reduce((s,i) => s + (i.price * i.qty), 0);
-}
+function getTotal() { return state.cart.reduce(function(s,i){ return s + i.price * i.qty; }, 0); }
 
 function updateCartCount() {
-  const total = state.cart.reduce((s,i) => s + i.qty, 0);
+  var total = state.cart.reduce(function(s,i){ return s + i.qty; }, 0);
   document.getElementById('cartCount').textContent = total;
-  document.getElementById('fabCount').textContent = total;
+  document.getElementById('fabCount').textContent  = total;
 }
 
 // ══════════════════════════════════════════
-// RENDER ORDER PANEL
+// RENDER ORDER
 // ══════════════════════════════════════════
 function renderOrder() {
-  const sb  = document.getElementById('sidebarBody');
-  const shb = document.getElementById('sheetBody');
+  var sb  = document.getElementById('sidebarBody');
+  var shb = document.getElementById('sheetBody');
   if (sb)  sb.innerHTML  = buildOrderHTML('desk');
   if (shb) shb.innerHTML = buildOrderHTML('mob');
 }
 
 function buildOrderHTML(cid) {
-  const encodeN = (n) => encodeURIComponent(n);
-
-  // Cart items
-  let cartHTML = '';
+  // Cart
+  var cartHTML;
   if (state.cart.length === 0) {
-    cartHTML = `<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>Add items from the menu!</p></div>`;
+    cartHTML = '<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>Add items from the menu!</p></div>';
   } else {
-    const items = state.cart.map(i => `
-      <div class="cart-item">
-        <div class="cart-item-thumb">
-          ${i.imgUrl
-            ? `<img src="${i.imgUrl}" alt="${sanitize(i.name)}" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:8px" onerror="this.parentNode.innerHTML='<span style=&quot;font-size:1.3rem;display:flex;align-items:center;justify-content:center;height:100%&quot;>' + i.emoji + '</span>'">`
-            : `<span style="font-size:1.3rem;display:flex;align-items:center;justify-content:center;height:100%">${i.emoji}</span>`
-          }
-        </div>
-        <div class="cart-item-info">
-          <div class="cart-item-name">${sanitize(i.name)}</div>
-          <div class="cart-item-sub">₹${i.price} each</div>
-        </div>
-        <div class="cart-item-right">
-          <div class="qty-mini">
-            <button onclick="changeQty('${encodeN(i.name)}',-1)" aria-label="Decrease quantity">−</button>
-            <span>${i.qty}</span>
-            <button onclick="changeQty('${encodeN(i.name)}',1)" aria-label="Increase quantity">+</button>
-          </div>
-          <div class="cart-item-price">₹${i.price * i.qty}</div>
-          <button class="cart-remove" onclick="removeItem('${encodeN(i.name)}')" aria-label="Remove ${sanitize(i.name)}">✕</button>
-        </div>
-      </div>`).join('');
-    cartHTML = `<div class="cart-items" role="list">${items}</div>`;
+    var items = state.cart.map(function(i) {
+      var enc = encodeURIComponent(i.name);
+      var thumb = i.imgUrl
+        ? '<img src="' + i.imgUrl + '" alt="' + sanitize(i.name) + '" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:8px">'
+        : '<span style="font-size:1.3rem">' + i.emoji + '</span>';
+      return '<div class="cart-item">' +
+        '<div class="cart-item-thumb">' + thumb + '</div>' +
+        '<div class="cart-item-info"><div class="cart-item-name">' + sanitize(i.name) + '</div><div class="cart-item-sub">₹' + i.price + ' each</div></div>' +
+        '<div class="cart-item-right">' +
+          '<div class="qty-mini">' +
+            '<button onclick="changeQty(\'' + enc + '\',-1)">−</button>' +
+            '<span>' + i.qty + '</span>' +
+            '<button onclick="changeQty(\'' + enc + '\',1)">+</button>' +
+          '</div>' +
+          '<div class="cart-item-price">₹' + (i.price * i.qty) + '</div>' +
+          '<button class="cart-remove" onclick="removeItem(\'' + enc + '\')">✕</button>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+    cartHTML = '<div class="cart-items">' + items + '</div>';
   }
 
-  // Sugar preference
-  const sugarHTML = `
-    <div class="pref-label">🍬 Sugar Preference</div>
-    <div class="sugar-row">
-      <button class="sugar-opt ${state.sugar==='with'?'act':''}" onclick="setSugar('with')"><span>🍭</span>With Sugar</button>
-      <button class="sugar-opt ${state.sugar==='without'?'act':''}" onclick="setSugar('without')"><span>🚫</span>No Sugar</button>
-    </div>`;
+  // Sugar
+  var sugarHTML = '<div class="pref-label">🍬 Sugar Preference</div>' +
+    '<div class="sugar-row">' +
+      '<button class="sugar-opt ' + (state.sugar==='with'?'act':'') + '" onclick="setSugar(\'with\')"><span>🍭</span>With Sugar</button>' +
+      '<button class="sugar-opt ' + (state.sugar==='without'?'act':'') + '" onclick="setSugar(\'without\')"><span>🚫</span>No Sugar</button>' +
+    '</div>';
 
   // Form
-  const formHTML = `
-    <div class="field">
-      <label for="${cid}_name">👤 Your Name *</label>
-      <input class="inp" id="${cid}_name" placeholder="Enter your name…" maxlength="50" value="${sanitize(state.form.name)}" oninput="state.form.name=this.value.slice(0,50)" autocomplete="name" inputmode="text">
-    </div>
-    <div class="field">
-      <label for="${cid}_phone">📞 Phone Number</label>
-      <div class="phone-wrap">
-        <div class="phone-code">🇮🇳 +91</div>
-        <input class="inp" id="${cid}_phone" type="tel" placeholder="10-digit mobile number" maxlength="10" value="${sanitize(state.form.phone)}" oninput="state.form.phone=this.value.replace(/[^0-9]/g,'').slice(0,10);this.value=state.form.phone" autocomplete="tel-national" inputmode="numeric" style="flex:1">
-      </div>
-    </div>`;
+  var formHTML = '<div class="field"><label>👤 Your Name *</label>' +
+    '<input class="inp" id="' + cid + '_name" placeholder="Enter your name…" maxlength="50" value="' + sanitize(state.form.name) + '" oninput="state.form.name=this.value.slice(0,50)" autocomplete="name"></div>' +
+    '<div class="field"><label>📞 Phone Number</label><div class="phone-wrap">' +
+    '<div class="phone-code">🇮🇳 +91</div>' +
+    '<input class="inp" id="' + cid + '_phone" type="tel" placeholder="10-digit mobile" maxlength="10" value="' + sanitize(state.form.phone) + '" oninput="state.form.phone=this.value.replace(/[^0-9]/g,\'\').slice(0,10);this.value=state.form.phone" autocomplete="tel-national" inputmode="numeric" style="flex:1">' +
+    '</div></div>';
 
-  // Delivery
-  const gpsOk   = !!state.gps.coords;
-  const gpsErr  = !!state.gps.error;
-  const gpsLoad = state.gps.loading;
-  const deliveryHTML = `
-    <div class="delivery-box">
-      <div class="pref-label" style="color:var(--pink)">🚚 Delivery Address</div>
-      <div class="delivery-row">
-        <textarea class="delivery-inp" id="${cid}_loc" rows="2" placeholder="Enter your full delivery address…" maxlength="300" oninput="state.form.loc=this.value.slice(0,300)">${sanitize(state.form.loc)}</textarea>
-        <button class="gps-btn" id="${cid}_gpsbtn" onclick="getGPS('${cid}')" ${gpsLoad?'disabled':''} aria-label="Get GPS location">
-          <span style="font-size:1.1rem">${gpsLoad?'⏳':'📡'}</span>
-          <span>${gpsLoad?'Wait…':'GPS'}</span>
-        </button>
-      </div>
-      <div class="gps-status ${(gpsOk||gpsErr||gpsLoad)?'show':''} ${gpsOk?'ok':'err'}">${getGpsStatusText()}</div>
-      <div class="gps-map-wrap ${gpsOk?'show':''}">
-        ${gpsOk?`<iframe src="https://maps.google.com/maps?q=${state.gps.coords.lat},${state.gps.coords.lng}&z=16&output=embed" style="width:100%;height:100%;border:none" allowfullscreen loading="lazy" title="Your location on map"></iframe>`:''}
-      </div>
-    </div>`;
-
-  // Payment success
-  const successHTML = state.payment.done ? `
-    <div class="payment-success show" role="alert">
-      <div class="payment-success-inner">
-        <div class="payment-success-icon">✅</div>
-        <div class="payment-success-text">
-          <strong>Payment Successful!</strong>
-          <span>Now send your order on WhatsApp</span>
-          <div class="payment-id">ID: ${sanitize(state.payment.id)}</div>
-        </div>
-      </div>
-    </div>` : '';
-
-  // Total & action buttons
-  const total = getTotal();
-  const errId = `${cid}_err`;
-
-  let actionBtn = '';
-  if (state.payment.done) {
-    actionBtn = `
-      <button class="wa-btn" onclick="sendToWhatsApp('${cid}','group')" aria-label="Send order to WhatsApp group">
-        <div class="wa-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>
-        ✅ Send to WhatsApp Group
-      </button>`;
+  // Delivery + FIX 3 MAP
+  var gpsOk   = !!state.gps.coords;
+  var gpsLoad = state.gps.loading;
+  var gpsErr  = !!state.gps.error;
+  var mapHTML = '';
+  if (gpsOk) {
+    var src = 'https://maps.google.com/maps?q=' + state.gps.coords.lat + ',' + state.gps.coords.lng + '&z=16&output=embed';
+    mapHTML = '<div class="gps-map-wrap show"><iframe src="' + src + '" title="Your location" loading="lazy" allowfullscreen></iframe></div>';
   } else {
-    actionBtn = `
-      <button class="pay-now-btn" onclick="startRazorpay('${cid}')" ${state.cart.length===0?'disabled':''} id="${cid}_paybtn" aria-label="Pay now ₹${total}">
-        <span class="pay-loader" id="${cid}_loader"></span>
-        <span id="${cid}_paytxt">💳 Pay Now — ₹${total}</span>
-      </button>`;
+    mapHTML = '<div class="gps-map-wrap"></div>';
+  }
+  var gpsStatusClass = (gpsOk || gpsErr || gpsLoad) ? ('gps-status show ' + (gpsOk ? 'ok' : 'err')) : 'gps-status';
+  var deliveryHTML = '<div class="delivery-box">' +
+    '<div class="pref-label" style="color:var(--pink)">🚚 Delivery Address</div>' +
+    '<div class="delivery-row">' +
+      '<textarea class="delivery-inp" id="' + cid + '_loc" rows="2" placeholder="Enter full delivery address…" maxlength="300" oninput="state.form.loc=this.value.slice(0,300)">' + sanitize(state.form.loc) + '</textarea>' +
+      '<button class="gps-btn" onclick="getGPS(\'' + cid + '\')" ' + (gpsLoad ? 'disabled' : '') + '>' +
+        '<span style="font-size:1.1rem">' + (gpsLoad ? '⏳' : '📡') + '</span>' +
+        '<span>' + (gpsLoad ? 'Wait…' : 'GPS') + '</span>' +
+      '</button>' +
+    '</div>' +
+    '<div class="' + gpsStatusClass + '">' + getGpsStatusText() + '</div>' +
+    mapHTML +
+  '</div>';
+
+  var total = getTotal();
+  var errId = cid + '_err';
+
+  // Payment success banner
+  var successHTML = state.payment.done
+    ? '<div class="payment-success show"><div class="payment-success-inner">' +
+        '<div class="payment-success-icon">✅</div>' +
+        '<div class="payment-success-text"><strong>Payment Successful!</strong>' +
+        '<span>Order sent to WhatsApp automatically ✓</span>' +
+        '<div class="payment-id">ID: ' + sanitize(state.payment.id) + '</div>' +
+        '</div></div></div>'
+    : '';
+
+  // Action button — FIX 2: after payment show resend button, auto-send already happened
+  var actionBtn;
+  if (state.payment.done) {
+    actionBtn = '<div class="wa-auto-notice">' +
+        '<strong>📲 WhatsApp group opened!</strong>' +
+        '<span>Your order message was copied. Just paste &amp; send in the group.</span>' +
+      '</div>' +
+      '<button class="wa-btn" onclick="sendWhatsAppGroup(\'' + cid + '\')">' +
+        '<div class="wa-icon"><svg viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>' +
+        '📲 Resend to WhatsApp' +
+      '</button>';
+  } else {
+    actionBtn = '<button class="pay-now-btn" onclick="startRazorpay(\'' + cid + '\')" ' + (state.cart.length === 0 ? 'disabled' : '') + ' id="' + cid + '_paybtn">' +
+      '<span class="pay-loader" id="' + cid + '_loader"></span>' +
+      '<span id="' + cid + '_paytxt">💳 Pay Now — ₹' + total + '</span>' +
+    '</button>';
   }
 
-  return `
-    ${cartHTML}
-    ${sugarHTML}
-    ${formHTML}
-    ${deliveryHTML}
-    <div class="err-msg" id="${errId}" role="alert"></div>
-    ${successHTML}
-    <div class="order-total-row">
-      <span class="total-label">Total Amount</span>
-      <span class="total-amount" aria-live="polite">₹${total}</span>
-    </div>
-    ${actionBtn}
-    <div class="sec-badge" aria-label="Secured by Razorpay">🔒 Secured by Razorpay</div>
-  `;
+  return cartHTML + sugarHTML + formHTML + deliveryHTML +
+    '<div class="err-msg" id="' + errId + '"></div>' +
+    successHTML +
+    '<div class="order-total-row"><span class="total-label">Total Amount</span><span class="total-amount">₹' + total + '</span></div>' +
+    actionBtn +
+    '<div class="sec-badge">🔒 Secured by Razorpay</div>';
 }
 
 // ══════════════════════════════════════════
@@ -936,39 +913,29 @@ function buildOrderHTML(cid) {
 function getGpsStatusText() {
   if (state.gps.loading) return '⏳ Getting your location…';
   if (state.gps.error)   return '❌ ' + sanitize(state.gps.error);
-  if (state.gps.coords)  return `✅ Location captured! <a href="https://maps.google.com/?q=${state.gps.coords.lat},${state.gps.coords.lng}" target="_blank" rel="noopener noreferrer" style="color:var(--g);font-weight:800">View on Maps ↗</a>`;
+  if (state.gps.coords)  return '✅ Location captured! <a href="https://maps.google.com/?q=' + state.gps.coords.lat + ',' + state.gps.coords.lng + '" target="_blank" rel="noopener" style="color:var(--g);font-weight:800">View on Maps ↗</a>';
   return '';
 }
 
 function getGPS(cid) {
-  if (!navigator.geolocation) {
-    state.gps.error = 'GPS not supported on this device.';
-    renderOrder(); return;
-  }
-  state.gps = { ...state.gps, loading: true, error: null, coords: null };
+  if (!navigator.geolocation) { state.gps.error = 'GPS not supported.'; renderOrder(); return; }
+  state.gps = { coords: null, loading: true, error: null };
   renderOrder();
-
-  const timeout = setTimeout(() => {
-    state.gps.loading = false;
-    state.gps.error = 'Timed out. Please type your address.';
-    renderOrder();
+  var timer = setTimeout(function() {
+    state.gps.loading = false; state.gps.error = 'Timed out. Please type your address.'; renderOrder();
   }, 14000);
-
   navigator.geolocation.getCurrentPosition(
-    pos => {
-      clearTimeout(timeout);
+    function(pos) {
+      clearTimeout(timer);
       state.gps.loading = false;
-      state.gps.coords = {
-        lat: pos.coords.latitude.toFixed(6),
-        lng: pos.coords.longitude.toFixed(6)
-      };
-      state.form.loc = `GPS: ${state.gps.coords.lat}, ${state.gps.coords.lng}`;
+      state.gps.coords = { lat: pos.coords.latitude.toFixed(6), lng: pos.coords.longitude.toFixed(6) };
+      state.form.loc = 'GPS: ' + state.gps.coords.lat + ', ' + state.gps.coords.lng;
       renderOrder();
     },
-    err => {
-      clearTimeout(timeout);
+    function(err) {
+      clearTimeout(timer);
       state.gps.loading = false;
-      const msgs = {1:'Location permission denied. Please type your address.',2:'Location unavailable. Please type your address.',3:'Location timed out. Please type your address.'};
+      var msgs = {1:'Location permission denied.',2:'Location unavailable.',3:'Location timed out.'};
       state.gps.error = msgs[err.code] || 'Could not get location.';
       renderOrder();
     },
@@ -977,23 +944,20 @@ function getGPS(cid) {
 }
 
 // ══════════════════════════════════════════
-// RAZORPAY — FAST PAYMENT
+// RAZORPAY — AUTO WhatsApp after payment (FIX 2)
 // ══════════════════════════════════════════
 function startRazorpay(cid) {
   syncFormFromDOM(cid);
-  const errors = validateForm();
-  if (errors.length > 0) {
-    showErr(cid, '⚠️ ' + errors[0]);
-    return;
-  }
+  var errors = validateForm();
+  if (errors.length > 0) { showErr(cid, '⚠️ ' + errors[0]); return; }
   if (state.orderLocked) return;
 
   if (typeof Razorpay === 'undefined') {
-    showErr(cid, '⏳ Loading payment gateway, please wait a moment…');
+    showErr(cid, '⏳ Loading payment gateway…');
     preloadRazorpay();
-    setTimeout(() => {
+    setTimeout(function() {
       if (typeof Razorpay !== 'undefined') startRazorpay(cid);
-      else showErr(cid, '⚠️ Payment gateway failed to load. Check your internet connection.');
+      else showErr(cid, '⚠️ Payment gateway failed to load.');
     }, 2500);
     return;
   }
@@ -1001,29 +965,26 @@ function startRazorpay(cid) {
   setPayBtnLoading(cid, true);
   state.orderLocked = true;
 
-  const amount = getTotal();
-  const phone  = sanitizePhone(state.form.phone);
-  const name   = sanitize(state.form.name);
+  var amount = getTotal();
+  var phone  = sanitizePhone(state.form.phone);
+  var name   = sanitize(state.form.name);
 
-  const options = {
+  var options = {
     key:         CONFIG.RAZORPAY_KEY,
     amount:      amount * 100,
     currency:    CONFIG.CURRENCY,
     name:        CONFIG.SHOP_NAME,
-    description: buildOrderDescription(),
+    description: buildOrderDesc(),
     image:       CONFIG.SHOP_IMG,
-    prefill: {
-      name,
-      contact: phone ? '+91' + phone : ''
-    },
+    prefill:     { name: name, contact: phone ? '+91' + phone : '' },
     notes: {
       delivery_address: sanitize(state.form.loc) || 'Not specified',
-      sugar_preference: state.sugar === 'with' ? 'With Sugar' : 'Without Sugar',
-      items_count:      state.cart.length.toString()
+      sugar_preference: state.sugar === 'with' ? 'With Sugar' : 'Without Sugar'
     },
-    theme:   { color: '#1a6b2f' },
-    method:  { upi: true, card: true, netbanking: true, wallet: true },
-    config:  { display: { language: 'en' } },
+    theme:  { color: '#1a6b2f' },
+    method: { upi: true, card: true, netbanking: true, wallet: true },
+
+    // ── PAYMENT SUCCESS: auto-send WhatsApp immediately ──
     handler: function(response) {
       state.payment = {
         done:      true,
@@ -1033,101 +994,107 @@ function startRazorpay(cid) {
       state.orderLocked = false;
       setPayBtnLoading(cid, false);
       renderOrder();
-      showToast('✅ Payment successful!');
-      // Auto-trigger WhatsApp after short delay
-      setTimeout(() => sendToWhatsApp(cid, 'group'), 800);
+      showToast('✅ Payment done! Opening WhatsApp group…');
+
+      // Auto send — copies message to clipboard and opens group
+      sendWhatsAppGroup(cid);
     },
+
     modal: {
-      ondismiss: () => {
+      ondismiss: function() {
         state.orderLocked = false;
         setPayBtnLoading(cid, false);
         renderOrder();
         showToast('Payment cancelled');
       },
-      escape: true,
-      animation: true
+      escape: true, animation: true
     }
   };
 
   try {
-    const rzp = new Razorpay(options);
-    rzp.on('payment.failed', r => {
+    var rzp = new Razorpay(options);
+    rzp.on('payment.failed', function(r) {
       state.orderLocked = false;
       setPayBtnLoading(cid, false);
       renderOrder();
-      const msg = r.error?.description || 'Payment failed. Please try again.';
-      showErr(cid, '❌ ' + sanitize(msg));
+      showErr(cid, '❌ ' + sanitize((r.error && r.error.description) || 'Payment failed.'));
     });
     rzp.open();
   } catch(e) {
     state.orderLocked = false;
     setPayBtnLoading(cid, false);
     renderOrder();
-    showErr(cid, '⚠️ Could not open payment window. Please refresh and try again.');
+    showErr(cid, '⚠️ Could not open payment window. Please refresh.');
   }
 }
 
 function setPayBtnLoading(cid, loading) {
-  const btn    = document.getElementById(cid + '_paybtn');
-  const loader = document.getElementById(cid + '_loader');
-  const txt    = document.getElementById(cid + '_paytxt');
+  var btn    = document.getElementById(cid + '_paybtn');
+  var loader = document.getElementById(cid + '_loader');
+  var txt    = document.getElementById(cid + '_paytxt');
   if (btn)    btn.disabled = loading;
   if (loader) loader.style.display = loading ? 'block' : 'none';
-  if (txt)    txt.textContent = loading ? 'Processing…' : `💳 Pay Now — ₹${getTotal()}`;
+  if (txt)    txt.textContent = loading ? 'Processing…' : '💳 Pay Now — ₹' + getTotal();
 }
 
-function buildOrderDescription() {
-  const items = state.cart.map(i => `${i.name}x${i.qty}`).join(', ');
-  return `${CONFIG.SHOP_NAME}: ${items.slice(0, 255)}`;
+function buildOrderDesc() {
+  return CONFIG.SHOP_NAME + ': ' + state.cart.map(function(i){ return i.name + 'x' + i.qty; }).join(', ').slice(0, 255);
 }
 
 // ══════════════════════════════════════════
-// WHATSAPP — GROUP + PERSONAL
+// FIX 2: WhatsApp Group — auto-send flow
+// WhatsApp group invite links don't support ?text= param,
+// so we: 1) copy order message to clipboard, 2) open group link.
+// User just long-presses the message box → Paste → Send.
 // ══════════════════════════════════════════
-function sendToWhatsApp(cid, target) {
+function sendWhatsAppGroup(cid) {
   syncFormFromDOM(cid);
-  const errors = validateForm();
-  if (errors.length > 0) { showErr(cid, '⚠️ ' + errors[0]); return; }
+  var msg = buildWhatsAppMsg();
 
-  const msg = buildWhatsAppMessage();
-  const encodedMsg = encodeURIComponent(msg);
+  // Copy to clipboard
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(msg).then(function() {
+      showToast('📋 Order copied! Paste in WhatsApp group.');
+    }).catch(function() { legacyCopy(msg); });
+  } else {
+    legacyCopy(msg);
+  }
 
-  // Open WhatsApp group link (user must already be a member)
-  // Opens personal number as fallback
-  const groupUrl    = `https://wa.me/${CONFIG.WA_NUMBER}?text=${encodedMsg}`;
-  window.open(groupUrl, '_blank', 'noopener,noreferrer');
+  // Open WhatsApp group link after tiny delay
+  setTimeout(function() {
+    window.open(CONFIG.WA_GROUP_LINK, '_blank', 'noopener,noreferrer');
+  }, 350);
 }
 
-function buildWhatsAppMessage() {
-  const sugarTxt  = state.sugar === 'with' ? 'With Sugar 🍭' : 'Without Sugar 🚫';
-  const itemsText = state.cart.map(i => `  • ${i.emoji} ${i.name} × ${i.qty} = ₹${i.price * i.qty}`).join('\n');
-  const gpsLine   = state.gps.coords ? `\n🗺️ GPS: https://maps.google.com/?q=${state.gps.coords.lat},${state.gps.coords.lng}` : '';
-  const phoneLine = state.form.phone ? `📞 Phone: +91 ${sanitize(state.form.phone)}\n` : '';
-  const payLine   = state.payment.done
-    ? `\n💳 *PAID ONLINE ✅*\n🔖 Payment ID: ${sanitize(state.payment.id)}\n⏱️ Time: ${sanitize(state.payment.timestamp)}`
+function buildWhatsAppMsg() {
+  var sugarTxt  = state.sugar === 'with' ? 'With Sugar 🍭' : 'Without Sugar 🚫';
+  var itemsText = state.cart.map(function(i){ return '  • ' + i.emoji + ' ' + i.name + ' × ' + i.qty + ' = ₹' + (i.price * i.qty); }).join('\n');
+  var gpsLine   = state.gps.coords ? '\n🗺️ GPS: https://maps.google.com/?q=' + state.gps.coords.lat + ',' + state.gps.coords.lng : '';
+  var phoneLine = state.form.phone ? '📞 Phone: +91 ' + sanitize(state.form.phone) + '\n' : '';
+  var payLine   = state.payment.done
+    ? '\n💳 *PAID ONLINE ✅*\n🔖 Payment ID: ' + sanitize(state.payment.id) + '\n⏱️ ' + sanitize(state.payment.timestamp)
     : '\n⚠️ *Payment: Pending*';
-  const total = getTotal();
-
-  return `🥥 *${CONFIG.SHOP_NAME} — New Order* 🌹\n` +
-         `─────────────────────\n` +
-         `👤 Name: ${sanitize(state.form.name)}\n` +
+  var total = getTotal();
+  return '🥥 *' + CONFIG.SHOP_NAME + ' — New Order* 🌹\n' +
+         '─────────────────────\n' +
+         '👤 Name: ' + sanitize(state.form.name) + '\n' +
          phoneLine +
-         `\n🛒 *Items:*\n${itemsText}\n\n` +
-         `🍬 Sugar: ${sugarTxt}\n` +
-         `💰 *Total: ₹${total}*` +
+         '\n🛒 *Items:*\n' + itemsText + '\n\n' +
+         '🍬 Sugar: ' + sugarTxt + '\n' +
+         '💰 *Total: ₹' + total + '*' +
          payLine +
-         `\n\n🚚 *Delivery Address:*\n${sanitize(state.form.loc) || 'Not specified'}${gpsLine}\n` +
-         `─────────────────────\n` +
-         `✅ Please confirm & deliver. Thank you! 🙏`;
+         '\n\n🚚 *Delivery Address:*\n' + (sanitize(state.form.loc) || 'Not specified') + gpsLine + '\n' +
+         '─────────────────────\n' +
+         '✅ Please confirm & deliver. Thank you! 🙏';
 }
 
 // ══════════════════════════════════════════
 // HELPERS
 // ══════════════════════════════════════════
 function syncFormFromDOM(cid) {
-  const n = document.getElementById(cid + '_name');
-  const p = document.getElementById(cid + '_phone');
-  const l = document.getElementById(cid + '_loc');
+  var n = document.getElementById(cid + '_name');
+  var p = document.getElementById(cid + '_phone');
+  var l = document.getElementById(cid + '_loc');
   if (n) state.form.name  = n.value.trim().slice(0, 50);
   if (p) state.form.phone = sanitizePhone(p.value);
   if (l) state.form.loc   = l.value.trim().slice(0, 300);
@@ -1136,29 +1103,40 @@ function syncFormFromDOM(cid) {
 function setSugar(v) { state.sugar = v; renderOrder(); }
 
 function showErr(cid, msg) {
-  const errEl = document.getElementById(cid + '_err');
-  if (!errEl) return;
-  errEl.textContent = msg;
-  errEl.style.display = 'block';
-  setTimeout(() => { if(errEl) errEl.style.display = 'none'; }, 4000);
+  var el = document.getElementById(cid + '_err');
+  if (!el) return;
+  el.textContent = msg;
+  el.style.display = 'block';
+  setTimeout(function(){ if(el) el.style.display = 'none'; }, 4500);
 }
 
 function showToast(msg) {
-  const t = document.getElementById('toast');
+  var t = document.getElementById('toast');
   if (!t) return;
   t.textContent = msg;
   t.classList.add('show');
-  clearTimeout(t._timer);
-  t._timer = setTimeout(() => t.classList.remove('show'), 2200);
+  clearTimeout(t._t);
+  t._t = setTimeout(function(){ t.classList.remove('show'); }, 2800);
+}
+
+function legacyCopy(text) {
+  var t = document.createElement('textarea');
+  t.value = text;
+  t.style.cssText = 'position:fixed;top:-9999px;left:-9999px';
+  document.body.appendChild(t);
+  t.select();
+  try { document.execCommand('copy'); showToast('📋 Order copied! Paste in group.'); }
+  catch(e) {}
+  document.body.removeChild(t);
 }
 
 // ══════════════════════════════════════════
 // UI CONTROLS
 // ══════════════════════════════════════════
 function toggleSheet() {
-  const sheet   = document.getElementById('orderSheet');
-  const overlay = document.getElementById('sheetOverlay');
-  const isOpen  = sheet.classList.contains('open');
+  var sheet   = document.getElementById('orderSheet');
+  var overlay = document.getElementById('sheetOverlay');
+  var isOpen  = sheet.classList.contains('open');
   sheet.classList.toggle('open', !isOpen);
   overlay.classList.toggle('open', !isOpen);
   document.body.style.overflow = isOpen ? '' : 'hidden';
@@ -1166,87 +1144,56 @@ function toggleSheet() {
 }
 
 function toggleDrawer() {
-  const drawer = document.getElementById('mobileDrawer');
-  const btn    = document.getElementById('hamburgerBtn');
-  const isOpen = drawer.classList.toggle('open');
+  var drawer = document.getElementById('mobileDrawer');
+  var btn    = document.getElementById('hamburgerBtn');
+  var isOpen = drawer.classList.toggle('open');
   btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
   document.body.style.overflow = isOpen ? 'hidden' : '';
 }
 
 function filterTab(btn, cat) {
-  document.querySelectorAll('.tab').forEach(t => {
-    t.classList.remove('active');
-    t.setAttribute('aria-selected','false');
-  });
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
   btn.classList.add('active');
-  btn.setAttribute('aria-selected','true');
-
-  document.querySelectorAll('.product-card').forEach(card => {
-    const show = cat === 'all' || card.dataset.cat === cat;
-    card.style.display = show ? '' : 'none';
+  document.querySelectorAll('.product-card').forEach(function(card){
+    card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
   });
 }
 
 function copyAddr() {
-  const addr = 'CocoNex Juice Shop, No. 17A, Main Road Viraganur, Madurai, Tamil Nadu';
+  var addr = 'CocoNex Juice Shop, No. 17A, Main Road Viraganur, Madurai, Tamil Nadu';
   if (navigator.clipboard) {
-    navigator.clipboard.writeText(addr)
-      .then(() => showToast('📋 Address copied!'))
-      .catch(() => legacyCopy(addr));
-  } else {
-    legacyCopy(addr);
-  }
+    navigator.clipboard.writeText(addr).then(function(){ showToast('📋 Address copied!'); }).catch(function(){ legacyCopy(addr); });
+  } else { legacyCopy(addr); }
 }
 
-function legacyCopy(text) {
-  const t = document.createElement('textarea');
-  t.value = text;
-  t.style.cssText = 'position:fixed;top:-9999px;left:-9999px';
-  document.body.appendChild(t);
-  t.select();
-  try { document.execCommand('copy'); showToast('📋 Address copied!'); }
-  catch(e) { showToast('Could not copy address'); }
-  document.body.removeChild(t);
-}
-
-// ══════════════════════════════════════════
-// SCROLL REVEAL
-// ══════════════════════════════════════════
-(function initReveal() {
+// ── Scroll reveal ──
+(function() {
   if (!window.IntersectionObserver) {
-    document.querySelectorAll('.product-card').forEach(c => c.classList.add('visible'));
+    document.querySelectorAll('.product-card').forEach(function(c){ c.classList.add('visible'); });
     return;
   }
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const card  = entry.target;
-        const cards = Array.from(card.parentNode.children).filter(el => el.classList.contains('product-card'));
-        const idx   = cards.indexOf(card);
-        setTimeout(() => card.classList.add('visible'), idx * 55);
-        observer.unobserve(card);
-      }
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) return;
+      var card  = entry.target;
+      var cards = Array.from(card.parentNode.children).filter(function(el){ return el.classList.contains('product-card'); });
+      var idx   = cards.indexOf(card);
+      setTimeout(function(){ card.classList.add('visible'); }, idx * 55);
+      obs.unobserve(card);
     });
   }, { threshold: 0.08 });
-
-  document.querySelectorAll('.product-card').forEach(card => observer.observe(card));
+  document.querySelectorAll('.product-card').forEach(function(c){ obs.observe(c); });
 })();
 
-// ══════════════════════════════════════════
-// KEYBOARD SUPPORT
-// ══════════════════════════════════════════
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    const drawer = document.getElementById('mobileDrawer');
-    const sheet  = document.getElementById('orderSheet');
-    if (drawer.classList.contains('open')) toggleDrawer();
-    else if (sheet.classList.contains('open')) toggleSheet();
-  }
+// ── Keyboard ──
+document.addEventListener('keydown', function(e) {
+  if (e.key !== 'Escape') return;
+  var drawer = document.getElementById('mobileDrawer');
+  var sheet  = document.getElementById('orderSheet');
+  if (drawer.classList.contains('open')) toggleDrawer();
+  else if (sheet.classList.contains('open')) toggleSheet();
 });
 
-// ══════════════════════════════════════════
-// INIT
-// ══════════════════════════════════════════
 renderOrder();
 </script>
 </body>
