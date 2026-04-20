@@ -4,10 +4,41 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#1a6b2f">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: blob:; script-src 'self' 'unsafe-inline' https://checkout.razorpay.com https://fonts.googleapis.com https://api.razorpay.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; img-src * data: blob:; connect-src https:; frame-src https://maps.google.com https://api.razorpay.com">
 <title>CocoNex – Fresh Juice &amp; Rose Milk</title>
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js" defer></script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  // ── PASTE YOUR FIREBASE CONFIG HERE ──
+  const firebaseConfig = {
+    apiKey:            "YOUR_API_KEY",
+    authDomain:        "YOUR_PROJECT.firebaseapp.com",
+    projectId:         "YOUR_PROJECT_ID",
+    storageBucket:     "YOUR_PROJECT.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId:             "YOUR_APP_ID"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db  = getFirestore(app);
+
+  window.saveOrderToFirebase = async function(orderData) {
+    try {
+      const docRef = await addDoc(collection(db, "orders"), {
+        ...orderData,
+        status:    "pending",
+        createdAt: serverTimestamp()
+      });
+      console.log("✅ Order saved to Firebase:", docRef.id);
+      return docRef.id;
+    } catch (err) {
+      console.error("❌ Firebase save failed:", err);
+      return null;
+    }
+  };
+</script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -27,8 +58,8 @@ button{cursor:pointer;font-family:inherit;-webkit-tap-highlight-color:transparen
 img{display:block;max-width:100%;object-fit:cover}
 textarea,input{font-family:inherit}
 
-/* ── NAVBAR ── */
-.nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav-h);background:rgba(13,59,26,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center}
+/* NAVBAR */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav-h);background:rgba(13,59,26,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center}
 .nav-inner{width:100%;max-width:1280px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px}
 .nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
 .nav-logo img{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)}
@@ -43,7 +74,6 @@ textarea,input{font-family:inherit}
 @keyframes pulse2{0%,100%{box-shadow:0 0 0 0 rgba(76,175,80,.5)}60%{box-shadow:0 0 0 5px rgba(76,175,80,0)}}
 .cart-btn{display:flex;align-items:center;gap:7px;background:var(--gold);color:var(--gd);font-weight:800;font-size:.83rem;padding:9px 16px;border-radius:99px;border:none;transition:transform .15s,box-shadow .15s;box-shadow:0 4px 14px rgba(245,168,0,.3);white-space:nowrap;flex-shrink:0}
 .cart-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(245,168,0,.42)}
-.cart-btn:active{transform:scale(.95)}
 .cart-count{background:var(--pink);color:#fff;min-width:20px;height:20px;padding:0 4px;border-radius:10px;font-size:.68rem;font-weight:800;display:flex;align-items:center;justify-content:center}
 .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:6px;margin-left:4px}
 .hamburger span{width:22px;height:2px;background:#fff;border-radius:2px;transition:all .3s}
@@ -70,7 +100,6 @@ textarea,input{font-family:inherit}
 @keyframes fadeSlideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .btn-primary{padding:13px 26px;background:var(--gold);color:var(--gd);font-weight:800;font-size:.92rem;border-radius:99px;border:none;box-shadow:0 6px 20px rgba(245,168,0,.38);transition:all .2s}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(245,168,0,.48)}
-.btn-primary:active{transform:scale(.95)}
 .btn-outline{padding:13px 26px;background:transparent;color:#fff;font-weight:700;font-size:.92rem;border-radius:99px;border:2px solid rgba(255,255,255,.32);transition:all .2s}
 .btn-outline:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.55)}
 .hero-image-wrap{display:flex;justify-content:center;align-items:center;position:relative;animation:fadeSlideUp .8s .15s ease both}
@@ -109,9 +138,8 @@ textarea,input{font-family:inherit}
 .loc-copy:hover{border-color:var(--g)}
 
 /* SHOP */
-.shop-section{padding:56px 20px;position:relative;overflow:hidden}
-.shop-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(26,107,47,.04) 0%,transparent 70%);pointer-events:none}
-.shop-inner{max-width:1280px;margin:0 auto;position:relative;z-index:1}
+.shop-section{padding:56px 20px;position:relative}
+.shop-inner{max-width:1280px;margin:0 auto}
 .shop-header{text-align:center;margin-bottom:40px}
 .shop-header h2{font-family:'Pacifico',cursive;font-size:clamp(1.7rem,2.8vw,2.4rem);color:var(--g);margin-bottom:7px}
 .shop-header p{color:var(--muted);font-size:.92rem;max-width:480px;margin:0 auto}
@@ -128,7 +156,7 @@ textarea,input{font-family:inherit}
 .product-card{background:var(--white);border-radius:20px;box-shadow:var(--sh);overflow:hidden;transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s;border:1.5px solid transparent;opacity:0;transform:translateY(24px)}
 .product-card.visible{animation:cardReveal .5s ease forwards}
 @keyframes cardReveal{to{opacity:1;transform:translateY(0)}}
-.product-card:hover{transform:translateY(-6px) scale(1.015);box-shadow:var(--sh2),0 0 0 2px rgba(26,107,47,.1);border-color:var(--border)}
+.product-card:hover{transform:translateY(-6px) scale(1.015);box-shadow:var(--sh2);border-color:var(--border)}
 .product-img-wrap{position:relative;width:100%;padding-top:62%;overflow:hidden;background:var(--bg2)}
 .product-img-wrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
 .product-card:hover .product-img-wrap img{transform:scale(1.08)}
@@ -179,6 +207,16 @@ textarea,input{font-family:inherit}
 .cart-remove{background:none;border:none;color:#bbb;font-size:.8rem;padding:2px;transition:all .2s;line-height:1}
 .cart-remove:hover{color:var(--pink);transform:rotate(90deg) scale(1.2)}
 
+/* SESSION RESTORE BANNER */
+.session-banner{background:linear-gradient(135deg,#fff8e1,#fff3cd);border:1.5px solid #f5a800;border-radius:13px;padding:11px 14px;margin-bottom:13px;display:none;align-items:center;gap:10px}
+.session-banner.show{display:flex}
+.session-banner-icon{font-size:1.3rem;flex-shrink:0}
+.session-banner-text{flex:1}
+.session-banner-text strong{display:block;font-size:.78rem;font-weight:800;color:#b36a00}
+.session-banner-text span{font-size:.7rem;color:#946000;font-weight:600}
+.session-clear{background:none;border:1.5px solid rgba(179,106,0,.3);color:#b36a00;font-size:.68rem;font-weight:700;padding:4px 9px;border-radius:7px;cursor:pointer;flex-shrink:0;transition:all .2s}
+.session-clear:hover{background:rgba(179,106,0,.08)}
+
 /* FORM */
 .pref-label{font-size:.78rem;font-weight:800;color:var(--text);margin-bottom:7px;display:flex;align-items:center;gap:5px}
 .sugar-row{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:13px}
@@ -216,55 +254,52 @@ textarea,input{font-family:inherit}
 .order-total-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-top:2px dashed var(--border);margin-bottom:12px}
 .total-label{font-size:.78rem;color:var(--muted);font-weight:600}
 .total-amount{font-family:'Pacifico',cursive;font-size:1.35rem;color:var(--g)}
-.pay-now-btn{width:100%;padding:14px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border:none;border-radius:13px;font-family:'DM Sans',sans-serif;font-weight:800;font-size:.92rem;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 6px 20px rgba(102,126,234,.38);transition:all .2s;margin-bottom:9px;position:relative;overflow:hidden}
-.pay-now-btn::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.1),transparent);pointer-events:none}
+.pay-now-btn{width:100%;padding:14px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border:none;border-radius:13px;font-family:'DM Sans',sans-serif;font-weight:800;font-size:.92rem;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 6px 20px rgba(102,126,234,.38);transition:all .2s;margin-bottom:9px}
 .pay-now-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(102,126,234,.48)}
 .pay-now-btn:active{transform:scale(.97)}
 .pay-now-btn:disabled{opacity:.55;transform:none;cursor:not-allowed}
 .pay-loader{display:none;width:18px;height:18px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.wa-btn{width:100%;padding:14px;background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;border:none;border-radius:13px;font-family:'DM Sans',sans-serif;font-weight:800;font-size:.92rem;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 6px 20px rgba(37,211,102,.32);transition:all .2s;margin-bottom:9px}
-.wa-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(37,211,102,.42)}
-.wa-btn:active{transform:scale(.97)}
-.wa-icon{width:24px;height:24px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.wa-icon svg{width:14px;height:14px}
-
-/* PAYMENT SUCCESS */
-.payment-success{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border:1.5px solid #4caf50;border-radius:11px;padding:11px 13px;margin-bottom:11px;display:none}
-.payment-success.show{display:block}
-.payment-success-inner{display:flex;align-items:center;gap:9px}
-.payment-success-icon{font-size:1.3rem;flex-shrink:0}
-.payment-success-text strong{display:block;font-size:.8rem;font-weight:800;color:#2e7d32}
-.payment-success-text span{font-size:.7rem;color:#388e3c;font-weight:600}
-.payment-id{font-size:.62rem;color:#43a047;font-weight:700;margin-top:2px;word-break:break-all}
 .err-msg{background:#ffeaea;color:#c62828;font-size:.73rem;font-weight:700;padding:8px 11px;border-radius:9px;margin-bottom:9px;border:1px solid #ffcdd2;display:none}
 .sec-badge{display:flex;align-items:center;justify-content:center;gap:6px;color:var(--muted);font-size:.67rem;font-weight:700;opacity:.7;padding-bottom:4px}
 
-/* SESSION RESTORE BANNER */
-.session-banner{background:linear-gradient(135deg,#fff8e1,#fff3cd);border:1.5px solid #f5a800;border-radius:13px;padding:11px 14px;margin-bottom:13px;display:none;align-items:center;gap:10px}
-.session-banner.show{display:flex}
-.session-banner-icon{font-size:1.4rem;flex-shrink:0}
-.session-banner-text strong{display:block;font-size:.78rem;font-weight:800;color:#b36a00}
-.session-banner-text span{font-size:.7rem;color:#946000;font-weight:600}
-.session-clear{background:none;border:1.5px solid rgba(179,106,0,.3);color:#b36a00;font-size:.68rem;font-weight:700;padding:4px 9px;border-radius:7px;cursor:pointer;margin-left:auto;flex-shrink:0;transition:all .2s}
-.session-clear:hover{background:rgba(179,106,0,.08)}
-
-/* AUTO-SENT NOTICE */
-.wa-auto-notice{background:#e3f2fd;border:1.5px solid #90caf9;border-radius:11px;padding:11px 13px;margin-bottom:9px;text-align:center}
-.wa-auto-notice strong{display:block;font-size:.8rem;font-weight:800;color:#1565c0;margin-bottom:2px}
-.wa-auto-notice span{font-size:.7rem;color:#1976d2;font-weight:600}
-
-/* WA SENDING OVERLAY */
-.wa-sending{background:linear-gradient(135deg,#e8f5e9,#f1f8e9);border:1.5px solid #4caf50;border-radius:11px;padding:14px 13px;margin-bottom:9px;text-align:center;display:none}
-.wa-sending.show{display:block}
-.wa-sending-spinner{width:28px;height:28px;border:3px solid rgba(37,211,102,.3);border-top-color:#25d366;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 8px}
-.wa-sending strong{display:block;font-size:.82rem;font-weight:800;color:#2e7d32;margin-bottom:2px}
-.wa-sending span{font-size:.7rem;color:#388e3c;font-weight:600}
+/* ── WHATSAPP CONFIRMATION POPUP ── */
+.wa-overlay{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s}
+.wa-overlay.show{opacity:1;pointer-events:all}
+.wa-popup{background:#fff;border-radius:24px;padding:0;overflow:hidden;max-width:380px;width:100%;box-shadow:0 24px 60px rgba(0,0,0,.25);transform:translateY(40px) scale(.95);transition:transform .35s cubic-bezier(.34,1.56,.64,1),opacity .3s;opacity:0}
+.wa-overlay.show .wa-popup{transform:translateY(0) scale(1);opacity:1}
+.wa-popup-head{background:linear-gradient(135deg,#0d3b1a,#1a6b2f);padding:28px 24px 22px;text-align:center}
+.wa-success-ring{width:70px;height:70px;border-radius:50%;background:rgba(255,255,255,.12);margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:2rem;border:3px solid rgba(245,168,0,.4);animation:ringPop .5s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes ringPop{from{transform:scale(0)}to{transform:scale(1)}}
+.wa-popup-head h3{font-family:'Pacifico',cursive;color:var(--gold);font-size:1.2rem;margin-bottom:5px}
+.wa-popup-head p{color:rgba(255,255,255,.7);font-size:.78rem;font-weight:600}
+.wa-popup-body{padding:20px 22px}
+.wa-order-summary{background:var(--bg2);border-radius:12px;padding:13px;margin-bottom:16px;border:1px solid var(--border)}
+.wa-summary-title{font-size:.72rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:9px}
+.wa-summary-items{display:flex;flex-direction:column;gap:5px;margin-bottom:9px;max-height:120px;overflow-y:auto}
+.wa-summary-items::-webkit-scrollbar{width:3px}
+.wa-summary-items::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.wa-summary-item{display:flex;justify-content:space-between;font-size:.77rem;font-weight:600;color:var(--text)}
+.wa-summary-item span:last-child{color:var(--g);font-weight:800}
+.wa-summary-total{display:flex;justify-content:space-between;align-items:center;padding-top:9px;border-top:1.5px dashed var(--border)}
+.wa-summary-total span:first-child{font-size:.78rem;font-weight:700;color:var(--muted)}
+.wa-total-price{font-family:'Pacifico',cursive;font-size:1.15rem;color:var(--g)}
+.wa-pay-badge{background:#e8f5e9;border:1px solid #4caf50;border-radius:8px;padding:7px 10px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.wa-pay-badge span:first-child{font-size:1rem}
+.wa-pay-badge-text strong{display:block;font-size:.76rem;font-weight:800;color:#2e7d32}
+.wa-pay-badge-text small{font-size:.65rem;color:#388e3c;font-weight:600;word-break:break-all}
+.wa-send-btn{width:100%;padding:15px;background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;border:none;border-radius:13px;font-family:'DM Sans',sans-serif;font-weight:800;font-size:.95rem;display:flex;align-items:center;justify-content:center;gap:9px;box-shadow:0 6px 20px rgba(37,211,102,.35);transition:all .2s;margin-bottom:9px}
+.wa-send-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(37,211,102,.45)}
+.wa-send-btn:active{transform:scale(.97)}
+.wa-send-btn:disabled{opacity:.6;transform:none;cursor:not-allowed}
+.wa-icon-circle{width:26px;height:26px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.wa-cancel-btn{width:100%;padding:11px;background:transparent;color:var(--muted);border:1.5px solid var(--border);border-radius:13px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.85rem;transition:all .2s}
+.wa-cancel-btn:hover{border-color:var(--g);color:var(--g)}
+.wa-hint{text-align:center;font-size:.68rem;color:var(--muted);font-weight:600;margin-top:9px}
 
 /* FEATURES */
-.features{background:var(--gd);padding:44px 20px;position:relative;overflow:hidden}
-.features::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23fff' fill-opacity='0.025'%3E%3Ccircle cx='30' cy='30' r='3'/%3E%3C/g%3E%3C/svg%3E");background-size:40px 40px}
-.features-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;position:relative;z-index:1}
+.features{background:var(--gd);padding:44px 20px}
+.features-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
 .feature{text-align:center;transition:transform .3s}
 .feature:hover{transform:translateY(-5px)}
 .feature-icon{font-size:2rem;margin-bottom:9px;display:block}
@@ -330,6 +365,7 @@ footer a{color:var(--gold);font-weight:700}
   .filter-tabs{gap:6px}
   .tab{padding:7px 13px;font-size:.76rem}
   .gps-map-wrap.show{height:130px}
+  .wa-popup{border-radius:20px}
 }
 @media(max-width:360px){
   .products-grid{grid-template-columns:1fr}
@@ -340,11 +376,47 @@ footer a{color:var(--gold);font-weight:700}
 
 <div class="toast" id="toast"></div>
 
+<!-- WHATSAPP CONFIRMATION POPUP -->
+<div class="wa-overlay" id="waOverlay">
+  <div class="wa-popup" id="waPopup">
+    <div class="wa-popup-head">
+      <div class="wa-success-ring">✅</div>
+      <h3>Payment Successful!</h3>
+      <p>Confirm your order via WhatsApp</p>
+    </div>
+    <div class="wa-popup-body">
+      <div class="wa-order-summary">
+        <div class="wa-summary-title">📋 Order Summary</div>
+        <div class="wa-summary-items" id="waSummaryItems"></div>
+        <div class="wa-summary-total">
+          <span>Total Paid</span>
+          <span class="wa-total-price" id="waTotalPrice">₹0</span>
+        </div>
+      </div>
+      <div class="wa-pay-badge">
+        <span>💳</span>
+        <div class="wa-pay-badge-text">
+          <strong>Payment Verified ✅</strong>
+          <small id="waPayId">ID: —</small>
+        </div>
+      </div>
+      <button class="wa-send-btn" id="waSendBtn" onclick="confirmAndSendWhatsApp()">
+        <div class="wa-icon-circle">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </div>
+        📲 Send Order to WhatsApp
+      </button>
+      <button class="wa-cancel-btn" onclick="closeWaPopup()">Cancel</button>
+      <div class="wa-hint">💡 WhatsApp will open with your order pre-filled — just tap Send!</div>
+    </div>
+  </div>
+</div>
+
 <!-- NAVBAR -->
 <nav class="nav">
   <div class="nav-inner">
     <a class="nav-logo" href="#">
-      <img src="coc.jpeg" alt="CocoNex Logo" width="42" height="42" loading="eager">
+      <img src="coc.jpeg" alt="CocoNex Logo" width="42" height="42" loading="eager" onerror="this.style.display='none'">
       <span class="nav-logo-text">Coco<span>Nex</span></span>
     </a>
     <div class="nav-links">
@@ -391,7 +463,7 @@ footer a{color:var(--gold);font-weight:700}
     </div>
     <div class="hero-image-wrap">
       <div class="hero-logo-glow"></div>
-      <img class="hero-logo" src="coc.jpeg" alt="CocoNex" width="260" height="260" loading="eager">
+      <img class="hero-logo" src="coc.jpeg" alt="CocoNex" width="260" height="260" loading="eager" onerror="this.style.display='none'">
     </div>
   </div>
   <svg class="hero-wave" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
@@ -541,8 +613,8 @@ footer a{color:var(--gold);font-weight:700}
               <div class="product-name">Tender Coconut</div>
               <div class="product-desc">Pure chilled tender coconut water (250 ml) — straight from the shell</div>
               <div class="product-footer">
-                <div class="product-price">₹1</div>
-                <button class="add-btn" onclick="addToCart(this,'Tender Coconut (250ml)',1,'🌴','https://images.pexels.com/photos/1199019/pexels-photo-1199019.jpeg?auto=compress&cs=tinysrgb&w=80')">+</button>
+                <div class="product-price">₹40</div>
+                <button class="add-btn" onclick="addToCart(this,'Tender Coconut (250ml)',40,'🌴','https://images.pexels.com/photos/1199019/pexels-photo-1199019.jpeg?auto=compress&cs=tinysrgb&w=80')">+</button>
               </div>
             </div>
           </div>
@@ -621,7 +693,7 @@ footer a{color:var(--gold);font-weight:700}
   <div class="f-logo">Coco<span>Nex</span></div>
   <p>Fresh • Natural • Refreshing<br>
   📍 No. 17A, Main Road Viraganur, Madurai, Tamil Nadu<br>
-  📞 <a href="tel:+917708486840">+917708486840</a> &nbsp;·&nbsp;
+  📞 <a href="tel:+917708486840">+91 77084 86840</a> &nbsp;·&nbsp;
   💬 <a href="https://wa.me/917708486840" target="_blank" rel="noopener noreferrer">WhatsApp Us</a></p>
   <p style="margin-top:10px;font-size:.68rem;opacity:.4">© 2026 CocoNex. All rights reserved. · Secured by Razorpay</p>
 </footer>
@@ -648,30 +720,20 @@ footer a{color:var(--gold);font-weight:700}
 
 <script>
 // ═══════════════════════════════════════════════════════
-// IMAGE FALLBACK
-// ═══════════════════════════════════════════════════════
-function imgFallback(img, emoji) {
-  var wrap = img.parentNode;
-  if (!wrap) return;
-  wrap.innerHTML = '<div class="product-img-fallback">' + emoji + '</div>';
-}
-
-// ═══════════════════════════════════════════════════════
 // CONFIG
 // ═══════════════════════════════════════════════════════
-var CONFIG = Object.freeze({
-  WA_GROUP_LINK: 'https://chat.whatsapp.com/C1nZoqh3qS8GnHKrhX2EyG',
-  WA_NUMBER:     '917708486840',
-  RAZORPAY_KEY:  'rzp_live_SeSfBiWR5jVqJU',
-  SHOP_NAME:     'CocoNex',
-  SHOP_IMG:      'coc.jpeg',
-  CURRENCY:      'INR',
-  SESSION_TTL:   60 * 60 * 1000,   // 1 hour in ms
-  STORAGE_KEY:   'coconex_session_v2'
-});
+var CONFIG = {
+  WA_NUMBER:    '917708486840',
+  RAZORPAY_KEY: 'rzp_live_SeSfBiWR5jVqJU',
+  SHOP_NAME:    'CocoNex',
+  SHOP_IMG:     'coc.jpeg',
+  CURRENCY:     'INR',
+  SESSION_TTL:  60 * 60 * 1000,
+  STORAGE_KEY:  'coconex_v3'
+};
 
 // ═══════════════════════════════════════════════════════
-// STATE  — restored from localStorage on load
+// STATE
 // ═══════════════════════════════════════════════════════
 var state = {
   cart:        [],
@@ -680,166 +742,119 @@ var state = {
   form:        { name: '', phone: '', loc: '' },
   payment:     { done: false, id: '', timestamp: null },
   orderLocked: false,
-  sessionStart: Date.now()   // tracks when cart was first touched
+  sessionStart: Date.now()
 };
 
-// ── Helpers ──────────────────────────────────────────
+// ═══════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════
 function sanitize(str) {
   if (typeof str !== 'string') return '';
   return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-            .replace(/"/g,'&quot;').replace(/'/g,'&#x27;').trim().slice(0,200);
+            .replace(/"/g,'&quot;').replace(/'/g,'&#x27;').trim().slice(0,300);
 }
-function sanitizePhone(p) { return String(p || '').replace(/[^0-9]/g,'').slice(0,10); }
+function sanitizePhone(p) { return String(p||'').replace(/[^0-9]/g,'').slice(0,10); }
 
 function validateForm() {
-  var errors = [];
-  if (state.cart.length === 0) errors.push('Please add at least one item to your order.');
-  var name = state.form.name.trim();
-  if (!name || name.length < 2) errors.push('Please enter your name (min 2 characters).');
-  var phone = sanitizePhone(state.form.phone);
-  if (phone.length > 0 && phone.length !== 10) errors.push('Phone number must be 10 digits.');
-  return errors;
+  var errs = [];
+  if (state.cart.length === 0) errs.push('Please add at least one item.');
+  if (!state.form.name.trim() || state.form.name.trim().length < 2) errs.push('Please enter your name.');
+  var ph = sanitizePhone(state.form.phone);
+  if (ph.length > 0 && ph.length !== 10) errs.push('Phone number must be 10 digits.');
+  return errs;
+}
+
+function getTotal() { return state.cart.reduce(function(s,i){ return s+i.price*i.qty; },0); }
+
+function imgFallback(img, emoji) {
+  var w = img.parentNode; if (!w) return;
+  w.innerHTML = '<div class="product-img-fallback">'+emoji+'</div>';
 }
 
 // ═══════════════════════════════════════════════════════
-// ★ FEATURE 2 — localStorage session (1-hour TTL)
+// SESSION (localStorage)
 // ═══════════════════════════════════════════════════════
-var _sessionRestored = false;   // flag: was data loaded from storage?
-
-function saveSession() {
-  // Only save if cart has items OR form has data
-  var hasData = state.cart.length > 0 ||
-                state.form.name || state.form.phone || state.form.loc;
-  if (!hasData) { clearSession(); return; }
-
-  try {
-    var snap = {
-      cart:         state.cart,
-      sugar:        state.sugar,
-      form:         state.form,
-      payment:      state.payment,
-      gps:          { coords: state.gps.coords },   // don't save loading/error
-      sessionStart: state.sessionStart,
-      savedAt:      Date.now()
-    };
-    localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify(snap));
-  } catch(e) { /* storage full or private mode — silently ignore */ }
-}
-
-function loadSession() {
-  try {
-    var raw = localStorage.getItem(CONFIG.STORAGE_KEY);
-    if (!raw) return false;
-    var snap = JSON.parse(raw);
-    if (!snap || !snap.savedAt) return false;
-
-    // Expire after TTL
-    if (Date.now() - snap.savedAt > CONFIG.SESSION_TTL) {
-      clearSession();
-      return false;
-    }
-
-    // Restore
-    state.cart         = Array.isArray(snap.cart) ? snap.cart : [];
-    state.sugar        = snap.sugar === 'without' ? 'without' : 'with';
-    state.form         = snap.form  || { name:'', phone:'', loc:'' };
-    state.payment      = snap.payment || { done:false, id:'', timestamp:null };
-    state.sessionStart = snap.sessionStart || Date.now();
-    if (snap.gps && snap.gps.coords) {
-      state.gps.coords = snap.gps.coords;
-    }
-
-    return state.cart.length > 0;   // return true only if cart had items
-  } catch(e) {
-    clearSession();
-    return false;
-  }
-}
-
-function clearSession() {
-  try { localStorage.removeItem(CONFIG.STORAGE_KEY); } catch(e) {}
-  state.cart         = [];
-  state.sugar        = 'with';
-  state.form         = { name:'', phone:'', loc:'' };
-  state.payment      = { done:false, id:'', timestamp:null };
-  state.gps          = { coords:null, loading:false, error:null };
-  state.orderLocked  = false;
+function clearCart() {
+  state.cart = []; state.payment = { done:false, id:'', timestamp:null };
+  state.form = { name:'', phone:'', loc:'' };
+  state.gps  = { coords:null, loading:false, error:null };
   state.sessionStart = Date.now();
-  _sessionRestored   = false;
-  renderOrder();
-  updateCartCount();
+  _sessionRestored = false;
+  clearSessionStorage();
+  renderOrder(); updateCartCount();
   document.getElementById('mobileCartFloat').style.display = 'none';
   showToast('🗑️ Cart cleared');
 }
 
-// Save on every change (throttled to avoid thrash)
-var _saveTimer = null;
-function debouncedSave() {
-  clearTimeout(_saveTimer);
-  _saveTimer = setTimeout(saveSession, 400);
+function saveSession() {
+  try {
+    if (state.cart.length === 0 && !state.form.name && !state.form.phone) { clearSessionStorage(); return; }
+    localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify({
+      cart: state.cart, sugar: state.sugar, form: state.form,
+      gps: { coords: state.gps.coords },
+      sessionStart: state.sessionStart,
+      savedAt: Date.now()
+    }));
+  } catch(e) {}
 }
+function clearSessionStorage() { try { localStorage.removeItem(CONFIG.STORAGE_KEY); } catch(e) {} }
+function loadSession() {
+  try {
+    var raw = localStorage.getItem(CONFIG.STORAGE_KEY);
+    if (!raw) return false;
+    var s = JSON.parse(raw);
+    if (!s || Date.now() - s.savedAt > CONFIG.SESSION_TTL) { clearSessionStorage(); return false; }
+    state.cart  = Array.isArray(s.cart) ? s.cart : [];
+    state.sugar = s.sugar === 'without' ? 'without' : 'with';
+    state.form  = s.form  || { name:'', phone:'', loc:'' };
+    state.sessionStart = s.sessionStart || Date.now();
+    if (s.gps && s.gps.coords) state.gps.coords = s.gps.coords;
+    return state.cart.length > 0;
+  } catch(e) { return false; }
+}
+
+var _saveTimer = null;
+function debouncedSave() { clearTimeout(_saveTimer); _saveTimer = setTimeout(saveSession, 400); }
 
 // ═══════════════════════════════════════════════════════
 // CART
 // ═══════════════════════════════════════════════════════
 function addToCart(btn, name, price, emoji, imgUrl) {
-  var safeName  = sanitize(name);
-  var safePrice = Math.max(0, Math.min(9999, parseInt(price,10) || 0));
-  var existing  = state.cart.find(function(i){ return i.name === safeName; });
-  if (existing) { existing.qty = Math.min(existing.qty + 1, 20); }
-  else { state.cart.push({ name:safeName, price:safePrice, emoji:emoji, imgUrl:imgUrl, qty:1 }); }
-
-  if (!state.sessionStart) state.sessionStart = Date.now();
-
-  btn.textContent = '✓';
-  btn.classList.add('added');
-  setTimeout(function(){ btn.textContent = '+'; btn.classList.remove('added'); }, 700);
-
-  state.payment      = { done:false, id:'', timestamp:null };
-  state.orderLocked  = false;
-  renderOrder();
-  updateCartCount();
-  debouncedSave();
+  var n = sanitize(name), p = Math.max(0, Math.min(9999, parseInt(price,10)||0));
+  var ex = state.cart.find(function(i){ return i.name===n; });
+  if (ex) ex.qty = Math.min(ex.qty+1, 20);
+  else state.cart.push({ name:n, price:p, emoji:emoji, imgUrl:imgUrl, qty:1 });
+  btn.textContent = '✓'; btn.classList.add('added');
+  setTimeout(function(){ btn.textContent='+'; btn.classList.remove('added'); }, 700);
+  state.payment = { done:false, id:'', timestamp:null };
+  renderOrder(); updateCartCount(); debouncedSave();
   showToast('Added to order!');
   if (window.innerWidth <= 1024) document.getElementById('mobileCartFloat').style.display = 'block';
 }
 
-function changeQty(encodedName, delta) {
-  var name = decodeURIComponent(encodedName);
-  var item = state.cart.find(function(i){ return i.name === name; });
+function changeQty(enc, delta) {
+  var name = decodeURIComponent(enc);
+  var item = state.cart.find(function(i){ return i.name===name; });
   if (!item) return;
   item.qty += delta;
-  if (item.qty <= 0) {
-    state.cart = state.cart.filter(function(i){ return i.name !== name; });
-    showToast('Item removed');
-  }
+  if (item.qty <= 0) { state.cart = state.cart.filter(function(i){ return i.name!==name; }); showToast('Item removed'); }
   state.payment = { done:false, id:'', timestamp:null };
-  state.orderLocked = false;
   renderOrder(); updateCartCount(); debouncedSave();
-  if (state.cart.length === 0) {
-    document.getElementById('mobileCartFloat').style.display = 'none';
-    clearSession();
-  }
+  if (state.cart.length === 0) { document.getElementById('mobileCartFloat').style.display='none'; clearSessionStorage(); }
 }
 
-function removeItem(encodedName) {
-  var name = decodeURIComponent(encodedName);
-  state.cart = state.cart.filter(function(i){ return i.name !== name; });
+function removeItem(enc) {
+  var name = decodeURIComponent(enc);
+  state.cart = state.cart.filter(function(i){ return i.name!==name; });
   state.payment = { done:false, id:'', timestamp:null };
-  state.orderLocked = false;
   renderOrder(); updateCartCount(); debouncedSave();
-  if (state.cart.length === 0) {
-    document.getElementById('mobileCartFloat').style.display = 'none';
-    clearSession();
-  }
+  if (state.cart.length === 0) { document.getElementById('mobileCartFloat').style.display='none'; clearSessionStorage(); }
 }
-
-function getTotal() { return state.cart.reduce(function(s,i){ return s + i.price * i.qty; }, 0); }
 
 function updateCartCount() {
-  var total = state.cart.reduce(function(s,i){ return s + i.qty; }, 0);
-  document.getElementById('cartCount').textContent = total;
-  document.getElementById('fabCount').textContent  = total;
+  var t = state.cart.reduce(function(s,i){ return s+i.qty; },0);
+  document.getElementById('cartCount').textContent = t;
+  document.getElementById('fabCount').textContent  = t;
 }
 
 // ═══════════════════════════════════════════════════════
@@ -852,136 +867,89 @@ function renderOrder() {
   if (shb) shb.innerHTML = buildOrderHTML('mob');
 }
 
+var _sessionRestored = false;
+
 function buildOrderHTML(cid) {
-  // ── Session restore banner ──
-  var sessionBannerHTML = '';
+  // Session restore banner
+  var sessionHTML = '';
   if (_sessionRestored) {
-    var minutesLeft = Math.max(0, Math.round((CONFIG.SESSION_TTL - (Date.now() - state.sessionStart)) / 60000));
-    sessionBannerHTML = '<div class="session-banner show">' +
+    var minsLeft = Math.max(0, Math.round((CONFIG.SESSION_TTL - (Date.now() - (state.sessionStart||Date.now()))) / 60000));
+    sessionHTML = '<div class="session-banner show">' +
       '<div class="session-banner-icon">🔄</div>' +
       '<div class="session-banner-text">' +
-        '<strong>Welcome back! Your cart is restored</strong>' +
-        '<span>Items saved · expires in ~' + minutesLeft + ' min</span>' +
+        '<strong>Welcome back! Cart restored</strong>' +
+        '<span>Items saved · expires in ~'+minsLeft+' min</span>' +
       '</div>' +
-      '<button class="session-clear" onclick="clearSession()">Clear</button>' +
+      '<button class="session-clear" onclick="clearCart()">Clear</button>' +
     '</div>';
   }
 
-  // ── Cart items ──
   var cartHTML;
   if (state.cart.length === 0) {
     cartHTML = '<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>Add items from the menu!</p></div>';
   } else {
     var items = state.cart.map(function(i) {
-      var enc   = encodeURIComponent(i.name);
+      var enc = encodeURIComponent(i.name);
       var thumb = i.imgUrl
-        ? '<img src="' + i.imgUrl + '" alt="' + sanitize(i.name) + '" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:8px">'
-        : '<span style="font-size:1.3rem">' + i.emoji + '</span>';
+        ? '<img src="'+i.imgUrl+'" alt="'+sanitize(i.name)+'" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:8px">'
+        : '<span style="font-size:1.3rem">'+i.emoji+'</span>';
       return '<div class="cart-item">' +
-        '<div class="cart-item-thumb">' + thumb + '</div>' +
-        '<div class="cart-item-info"><div class="cart-item-name">' + sanitize(i.name) + '</div><div class="cart-item-sub">₹' + i.price + ' each</div></div>' +
+        '<div class="cart-item-thumb">'+thumb+'</div>' +
+        '<div class="cart-item-info"><div class="cart-item-name">'+sanitize(i.name)+'</div><div class="cart-item-sub">₹'+i.price+' each</div></div>' +
         '<div class="cart-item-right">' +
           '<div class="qty-mini">' +
-            '<button onclick="changeQty(\'' + enc + '\',-1)">−</button>' +
-            '<span>' + i.qty + '</span>' +
-            '<button onclick="changeQty(\'' + enc + '\',1)">+</button>' +
+            '<button onclick="changeQty(\''+enc+'\',-1)">−</button>' +
+            '<span>'+i.qty+'</span>' +
+            '<button onclick="changeQty(\''+enc+'\',1)">+</button>' +
           '</div>' +
-          '<div class="cart-item-price">₹' + (i.price * i.qty) + '</div>' +
-          '<button class="cart-remove" onclick="removeItem(\'' + enc + '\')">✕</button>' +
+          '<div class="cart-item-price">₹'+(i.price*i.qty)+'</div>' +
+          '<button class="cart-remove" onclick="removeItem(\''+enc+'\')">✕</button>' +
         '</div>' +
       '</div>';
     }).join('');
-    cartHTML = '<div class="cart-items">' + items + '</div>';
+    cartHTML = '<div class="cart-items">'+items+'</div>';
   }
 
-  // ── Sugar ──
   var sugarHTML = '<div class="pref-label">🍬 Sugar Preference</div>' +
     '<div class="sugar-row">' +
-      '<button class="sugar-opt ' + (state.sugar==='with'?'act':'') + '" onclick="setSugar(\'with\')"><span>🍭</span>With Sugar</button>' +
-      '<button class="sugar-opt ' + (state.sugar==='without'?'act':'') + '" onclick="setSugar(\'without\')"><span>🚫</span>No Sugar</button>' +
+      '<button class="sugar-opt '+(state.sugar==='with'?'act':'')+'" onclick="setSugar(\'with\')"><span>🍭</span>With Sugar</button>' +
+      '<button class="sugar-opt '+(state.sugar==='without'?'act':'')+'" onclick="setSugar(\'without\')"><span>🚫</span>No Sugar</button>' +
     '</div>';
 
-  // ── Form ──
   var formHTML = '<div class="field"><label>👤 Your Name *</label>' +
-    '<input class="inp" id="' + cid + '_name" placeholder="Enter your name…" maxlength="50" value="' + sanitize(state.form.name) + '" oninput="state.form.name=this.value.slice(0,50);debouncedSave()" autocomplete="name"></div>' +
+    '<input class="inp" id="'+cid+'_name" placeholder="Enter your name…" maxlength="50" value="'+sanitize(state.form.name)+'" oninput="state.form.name=this.value.slice(0,50);debouncedSave()" autocomplete="name"></div>' +
     '<div class="field"><label>📞 Phone Number</label><div class="phone-wrap">' +
     '<div class="phone-code">🇮🇳 +91</div>' +
-    '<input class="inp" id="' + cid + '_phone" type="tel" placeholder="10-digit mobile" maxlength="10" value="' + sanitize(state.form.phone) + '" oninput="state.form.phone=this.value.replace(/[^0-9]/g,\'\').slice(0,10);this.value=state.form.phone;debouncedSave()" autocomplete="tel-national" inputmode="numeric" style="flex:1">' +
+    '<input class="inp" id="'+cid+'_phone" type="tel" placeholder="10-digit mobile" maxlength="10" value="'+sanitize(state.form.phone)+'" oninput="state.form.phone=this.value.replace(/[^0-9]/g,\'\').slice(0,10);this.value=state.form.phone;debouncedSave()" autocomplete="tel-national" inputmode="numeric" style="flex:1">' +
     '</div></div>';
 
-  // ── Delivery + GPS Map ──
-  var gpsOk   = !!state.gps.coords;
-  var gpsLoad = state.gps.loading;
-  var gpsErr  = !!state.gps.error;
-  var mapHTML = '';
-  if (gpsOk) {
-    var src = 'https://maps.google.com/maps?q=' + state.gps.coords.lat + ',' + state.gps.coords.lng + '&z=16&output=embed';
-    mapHTML = '<div class="gps-map-wrap show"><iframe src="' + src + '" title="Your location" loading="lazy" allowfullscreen></iframe></div>';
-  } else {
-    mapHTML = '<div class="gps-map-wrap"></div>';
-  }
-  var gpsStatusClass = (gpsOk || gpsErr || gpsLoad)
-    ? ('gps-status show ' + (gpsOk ? 'ok' : 'err'))
-    : 'gps-status';
+  var gpsOk = !!state.gps.coords, gpsLoad = state.gps.loading, gpsErr = !!state.gps.error;
+  var mapHTML = gpsOk
+    ? '<div class="gps-map-wrap show"><iframe src="https://maps.google.com/maps?q='+state.gps.coords.lat+','+state.gps.coords.lng+'&z=16&output=embed" title="Your location" loading="lazy" allowfullscreen></iframe></div>'
+    : '<div class="gps-map-wrap"></div>';
+  var gpsStatusClass = (gpsOk||gpsErr||gpsLoad) ? 'gps-status show '+(gpsOk?'ok':'err') : 'gps-status';
 
   var deliveryHTML = '<div class="delivery-box">' +
     '<div class="pref-label" style="color:var(--pink)">🚚 Delivery Address</div>' +
     '<div class="delivery-row">' +
-      '<textarea class="delivery-inp" id="' + cid + '_loc" rows="2" placeholder="Enter full delivery address…" maxlength="300" oninput="state.form.loc=this.value.slice(0,300);debouncedSave()">' + sanitize(state.form.loc) + '</textarea>' +
-      '<button class="gps-btn" onclick="getGPS(\'' + cid + '\')" ' + (gpsLoad ? 'disabled' : '') + '>' +
-        '<span style="font-size:1.1rem">' + (gpsLoad ? '⏳' : '📡') + '</span>' +
-        '<span>' + (gpsLoad ? 'Wait…' : 'GPS') + '</span>' +
+      '<textarea class="delivery-inp" id="'+cid+'_loc" rows="2" placeholder="Enter full delivery address…" maxlength="300" oninput="state.form.loc=this.value.slice(0,300);debouncedSave()">'+sanitize(state.form.loc)+'</textarea>' +
+      '<button class="gps-btn" onclick="getGPS(\''+cid+'\')" '+(gpsLoad?'disabled':'')+'>' +
+        '<span style="font-size:1.1rem">'+(gpsLoad?'⏳':'📡')+'</span>' +
+        '<span>'+(gpsLoad?'Wait…':'GPS')+'</span>' +
       '</button>' +
     '</div>' +
-    '<div class="' + gpsStatusClass + '">' + getGpsStatusText() + '</div>' +
-    mapHTML +
-  '</div>';
+    '<div class="'+gpsStatusClass+'">'+getGpsStatusText()+'</div>' +
+    mapHTML + '</div>';
 
-  var total  = getTotal();
-  var errId  = cid + '_err';
+  var total = getTotal();
 
-  // ── Payment success banner ──
-  var successHTML = state.payment.done
-    ? '<div class="payment-success show"><div class="payment-success-inner">' +
-        '<div class="payment-success-icon">✅</div>' +
-        '<div class="payment-success-text"><strong>Payment Successful!</strong>' +
-        '<span>WhatsApp opened automatically — user just tapped Send ✓</span>' +
-        '<div class="payment-id">ID: ' + sanitize(state.payment.id) + '</div>' +
-        '</div></div></div>'
-    : '';
-
-  // ── WA sending animation slot ──
-  var waSendingHTML = '<div class="wa-sending" id="' + cid + '_wasending">' +
-    '<div class="wa-sending-spinner"></div>' +
-    '<strong>Opening WhatsApp with your order…</strong>' +
-    '<span>Message is pre-filled — just tap Send!</span>' +
-  '</div>';
-
-  // ── Action buttons ──
-  var actionBtn;
-  if (state.payment.done) {
-    actionBtn = '<div class="wa-auto-notice">' +
-        '<strong>📲 WhatsApp opened with your order!</strong>' +
-        '<span>Message is pre-filled — just tap Send ✅</span>' +
-      '</div>' +
-      waSendingHTML +
-      '<button class="wa-btn" onclick="sendWhatsAppGroup(\'' + cid + '\')">' +
-        '<div class="wa-icon"><svg viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>' +
-        '📲 Resend to WhatsApp' +
-      '</button>';
-  } else {
-    actionBtn = waSendingHTML +
-      '<button class="pay-now-btn" onclick="startRazorpay(\'' + cid + '\')" ' + (state.cart.length === 0 ? 'disabled' : '') + ' id="' + cid + '_paybtn">' +
-        '<span class="pay-loader" id="' + cid + '_loader"></span>' +
-        '<span id="' + cid + '_paytxt">💳 Pay Now — ₹' + total + '</span>' +
-      '</button>';
-  }
-
-  return sessionBannerHTML + cartHTML + sugarHTML + formHTML + deliveryHTML +
-    '<div class="err-msg" id="' + errId + '"></div>' +
-    successHTML +
-    '<div class="order-total-row"><span class="total-label">Total Amount</span><span class="total-amount">₹' + total + '</span></div>' +
-    actionBtn +
+  return sessionHTML + cartHTML + sugarHTML + formHTML + deliveryHTML +
+    '<div class="err-msg" id="'+cid+'_err"></div>' +
+    '<div class="order-total-row"><span class="total-label">Total Amount</span><span class="total-amount">₹'+total+'</span></div>' +
+    '<button class="pay-now-btn" onclick="startRazorpay(\''+cid+'\')" '+(state.cart.length===0?'disabled':'')+' id="'+cid+'_paybtn">' +
+      '<span class="pay-loader" id="'+cid+'_loader"></span>' +
+      '<span id="'+cid+'_paytxt">💳 Pay Now — ₹'+total+'</span>' +
+    '</button>' +
     '<div class="sec-badge">🔒 Secured by Razorpay</div>';
 }
 
@@ -990,31 +958,27 @@ function buildOrderHTML(cid) {
 // ═══════════════════════════════════════════════════════
 function getGpsStatusText() {
   if (state.gps.loading) return '⏳ Getting your location…';
-  if (state.gps.error)   return '❌ ' + sanitize(state.gps.error);
-  if (state.gps.coords)  return '✅ Location captured! <a href="https://maps.google.com/?q=' + state.gps.coords.lat + ',' + state.gps.coords.lng + '" target="_blank" rel="noopener" style="color:var(--g);font-weight:800">View on Maps ↗</a>';
+  if (state.gps.error)   return '❌ '+sanitize(state.gps.error);
+  if (state.gps.coords)  return '✅ Location captured! <a href="https://maps.google.com/?q='+state.gps.coords.lat+','+state.gps.coords.lng+'" target="_blank" rel="noopener" style="color:var(--g);font-weight:800">View on Maps ↗</a>';
   return '';
 }
 
 function getGPS(cid) {
-  if (!navigator.geolocation) { state.gps.error = 'GPS not supported.'; renderOrder(); return; }
+  if (!navigator.geolocation) { state.gps.error='GPS not supported.'; renderOrder(); return; }
   state.gps = { coords:null, loading:true, error:null };
   renderOrder();
-  var timer = setTimeout(function() {
-    state.gps.loading = false; state.gps.error = 'Timed out. Please type your address.'; renderOrder();
-  }, 14000);
+  var timer = setTimeout(function(){ state.gps.loading=false; state.gps.error='Timed out. Please type your address.'; renderOrder(); }, 14000);
   navigator.geolocation.getCurrentPosition(
     function(pos) {
       clearTimeout(timer);
-      state.gps.loading = false;
-      state.gps.coords  = { lat: pos.coords.latitude.toFixed(6), lng: pos.coords.longitude.toFixed(6) };
-      state.form.loc    = 'GPS: ' + state.gps.coords.lat + ', ' + state.gps.coords.lng;
+      state.gps = { coords:{ lat:pos.coords.latitude.toFixed(6), lng:pos.coords.longitude.toFixed(6) }, loading:false, error:null };
+      state.form.loc = 'GPS: '+state.gps.coords.lat+', '+state.gps.coords.lng;
       renderOrder(); debouncedSave();
     },
     function(err) {
       clearTimeout(timer);
-      state.gps.loading = false;
       var msgs = {1:'Location permission denied.',2:'Location unavailable.',3:'Location timed out.'};
-      state.gps.error = msgs[err.code] || 'Could not get location.';
+      state.gps = { coords:null, loading:false, error:msgs[err.code]||'Could not get location.' };
       renderOrder();
     },
     { enableHighAccuracy:true, timeout:12000, maximumAge:60000 }
@@ -1022,21 +986,76 @@ function getGPS(cid) {
 }
 
 // ═══════════════════════════════════════════════════════
-// RAZORPAY  — auto-sends to WhatsApp group after payment
+// WHATSAPP POPUP
+// ═══════════════════════════════════════════════════════
+function showWaPopup(paymentId) {
+  var items = document.getElementById('waSummaryItems');
+  if (items) {
+    items.innerHTML = state.cart.map(function(i){
+      return '<div class="wa-summary-item"><span>'+i.emoji+' '+sanitize(i.name)+' × '+i.qty+'</span><span>₹'+(i.price*i.qty)+'</span></div>';
+    }).join('');
+  }
+  var tp = document.getElementById('waTotalPrice');
+  if (tp) tp.textContent = '₹'+getTotal();
+  var pid = document.getElementById('waPayId');
+  if (pid) pid.textContent = 'ID: '+sanitize(paymentId);
+
+  var overlay = document.getElementById('waOverlay');
+  overlay.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeWaPopup() {
+  document.getElementById('waOverlay').classList.remove('show');
+  document.body.style.overflow = '';
+  renderOrder();
+}
+
+function confirmAndSendWhatsApp() {
+  var btn = document.getElementById('waSendBtn');
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ Opening WhatsApp…'; }
+  var msg   = buildWhatsAppMsg();
+  var waUrl = 'https://wa.me/'+CONFIG.WA_NUMBER+'?text='+encodeURIComponent(msg);
+  window.open(waUrl, '_blank');
+  setTimeout(function() {
+    closeWaPopup();
+    state.cart = []; state.payment = { done:false, id:'', timestamp:null };
+    clearSessionStorage();
+    renderOrder(); updateCartCount();
+    document.getElementById('mobileCartFloat').style.display = 'none';
+    showToast('📲 Order sent to WhatsApp! Thank you 🙏');
+    if (btn) { btn.disabled = false; btn.innerHTML = '📲 Send Order to WhatsApp'; }
+  }, 1200);
+}
+
+function buildWhatsAppMsg() {
+  var sugarTxt  = state.sugar === 'with' ? 'With Sugar 🍭' : 'Without Sugar 🚫';
+  var itemsText = state.cart.map(function(i){ return '  • '+i.emoji+' '+i.name+' × '+i.qty+' = ₹'+(i.price*i.qty); }).join('\n');
+  var gpsLine   = state.gps.coords ? '\n🗺️ GPS: https://maps.google.com/?q='+state.gps.coords.lat+','+state.gps.coords.lng : '';
+  var phoneLine = state.form.phone ? '📞 Phone: +91 '+sanitize(state.form.phone)+'\n' : '';
+  return '🥥 *'+CONFIG.SHOP_NAME+' — New Order* 🌹\n' +
+    '─────────────────────\n' +
+    '👤 Name: '+sanitize(state.form.name)+'\n'+phoneLine+
+    '\n🛒 *Items:*\n'+itemsText+'\n\n' +
+    '🍬 Sugar: '+sugarTxt+'\n' +
+    '💰 *Total: ₹'+getTotal()+'*\n' +
+    '💳 *PAID ONLINE ✅*\n🔖 Payment ID: '+sanitize(state.payment.id)+'\n⏱️ '+sanitize(state.payment.timestamp)+
+    '\n\n🚚 *Delivery Address:*\n'+(sanitize(state.form.loc)||'Not specified')+gpsLine+'\n' +
+    '─────────────────────\n✅ Please confirm & deliver. Thank you! 🙏';
+}
+
+// ═══════════════════════════════════════════════════════
+// RAZORPAY
 // ═══════════════════════════════════════════════════════
 function startRazorpay(cid) {
   syncFormFromDOM(cid);
   var errors = validateForm();
-  if (errors.length > 0) { showErr(cid, '⚠️ ' + errors[0]); return; }
+  if (errors.length > 0) { showErr(cid, '⚠️ '+errors[0]); return; }
   if (state.orderLocked) return;
 
   if (typeof Razorpay === 'undefined') {
     showErr(cid, '⏳ Loading payment gateway…');
-    preloadRazorpay();
-    setTimeout(function() {
-      if (typeof Razorpay !== 'undefined') startRazorpay(cid);
-      else showErr(cid, '⚠️ Payment gateway failed to load.');
-    }, 2500);
+    setTimeout(function(){ if (typeof Razorpay !== 'undefined') startRazorpay(cid); else showErr(cid,'⚠️ Payment gateway failed to load.'); }, 2500);
     return;
   }
 
@@ -1044,27 +1063,17 @@ function startRazorpay(cid) {
   state.orderLocked = true;
 
   var amount = getTotal();
-  var phone  = sanitizePhone(state.form.phone);
-  var name   = sanitize(state.form.name);
-
   var options = {
     key:         CONFIG.RAZORPAY_KEY,
     amount:      amount * 100,
     currency:    CONFIG.CURRENCY,
     name:        CONFIG.SHOP_NAME,
-    description: buildOrderDesc(),
+    description: state.cart.map(function(i){ return i.name+'x'+i.qty; }).join(', ').slice(0,255),
     image:       CONFIG.SHOP_IMG,
-    prefill:     { name:name, contact: phone ? '+91' + phone : '' },
-    notes: {
-      delivery_address: sanitize(state.form.loc) || 'Not specified',
-      sugar_preference: state.sugar === 'with' ? 'With Sugar' : 'Without Sugar'
-    },
-    theme:  { color:'#1a6b2f' },
-    method: { upi:true, card:true, netbanking:true, wallet:true },
+    prefill:     { name: sanitize(state.form.name), contact: state.form.phone ? '+91'+state.form.phone : '' },
+    notes:       { delivery_address: sanitize(state.form.loc)||'Not specified', sugar: state.sugar },
+    theme:       { color: '#1a6b2f' },
 
-    // ★ FEATURE 1: AUTO WhatsApp after payment
-    // window.open() MUST be called synchronously inside this Razorpay handler.
-    // Any setTimeout/Promise delay causes browsers to block the popup as spam.
     handler: function(response) {
       state.payment = {
         done:      true,
@@ -1072,27 +1081,40 @@ function startRazorpay(cid) {
         timestamp: new Date().toLocaleString('en-IN', { timeZone:'Asia/Kolkata' })
       };
       state.orderLocked = false;
-
-      // ── Open WhatsApp IMMEDIATELY & SYNCHRONOUSLY right here ──
-      var msg   = buildWhatsAppMsg();
-      var waUrl = 'https://wa.me/' + CONFIG.WA_NUMBER + '?text=' + encodeURIComponent(msg);
-      window.open(waUrl, '_blank');
-
-      // UI updates after
       setPayBtnLoading(cid, false);
       saveSession();
-      renderOrder();
-      showToast('✅ Payment done! WhatsApp opened — just tap Send!');
+
+      // Save order to Firebase (non-blocking)
+      if (typeof window.saveOrderToFirebase === 'function') {
+        window.saveOrderToFirebase({
+          customerName:    state.form.name,
+          customerPhone:   state.form.phone ? '+91'+state.form.phone : '',
+          deliveryAddress: state.form.loc || 'Not specified',
+          gpsCoords:       state.gps.coords || null,
+          sugarPreference: state.sugar === 'with' ? 'With Sugar' : 'Without Sugar',
+          items:           state.cart.map(function(i){ return { name:i.name, qty:i.qty, price:i.price, emoji:i.emoji }; }),
+          totalAmount:     getTotal(),
+          paymentId:       response.razorpay_payment_id,
+          paymentTime:     new Date().toLocaleString('en-IN', { timeZone:'Asia/Kolkata' }),
+          paymentStatus:   'paid'
+        }).then(function(id){ if(id) console.log('Firebase order ID:', id); });
+      }
+
+      // Close the order sheet on mobile first
+      var sheet = document.getElementById('orderSheet');
+      if (sheet && sheet.classList.contains('open')) toggleSheet();
+
+      // Show the WhatsApp confirmation popup
+      showWaPopup(response.razorpay_payment_id);
     },
 
     modal: {
       ondismiss: function() {
         state.orderLocked = false;
         setPayBtnLoading(cid, false);
-        renderOrder();
         showToast('Payment cancelled');
       },
-      escape:true, animation:true
+      escape: true, animation: true
     }
   };
 
@@ -1101,83 +1123,32 @@ function startRazorpay(cid) {
     rzp.on('payment.failed', function(r) {
       state.orderLocked = false;
       setPayBtnLoading(cid, false);
-      renderOrder();
-      showErr(cid, '❌ ' + sanitize((r.error && r.error.description) || 'Payment failed.'));
+      showErr(cid, '❌ '+(r.error && r.error.description ? sanitize(r.error.description) : 'Payment failed.'));
     });
     rzp.open();
   } catch(e) {
     state.orderLocked = false;
     setPayBtnLoading(cid, false);
-    renderOrder();
     showErr(cid, '⚠️ Could not open payment window. Please refresh.');
   }
 }
 
-// ── Show/hide WA sending spinner ──────────────────────
-function showWaSending(cid, show) {
-  ['desk','mob'].forEach(function(id) {
-    var el = document.getElementById(id + '_wasending');
-    if (el) el.style.display = show ? 'block' : 'none';
-  });
-}
-
-// ── Manual resend (for "Resend" button) ──────────────
-// This IS a direct user click, so window.open works fine here too.
-function sendWhatsAppGroup(cid) {
-  syncFormFromDOM(cid);
-  var msg   = buildWhatsAppMsg();
-  var waUrl = 'https://wa.me/' + CONFIG.WA_NUMBER + '?text=' + encodeURIComponent(msg);
-  window.open(waUrl, '_blank');
-  showToast('📲 WhatsApp opened — just tap Send!');
-}
-
-// ── Build WhatsApp message ────────────────────────────
-function buildWhatsAppMsg() {
-  var sugarTxt  = state.sugar === 'with' ? 'With Sugar 🍭' : 'Without Sugar 🚫';
-  var itemsText = state.cart.map(function(i){
-    return '  • ' + i.emoji + ' ' + i.name + ' × ' + i.qty + ' = ₹' + (i.price * i.qty);
-  }).join('\n');
-  var gpsLine   = state.gps.coords
-    ? '\n🗺️ GPS: https://maps.google.com/?q=' + state.gps.coords.lat + ',' + state.gps.coords.lng
-    : '';
-  var phoneLine = state.form.phone ? '📞 Phone: +91 ' + sanitize(state.form.phone) + '\n' : '';
-  var payLine   = state.payment.done
-    ? '\n💳 *PAID ONLINE ✅*\n🔖 Payment ID: ' + sanitize(state.payment.id) + '\n⏱️ ' + sanitize(state.payment.timestamp)
-    : '\n⚠️ *Payment: Pending*';
-  var total = getTotal();
-  return '🥥 *' + CONFIG.SHOP_NAME + ' — New Order* 🌹\n' +
-         '─────────────────────\n' +
-         '👤 Name: ' + sanitize(state.form.name) + '\n' +
-         phoneLine +
-         '\n🛒 *Items:*\n' + itemsText + '\n\n' +
-         '🍬 Sugar: ' + sugarTxt + '\n' +
-         '💰 *Total: ₹' + total + '*' +
-         payLine +
-         '\n\n🚚 *Delivery Address:*\n' + (sanitize(state.form.loc) || 'Not specified') + gpsLine + '\n' +
-         '─────────────────────\n' +
-         '✅ Please confirm & deliver. Thank you! 🙏';
-}
-
-function buildOrderDesc() {
-  return CONFIG.SHOP_NAME + ': ' + state.cart.map(function(i){ return i.name + 'x' + i.qty; }).join(', ').slice(0,255);
-}
-
 // ═══════════════════════════════════════════════════════
-// HELPERS
+// UI HELPERS
 // ═══════════════════════════════════════════════════════
 function setPayBtnLoading(cid, loading) {
-  var btn    = document.getElementById(cid + '_paybtn');
-  var loader = document.getElementById(cid + '_loader');
-  var txt    = document.getElementById(cid + '_paytxt');
+  var btn    = document.getElementById(cid+'_paybtn');
+  var loader = document.getElementById(cid+'_loader');
+  var txt    = document.getElementById(cid+'_paytxt');
   if (btn)    btn.disabled = loading;
   if (loader) loader.style.display = loading ? 'block' : 'none';
-  if (txt)    txt.textContent = loading ? 'Processing…' : '💳 Pay Now — ₹' + getTotal();
+  if (txt)    txt.textContent = loading ? 'Processing…' : '💳 Pay Now — ₹'+getTotal();
 }
 
 function syncFormFromDOM(cid) {
-  var n = document.getElementById(cid + '_name');
-  var p = document.getElementById(cid + '_phone');
-  var l = document.getElementById(cid + '_loc');
+  var n = document.getElementById(cid+'_name');
+  var p = document.getElementById(cid+'_phone');
+  var l = document.getElementById(cid+'_loc');
   if (n) state.form.name  = n.value.trim().slice(0,50);
   if (p) state.form.phone = sanitizePhone(p.value);
   if (l) state.form.loc   = l.value.trim().slice(0,300);
@@ -1186,40 +1157,34 @@ function syncFormFromDOM(cid) {
 function setSugar(v) { state.sugar = v; debouncedSave(); renderOrder(); }
 
 function showErr(cid, msg) {
-  var el = document.getElementById(cid + '_err');
+  var el = document.getElementById(cid+'_err');
   if (!el) return;
-  el.textContent = msg;
-  el.style.display = 'block';
-  setTimeout(function(){ if(el) el.style.display = 'none'; }, 4500);
+  el.textContent = msg; el.style.display = 'block';
+  setTimeout(function(){ if(el) el.style.display='none'; }, 4500);
 }
 
 function showToast(msg) {
   var t = document.getElementById('toast');
   if (!t) return;
-  t.textContent = msg;
-  t.classList.add('show');
+  t.textContent = msg; t.classList.add('show');
   clearTimeout(t._t);
   t._t = setTimeout(function(){ t.classList.remove('show'); }, 2800);
 }
 
+function copyAddr() {
+  var addr = 'CocoNex Juice Shop, No. 17A, Main Road Viraganur, Madurai, Tamil Nadu';
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(addr).then(function(){ showToast('📋 Address copied!'); }).catch(function(){ legacyCopy(addr); showToast('📋 Address copied!'); });
+  } else { legacyCopy(addr); showToast('📋 Address copied!'); }
+}
+
 function legacyCopy(text) {
   var t = document.createElement('textarea');
-  t.value = text;
-  t.style.cssText = 'position:fixed;top:-9999px;left:-9999px';
-  document.body.appendChild(t);
-  t.select();
+  t.value = text; t.style.cssText = 'position:fixed;top:-9999px;left:-9999px';
+  document.body.appendChild(t); t.select();
   try { document.execCommand('copy'); } catch(e) {}
   document.body.removeChild(t);
 }
-
-function preloadRazorpay() {
-  if (typeof Razorpay !== 'undefined') return;
-  if (document.querySelector('script[src*="razorpay"]')) return;
-  var s = document.createElement('script');
-  s.src = 'https://checkout.razorpay.com/v1/checkout.js';
-  document.head.appendChild(s);
-}
-preloadRazorpay();
 
 // ═══════════════════════════════════════════════════════
 // UI CONTROLS
@@ -1246,18 +1211,27 @@ function filterTab(btn, cat) {
   document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
   btn.classList.add('active');
   document.querySelectorAll('.product-card').forEach(function(card){
-    card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
+    card.style.display = (cat==='all' || card.dataset.cat===cat) ? '' : 'none';
   });
 }
 
-function copyAddr() {
-  var addr = 'CocoNex Juice Shop, No. 17A, Main Road Viraganur, Madurai, Tamil Nadu';
-  if (navigator.clipboard) {
-    navigator.clipboard.writeText(addr).then(function(){ showToast('📋 Address copied!'); }).catch(function(){ legacyCopy(addr); showToast('📋 Address copied!'); });
-  } else { legacyCopy(addr); showToast('📋 Address copied!'); }
-}
+// Close popup on overlay click
+document.getElementById('waOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeWaPopup();
+});
 
-// ── Scroll reveal ──────────────────────────────────────
+// Keyboard
+document.addEventListener('keydown', function(e) {
+  if (e.key !== 'Escape') return;
+  var overlay = document.getElementById('waOverlay');
+  if (overlay.classList.contains('show')) { closeWaPopup(); return; }
+  if (document.getElementById('mobileDrawer').classList.contains('open')) toggleDrawer();
+  else if (document.getElementById('orderSheet').classList.contains('open')) toggleSheet();
+});
+
+// ═══════════════════════════════════════════════════════
+// SCROLL REVEAL
+// ═══════════════════════════════════════════════════════
 (function() {
   if (!window.IntersectionObserver) {
     document.querySelectorAll('.product-card').forEach(function(c){ c.classList.add('visible'); });
@@ -1268,34 +1242,22 @@ function copyAddr() {
       if (!entry.isIntersecting) return;
       var card  = entry.target;
       var cards = Array.from(card.parentNode.children).filter(function(el){ return el.classList.contains('product-card'); });
-      var idx   = cards.indexOf(card);
-      setTimeout(function(){ card.classList.add('visible'); }, idx * 55);
+      setTimeout(function(){ card.classList.add('visible'); }, cards.indexOf(card) * 55);
       obs.unobserve(card);
     });
-  }, { threshold:0.08 });
+  }, { threshold: 0.08 });
   document.querySelectorAll('.product-card').forEach(function(c){ obs.observe(c); });
 })();
 
-// ── Keyboard ──────────────────────────────────────────
-document.addEventListener('keydown', function(e) {
-  if (e.key !== 'Escape') return;
-  var drawer = document.getElementById('mobileDrawer');
-  var sheet  = document.getElementById('orderSheet');
-  if (drawer.classList.contains('open')) toggleDrawer();
-  else if (sheet.classList.contains('open')) toggleSheet();
-});
-
 // ═══════════════════════════════════════════════════════
-// ★ BOOT — restore session on page load
+// BOOT
 // ═══════════════════════════════════════════════════════
 (function init() {
   var hadCart = loadSession();
   if (hadCart) {
     _sessionRestored = true;
     updateCartCount();
-    if (window.innerWidth <= 1024) {
-      document.getElementById('mobileCartFloat').style.display = 'block';
-    }
+    if (window.innerWidth <= 1024) document.getElementById('mobileCartFloat').style.display = 'block';
     showToast('🛒 Your previous cart restored!');
   }
   renderOrder();
