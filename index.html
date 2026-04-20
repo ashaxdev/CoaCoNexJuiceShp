@@ -1062,7 +1062,9 @@ function startRazorpay(cid) {
     theme:  { color:'#1a6b2f' },
     method: { upi:true, card:true, netbanking:true, wallet:true },
 
-    // ★ FEATURE 1: AUTO WhatsApp after payment — no user tap needed
+    // ★ FEATURE 1: AUTO WhatsApp after payment
+    // window.open() MUST be called synchronously inside this Razorpay handler.
+    // Any setTimeout/Promise delay causes browsers to block the popup as spam.
     handler: function(response) {
       state.payment = {
         done:      true,
@@ -1070,16 +1072,17 @@ function startRazorpay(cid) {
         timestamp: new Date().toLocaleString('en-IN', { timeZone:'Asia/Kolkata' })
       };
       state.orderLocked = false;
+
+      // ── Open WhatsApp IMMEDIATELY & SYNCHRONOUSLY right here ──
+      var msg   = buildWhatsAppMsg();
+      var waUrl = 'https://wa.me/' + CONFIG.WA_NUMBER + '?text=' + encodeURIComponent(msg);
+      window.open(waUrl, '_blank');
+
+      // UI updates after
       setPayBtnLoading(cid, false);
-      saveSession();      // persist payment state
-
-      // Show sending animation immediately
-      showWaSending(cid, true);
+      saveSession();
       renderOrder();
-      showToast('✅ Payment done! Opening WhatsApp…');
-
-      // Auto-send: copy msg + open group
-      autoSendWhatsApp(cid);
+      showToast('✅ Payment done! WhatsApp opened — just tap Send!');
     },
 
     modal: {
@@ -1118,33 +1121,14 @@ function showWaSending(cid, show) {
   });
 }
 
-// ═══════════════════════════════════════════════════════
-// ★ FEATURE 1: AUTO-SEND — message pre-filled, user only taps Send
-// Uses wa.me/?text= which pre-populates the WhatsApp chat input.
-// User opens WhatsApp → message is already typed → just tap Send.
-// ═══════════════════════════════════════════════════════
-function autoSendWhatsApp(cid) {
-  setTimeout(function() {
-    var msg    = buildWhatsAppMsg();
-    var waUrl  = 'https://wa.me/' + CONFIG.WA_NUMBER + '?text=' + encodeURIComponent(msg);
-    window.open(waUrl, '_blank', 'noopener,noreferrer');
-    showWaSending(cid, false);
-    showToast('📲 WhatsApp opened — just tap Send!');
-    renderOrder();
-  }, 600);
-}
-
 // ── Manual resend (for "Resend" button) ──────────────
+// This IS a direct user click, so window.open works fine here too.
 function sendWhatsAppGroup(cid) {
   syncFormFromDOM(cid);
-  showWaSending(cid, true);
-  setTimeout(function() {
-    var msg   = buildWhatsAppMsg();
-    var waUrl = 'https://wa.me/' + CONFIG.WA_NUMBER + '?text=' + encodeURIComponent(msg);
-    window.open(waUrl, '_blank', 'noopener,noreferrer');
-    showWaSending(cid, false);
-    showToast('📲 WhatsApp opened — just tap Send!');
-  }, 400);
+  var msg   = buildWhatsAppMsg();
+  var waUrl = 'https://wa.me/' + CONFIG.WA_NUMBER + '?text=' + encodeURIComponent(msg);
+  window.open(waUrl, '_blank');
+  showToast('📲 WhatsApp opened — just tap Send!');
 }
 
 // ── Build WhatsApp message ────────────────────────────
